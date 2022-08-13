@@ -3,12 +3,12 @@
 ---
 
 - src
-  - atcoder
-  - codeforces
-  - jiangnan
-  - luogu
-  - lanqiao 
-  - xcpc = icpc + ccpc
-- test
+  - AtCoder
+  - Codeforces
+  - JiangNan
+  - Luogu
+  - LanQiao 
+  - ICPC + CCPC
+
 - tools
   - cmp 
