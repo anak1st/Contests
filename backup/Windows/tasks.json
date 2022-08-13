@@ -1,0 +1,30 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "g++ -g",
+            "command": "C:/Users/anak1st/Dev/Lib/mingw/bin/g++.exe",
+            "args": [
+                "${file}",
+                "-o",
+                "${workspaceFolder}/build/main.exe",
+                "-std=c++23",
+                "-g",
+                "-Wall",
+                "-W"
+            ],
+            "options": {
+                "cwd": "C:/Users/anak1st/Dev/Lib/mingw/bin/"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "g++ -g"
+        }
+    ],
+    "version": "2.0.0"
+}
