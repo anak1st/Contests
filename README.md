@@ -1,12 +1,14 @@
 # Practice for Coding/Programming Competitions
 
+> Stop learning useless algorithms
+
 ---
 
 - src
   - AtCoder
   - Codeforces
   - JiangNan
-  - Luogu
+  - LuoGu
   - LanQiao 
   - ICPC + CCPC
 
