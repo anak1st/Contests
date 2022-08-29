@@ -3,7 +3,7 @@
         {
             "type": "cppbuild",
             "label": "g++ -g",
-            "command": "C:/Users/anak1st/Dev/Lib/mingw/bin/g++.exe",
+            "command": "D:/Programs/mingw/bin/g++.exe",
             "args": [
                 "${file}",
                 "-o",
@@ -14,7 +14,7 @@
                 "-W"
             ],
             "options": {
-                "cwd": "C:/Users/anak1st/Dev/Lib/mingw/bin/"
+                "cwd": "D:/Programs/mingw/bin/"
             },
             "problemMatcher": [
                 "$gcc"
