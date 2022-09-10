@@ -1,10 +1,7 @@
-#pragma once
-
-#include <assert.h>
-#include <iostream>
-
+#include <bits/stdc++.h>
+ 
+constexpr int P = 1000000007;
 using i64 = long long;
-constexpr int P = 998244353;
 
 int modulo(int x) {
     return (x % P + P) % P;
@@ -83,3 +80,29 @@ struct Mint {
         return res;
     }
 };
+ 
+int main() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    
+    int n, k;
+    std::cin >> n >> k;
+    
+    std::vector<Mint> fac(n + 1), invfac(n + 1);
+    fac[0] = 1;
+    for (int i = 1; i <= n; i++) {
+        fac[i] = fac[i - 1] * i;
+    }
+    invfac[n] = fac[n].inv();
+    for (int i = n; i; i--) {
+        invfac[i - 1] = invfac[i] * i;
+    }
+    
+    Mint ans = 0;
+    for (int i = 0; i <= std::min(n, k); i++) {
+        ans += (fac[n] * invfac[n - i]) * invfac[i];
+    }
+    std::cout << ans << "\n";
+    
+    return 0;
+}
