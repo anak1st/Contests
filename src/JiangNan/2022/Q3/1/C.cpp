@@ -17,18 +17,18 @@
 typedef long long i64;
 
 struct node {
-    int x, c;
-    node(int x_, int c_) : x(x_), c(c_) {}
+    int x;
+    i64 c;
+    node(int x_, i64 c_) : x(x_), c(c_) {}
     friend bool operator<(const node &a, const node &b) {
         return a.c > b.c;
     }
 };
 
-
 void solve() {
     int n;
     std::cin >> n;
-    std::vector<std::vector<std::pair<int, int>>> adj(n);
+    std::vector<std::vector<std::pair<int, int>>> adj(3 * n);
     for (int i = 0; i < n - 1; i++) {
         int a, b, w;
         std::cin >> a >> b >> w;
@@ -36,9 +36,8 @@ void solve() {
         adj[a].push_back({b, w});
         adj[b].push_back({a, w});
     }
-    std::vector<int> dep(n, -1);
-    std::vector<int> b(n, -1);
 
+    std::vector<int> dep(n, -1);
     dep[0] = 0;
     std::queue<int> q;
     q.push(0);
@@ -53,49 +52,48 @@ void solve() {
             }
         }
     }
+    // int m = *std::max_element(dep.begin(), dep.end());
     
     int k, p, s, t;
     std::cin >> k >> p >> s >> t;
     s--, t--;
+
+    for (int i = 0; i < n; i++) {
+        adj[i].push_back({n + dep[i], 0});
+        adj[2 * n + dep[i]].push_back({i, 0});
+    }
+    for (int i = 0; i < n; i++) {
+        adj[n + i].push_back({2 * n + (i + k) % n, p});
+        adj[2 * n + i].push_back({n + (i + k) % n, p});
+    }
     
-    std::vector<int> power(n, -1);
+    std::vector<bool> vis(3 * n);
+    std::vector<i64> power(3 * n, 1e9);
+    power[s] = 0;
     std::priority_queue<node> pq;
     pq.push(node(s, 0));
-    while (!pq.empty()) {
-        node now = pq.top();
-        pq.pop();
-
-        int x = now.x, c = now.c;
-        power[x] = c;
-        
-        if (b[dep[x]] == -1 || power[b[dep[x]]] > power[x]) {
-            b[dep[x]] = x;
-        }
-
-        for (int i = 0; i < (int)adj[x].size(); i++) {
-            int y = adj[x][i].first;
-            int w = adj[x][i].second;
-            if (power[y] == -1) {
-                pq.push(node(y, c + w));
-            }
-        }
-    }
-
-    power.assign(n, -1);
     
-    pq.push(node(s, 0));
     while (!pq.empty()) {
         node now = pq.top();
         pq.pop();
-
-        int x = now.x, c = now.c;
-        power[x] = c;
+        int x = now.x;
+        i64 c = now.c;
+        
+        if (vis[x]) {
+            continue;
+        }
+        vis[x] = true;
+        
+        if (x == t) {
+            break;
+        }
 
         for (int i = 0; i < (int)adj[x].size(); i++) {
             int y = adj[x][i].first;
-            int w = adj[x][i].second;
-            if (power[y] == -1) {
-                pq.push(node(y, c + w));
+            i64 w = adj[x][i].second;
+            if (power[y] > c + w) {
+                power[y] = c + w;
+                pq.push(node(y, power[y]));
             }
         }
     }

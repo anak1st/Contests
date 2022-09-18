@@ -6,13 +6,13 @@
 using i64 = long long;
 
 struct DSU {
-    std::vector<int> f, siz;
+    std::vector<int> f, s;
     
-    DSU(int n) : f(n), siz(n, 1) { 
+    DSU(int n) : f(n), s(n, 1) { 
         std::iota(f.begin(), f.end(), 0); 
     }
 
-    int leader(int x) {
+    int find(int x) {
         while (x != f[x]) {
             x = f[x] = f[f[x]];
         }
@@ -20,20 +20,20 @@ struct DSU {
     }
 
     bool same(int x, int y) { 
-        return leader(x) == leader(y); 
+        return find(x) == find(y); 
     }
 
     bool merge(int x, int y) {
-        x = leader(x);
-        y = leader(y);
+        x = find(x);
+        y = find(y);
         if (x == y) return false;
-        siz[x] += siz[y];
+        s[x] += s[y];
         f[y] = x;
         return true;
     }
 
     int size(int x) { 
-        return siz[leader(x)]; 
+        return s[find(x)]; 
     }
 };
 
