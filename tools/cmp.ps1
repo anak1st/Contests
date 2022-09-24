@@ -4,7 +4,7 @@ g++ ./test/ok.cpp   -o ./build/ok.exe   -O2 -std=c++23
 
 Write-Output "Finish Compile"
 
-for($i=1; $i -le 100; $i++) {
+for($i=1; $i -le 200; $i++) {
     ./build/data.exe > ./log/in.txt
     Get-Content ./log/in.txt | ./build/main.exe > ./log/out.txt
     Get-Content ./log/in.txt | ./build/ok.exe   > ./log/ok.txt
