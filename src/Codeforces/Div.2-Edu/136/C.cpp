@@ -1,8 +1,8 @@
-#pragma once
-
-#include <assert.h>
-#include <iostream>
-
+/**
+ * @author: XiaFan
+ * @date: 09-29 22:58
+ **/
+#include <bits/stdc++.h>
 using i64 = long long;
 
 int P = 998244353;
@@ -40,7 +40,7 @@ public:
         return os;
     }
 
-    int val() const {
+    int val() {
         return x;
     }
 
@@ -54,7 +54,7 @@ public:
     }
 
     Mint &operator*=(const Mint &rhs) {
-        x = modulo(1LL * x * rhs.x);
+        x = i64(x) * rhs.x % P;
         return *this;
     }
     Mint &operator+=(const Mint &rhs) {
@@ -91,16 +91,6 @@ public:
     }
 };
 
-Mint A(int n, int m) {
-    if (m > n) return 0;
-    Mint ans = 1;
-    for (int i = 1; i <= m; i++) {
-        Mint a = n + i - m;
-        ans *= a;
-    }
-    return ans;
-}
-
 Mint C(int n, int m) {
     if (m > n) return 0;
     Mint ans = 1;
@@ -109,4 +99,32 @@ Mint C(int n, int m) {
         ans = ans * a / i;
     }
     return ans;
+}
+
+Mint fun(int n) {
+    if (n == 2) {
+        return 1;
+    }
+    return C(n - 1, n / 2 - 1) + C(n - 2, n / 2 - 1) - fun(n - 2) - 1;
+}
+
+void solve() {
+    int n;
+    std::cin >> n;
+    Mint all = C(n, n / 2);
+    Mint win = fun(n);
+    std::cout << win << " " << all - win - 1 << " " << 1 << "\n";
+}
+
+int main() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+
+    int tt;
+    std::cin >> tt;
+    while (tt--) {
+        solve();
+    }
+
+    return 0;
 }
