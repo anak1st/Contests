@@ -10,13 +10,12 @@ private:
     std::uniform_int_distribution<T> distribution;
 
 public:
-    Randomer(T min, T max) : 
-      seed(std::random_device()()), 
-      engine(seed), d
-      istribution(min, max) {}
+    Randomer(T min, T max)
+    : seed(std::random_device()()), 
+      engine(seed), distribution(min, max) 
+    {}
 
     T operator()() {
-        // cerr << seed << "\n";
         return distribution(engine);
     }
 };
