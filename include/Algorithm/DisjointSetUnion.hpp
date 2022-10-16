@@ -3,12 +3,13 @@
 #include <vector>
 #include <numeric>
 
-class DSU {
+// Disjoint Set Union
+class DisjointSetUnion {
 private:
     std::vector<int> f, s;
 
 public:
-    DSU(int n) : f(n), s(n, 1) {
+    DisjointSetUnion(int n) : f(n), s(n, 1) {
         std::iota(f.begin(), f.end(), 0);
     }
 

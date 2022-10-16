@@ -4,8 +4,10 @@
 
 using i64 = long long;
 
-template <typename T>
-i64 MergeSortDo(int left, int right, std::vector<T> &a, std::vector<T> &b) {
+namespace __MergeSort {
+
+template <typename T> 
+i64 Merge(int left, int right, std::vector<T> &a, std::vector<T> &b) {
     int mid = (left + right) / 2;
     int i = left, j = mid + 1, k = left;
     i64 res = 0;
@@ -33,20 +35,21 @@ i64 MergeSortDo(int left, int right, std::vector<T> &a, std::vector<T> &b) {
     return res;
 }
 
-template <typename T>
-i64 MergeSortDFS(int left, int right, std::vector<T> &a, std::vector<T> &b) {
+template <typename T> 
+i64 Sort(int left, int right, std::vector<T> &a, std::vector<T> &b) {
     i64 res = 0;
     if (left < right) {
         int mid = (left + right) / 2;
-        res += MergeSortDFS<T>(left, mid, a, b);
-        res += MergeSortDFS<T>(mid + 1, right, a, b);
-        res += MergeSortDo<T>(left, right, a, b);
+        res += Sort<T>(left, mid, a, b);
+        res += Sort<T>(mid + 1, right, a, b);
+        res += Merge<T>(left, right, a, b);
     }
     return res;
 }
 
-template <typename T>
-i64 MergeSort(std::vector<T> &a) {
+}  // namespace __MergeSort
+
+template <typename T> i64 MergeSort(std::vector<T> &a) {
     std::vector<T> b(a);
-    return MergeSortDFS<T>(0, a.size() - 1, a, b);
+    return __MergeSort::Sort<T>(0, a.size() - 1, a, b);
 }

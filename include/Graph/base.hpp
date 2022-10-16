@@ -22,7 +22,7 @@ template <typename T> struct point {
     point(T x_, T y_) : x(x_), y(y_) {}
 };
 
-template <typename T> double dis(point<T> a, point<T> b) {
+template <typename T> double distance(point<T> a, point<T> b) {
     double x = abs(a.x - b.x);
     double y = abs(a.y - b.y);
     return sqrt(x * x + y * y);
