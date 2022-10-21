@@ -1,6 +1,6 @@
 /**
  * @author: XiaFan
- * @date: 09-23 20:03
+ * @date: 10-18 20:01
  **/
 #include <bits/stdc++.h>
 using i64 = long long;
@@ -8,21 +8,23 @@ using i64 = long long;
 void solve() {
     int n;
     std::cin >> n;
-    std::vector<i64> a(n);
+    std::deque<int> a(n);
     for (int i = 0; i < n; i++) {
         std::cin >> a[i];
     }
-    std::sort(a.begin(), a.end());
-    i64 ans = 1e12;
-    for (int i = 0; i <= n - 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            i64 temp = 0;
-            for (int k = 0; k < 3; k++) {
-                temp += std::abs(a[i + j] - a[i + k]);
-            }
-            ans = std::min(ans, temp);
+    int ans = 0;
+    while (!a.empty()) {
+        while (!a.empty() && a.front() == 0) {
+            a.pop_front();
         }
-        
+        while (!a.empty() && a.back() == 1) {
+            a.pop_back();
+        }
+        if (!a.empty() && a.front() == 1 && a.back() == 0) {
+            a.pop_front();
+            a.pop_back();
+            ans++;
+        }
     }
     std::cout << ans << "\n";
 }

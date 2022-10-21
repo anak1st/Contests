@@ -4,7 +4,8 @@
 #include <iostream>
 #include <vector>
 
-template <typename T> class SegmentTree {
+// Segment Tree
+template <typename T> class SegTree {
 private:
     struct node {
         int l, r;
@@ -117,7 +118,7 @@ private:
     }
 
 public:
-    SegmentTree(const std::vector<T> &num) : n(num.size()), tree(num.size() * 4) {
+    SegTree(const std::vector<T> &num) : n(num.size()), tree(num.size() * 4) {
         tree[0].l = 0;
         tree[0].r = n - 1;
         build(0, num);

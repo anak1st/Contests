@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <vector>
 
-#include "graph/base.hpp"
+#include "Graph/base.hpp"
 
 constexpr int inf = 1e9;
 

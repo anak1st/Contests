@@ -6,15 +6,16 @@
 #include <iostream>
 #include <vector>
 
+// Sparse Table
 template <typename T, class F = std::function<T(const T&, const T&)>> 
-class SparseTable {
+class ST {
 private:
     int n;
     std::vector<std::vector<T>> mat;
     F func;
 
 public:
-    SparseTable(const std::vector<T>& a, const F& f) : n(int(a.size())), func(f) {
+    ST(const std::vector<T>& a, const F& f) : n(int(a.size())), func(f) {
         assert(n > 0);
         // int max_log = 32 - __builtin_clz(n);
         int max_log = int(log2(n)) + 1;

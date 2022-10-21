@@ -1,11 +1,11 @@
 #pragma once
 
-#include <assert.h>
+#include <cassert>
 #include <iostream>
 
 using i64 = long long;
 
-int P = 998244353;
+constexpr int P = 998244353;
 
 int modulo(i64 x) {
     return (x % P + P) % P;
@@ -32,6 +32,7 @@ public:
 
     friend std::istream &operator>>(std::istream &is, Mint &a) {
         i64 temp;
+        is >> temp;
         a.x = modulo(temp);
         return is;
     }
@@ -91,21 +92,21 @@ public:
     }
 };
 
-Mint A(int n, int m) {
+template <typename T> T A(int n, int m) {
     if (m > n) return 0;
-    Mint ans = 1;
+    T ans = 1;
     for (int i = 1; i <= m; i++) {
-        Mint a = n + i - m;
+        T a = n + i - m;
         ans *= a;
     }
     return ans;
 }
 
-Mint C(int n, int m) {
+template <typename T> T C(int n, int m) {
     if (m > n) return 0;
-    Mint ans = 1;
+    T ans = 1;
     for (int i = 1; i <= m; i++) {
-        Mint a = n + i - m;
+        T a = n + i - m;
         ans = ans * a / i;
     }
     return ans;

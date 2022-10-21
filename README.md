@@ -4,6 +4,8 @@
 
 ---
 
+## File Structure
+
 - src
   - AtCoder
   - Codeforces
@@ -14,3 +16,9 @@
 
 - tools
   - cmp 
+
+## Usefull VSCode Plugins:
+
+- CPH (Competitive Programming Helper)
+  - Temp File
+  ~\AppData\Local\Temp\vscode-cph

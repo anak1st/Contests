@@ -4,14 +4,14 @@
 #include <iostream>
 #include <vector>
 
-#include "algorithm/DisjointSetUnion.hpp"
-#include "graph/base.hpp"
+#include "DataStructure/DSU.hpp"
+#include "Graph/base.hpp"
 
 template <typename T> 
 T Kruskal(int n, std::vector<edge<T>> &e) {
     int m = e.size();
     std::sort(e.begin(), e.end());
-    DisjointSetUnion dsu(n);
+    DSU dsu(n);
     int count = 0;
     T sum = 0;
     for (int i = 0; i < m; i++) {

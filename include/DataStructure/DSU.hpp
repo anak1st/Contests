@@ -4,12 +4,12 @@
 #include <numeric>
 
 // Disjoint Set Union
-class DisjointSetUnion {
+class DSU {
 private:
     std::vector<int> f, s;
 
 public:
-    DisjointSetUnion(int n) : f(n), s(n, 1) {
+    DSU(int n) : f(n), s(n, 1) {
         std::iota(f.begin(), f.end(), 0);
     }
 

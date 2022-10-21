@@ -1,6 +1,6 @@
 /**
  * @author: XiaFan
- * @date: 10-16 22:36
+ * @date: 10-18 20:47
  **/
 #include <bits/stdc++.h>
 using i64 = long long;
@@ -12,19 +12,20 @@ void solve() {
     for (int i = 0; i < n; i++) {
         std::cin >> a[i];
     }
-    std::string s;
-    std::cin >> s;
-    std::map<int, char> mp;
-    for (int i = 0; i < n; i++) {
-        if (!mp.count(a[i])) {
-            mp[a[i]] = s[i];
-        }
-        if (mp[a[i]] != s[i]) {
-            std::cout << "NO\n";
-            return;
-        }
+    std::vector<int> b(n);
+    b[0] = a[0];
+    for (int i = 1; i < n; i++) {
+        b[i] = a[i] - a[i - 1];
     }
-    std::cout << "YES\n";
+    std::vector<int> p(n);
+    std::iota(p.begin(), p.end(), 0);
+    std::sort(p.begin(), p.end(), [&](const int &i, const int &j) -> bool {
+        return b[i] > b[j];
+    });
+    for (int i = 0; i < n; i++) {
+        std::cout << p[i] + 1 << " ";
+    }
+    std::cout << "\n";
 }
 
 int main() {
