@@ -27,14 +27,16 @@ int main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
     
-    int t = 100;
+    int t = 10;
     std::cout << t << "\n";
     for (int i = 0; i < t; i++) {
-        int n = 100;
-        std::cout << n << "\n";
-        Randomer<int> r1(0, 100);
-        for (int j = 0; j < n; j++) {
-            std::cout << r1() << " ";
+        Randomer<i64> a(1, 2);
+        for (int i = 0; i < 8; i++) {
+            std::cout << a();
+        }
+        std::cout << " ";
+        for (int i = 0; i < 8; i++) {
+            std::cout << a();
         }
         std::cout << "\n";
     }

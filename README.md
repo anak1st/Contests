@@ -1,4 +1,4 @@
-# Practice for Coding/Programming Competitions
+# Practice for Programming Competitions
 
 > Stop learning useless algorithms
 
@@ -17,8 +17,6 @@
 - tools
   - cmp 
 
-## Usefull VSCode Plugins:
+## Usefull VSCode Plugins
 
 - CPH (Competitive Programming Helper)
-  - Temp File
-  ~\AppData\Local\Temp\vscode-cph

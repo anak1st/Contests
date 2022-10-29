@@ -11,7 +11,8 @@ int modulo(i64 x) {
     return (x % P + P) % P;
 }
 
-template <class T> T fpow(T a, i64 b) {
+template <class T> 
+T power(T a, i64 b) {
     T res = 1;
     for (; b; b /= 2, a *= a) {
         if (b % 2) {
@@ -33,7 +34,7 @@ public:
     friend std::istream &operator>>(std::istream &is, Mint &a) {
         i64 temp;
         is >> temp;
-        a.x = modulo(temp);
+        a.x = modulo(temp % P);
         return is;
     }
     friend std::ostream &operator<<(std::ostream &os, const Mint &a) {
@@ -51,7 +52,7 @@ public:
 
     Mint inv() const {
         assert(x != 0);
-        return fpow(*this, P - 2);
+        return power(*this, P - 2);
     }
 
     Mint &operator*=(const Mint &rhs) {
@@ -67,7 +68,8 @@ public:
         return *this;
     }
     Mint &operator/=(const Mint &rhs) {
-        return *this *= rhs.inv();
+        *this *= rhs.inv();
+        return *this;
     }
 
     friend Mint operator*(const Mint &lhs, const Mint &rhs) {
@@ -92,7 +94,8 @@ public:
     }
 };
 
-template <typename T> T A(int n, int m) {
+template <typename T> 
+T A(int n, int m) {
     if (m > n) return 0;
     T ans = 1;
     for (int i = 1; i <= m; i++) {
@@ -102,7 +105,8 @@ template <typename T> T A(int n, int m) {
     return ans;
 }
 
-template <typename T> T C(int n, int m) {
+template <typename T> 
+T C(int n, int m) {
     if (m > n) return 0;
     T ans = 1;
     for (int i = 1; i <= m; i++) {
