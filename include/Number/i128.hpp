@@ -6,11 +6,20 @@
 using i128 = __int128;
 
 std::istream &operator>>(std::istream &is, i128 &x) {
-    x = 0;
     std::string s;
     is >> s;
+
+    bool flag = false;
+    if (s.front() == '-') {
+        s = s.substr(1);
+        flag = true;
+    }
+    x = 0;
     for (auto c : s) {
         x = 10 * x + (c - '0');
+    }
+    if (flag) {
+        x = -x;
     }
     return is;
 }
