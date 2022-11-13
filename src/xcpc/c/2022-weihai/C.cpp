@@ -53,7 +53,7 @@ void solve() {
     }
     
     vector<int> v = {0, 1, 2, 3};
-    
+
     for (int i = 4; i < n; i++) {
         set<pair<int, int>> S;
         for (int j = 0; j < 4; j++) {
@@ -68,15 +68,29 @@ void solve() {
             break;
         }
     }
-    
-    while (next_permutation(v.begin(), v.end())) {
-        if (valid_permutation(v)) {
-            cout << "YES\n";
-            for (auto i : v) {
-                auto [xi, yi] = p[i];
-                cout << xi << ' ' << yi << '\n';
+
+    for (int i = 0; i < 5; i++) {
+        set<pair<int, int>> st;
+        auto [xi, yi] = p[v[i]];
+        for (int j = 0; j < 5; j++) {
+            if (v[i] == v[j]) {
+                continue;
             }
-            return;
+            auto [xj, yj] = p[v[j]];
+            auto dx = xj - xi, dy = yj - yi;
+            st.insert(pgcd(dx, dy));
+        }
+        if (st.size() == 4) {
+            std::cout << "YES\n";
+            std::cout << xi << " " << yi << "\n";
+            for (int j = 0; j < 5; j++) {
+                if (v[i] == v[j]) {
+                    continue;
+                }
+                auto [xj, yj] = p[v[j]];
+                std::cout << xj << " " << yj << "\n";
+            }
+            break;
         }
     }
 }

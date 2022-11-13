@@ -1,4 +1,4 @@
-# Practice for Programming Competitions
+# Practice for Programming Competitions :joy: 🤗 :confounded:
 
 > Stop learning useless algorithms
 
@@ -20,3 +20,5 @@
 ## Usefull VSCode Plugins
 
 - CPH (Competitive Programming Helper)
+
+3 2 1 1 2 3
