@@ -1,40 +1,37 @@
-#include <vector>
 #include <cassert>
+#include <vector>
 
 using i64 = long long;
 
 template <typename T>
 class matrix {
 private:
-    int H, W;
+    const int H, W;
     std::vector<std::vector<T>> mat;
 
 public:
-    matrix(const int h, const int w)
-    : H(h), W(w), mat(h, std::vector<T>(w)) 
-    {}
+    matrix(const int h, const int w) : H(h), W(w), mat(h, std::vector<T>(w)) {}
 
     matrix(const int h, const int w, const T val)
-    : H(h), W(w), mat(h, std::vector<T>(w)) 
-    {
+    : H(h), W(w), mat(h, std::vector<T>(w)) {
         for (int i = 0; i < std::min(H, W); i++) {
             mat[i][i] = val;
         }
     }
 
-    T &at(const int i, const int j) {
-        return mat[i][j];
-    }
+    matrix(const matrix &M) : H(M.h()), W(M.w()), mat(M.mat) {}
 
-    int h() const { return H; }
-    int w() const { return W; }
+    T &at(const int i, const int j) { return mat[i][j]; }
+
+    constexpr int h() const { return H; }
+    constexpr int w() const { return W; }
 
     friend matrix operator+(const matrix &lhs, const matrix &rhs) {
         matrix res(lhs);
         assert(lhs.H == rhs.H && lhs.W == rhs.W);
         for (int i = 0; i < lhs.H; i++) {
             for (int j = 0; j < rhs.W; j++) {
-                res.mat[i][j] = lhs.mat[i][j] + rhs.mat[i][j];
+                res.mat[i][j] += rhs.mat[i][j];
             }
         }
         return res;
@@ -54,7 +51,8 @@ public:
     }
 
     matrix &operator+=(const matrix &rhs) {
-        *this = *this + rhs;
+        matrix lhs = *this;
+        *this = lhs + rhs;
         return *this;
     }
     matrix &operator*=(const matrix &rhs) {

@@ -5,13 +5,7 @@
 
 using i64 = long long;
 
-constexpr int P = 998244353;
-
-int modulo(i64 x) {
-    return (x % P + P) % P;
-}
-
-template <class T> 
+template <class T>
 T power(T a, i64 b) {
     T res = 1;
     for (; b; b /= 2, a *= a) {
@@ -22,82 +16,85 @@ T power(T a, i64 b) {
     return res;
 }
 
-struct mint {
+template <int P>
+struct Mint {
 private:
-    int x;
+    int v;
 
 public:
-    mint() : x(0) {}
-    mint(int x_) : x(modulo(x_)) {}
-    mint(i64 x_) : x(modulo(x_)) {}
+    Mint() : v(0) {}
+    Mint(int x) : v(modulo(x)) {}
+    Mint(i64 x) : v(modulo(x)) {}
+    
+    int modulo(i64 x) const { 
+        return (x % P + P) % P; 
+    }
 
-    friend std::istream &operator>>(std::istream &is, mint &a) {
-        i64 temp;
-        is >> temp;
-        a.x = modulo(temp % P);
+    friend std::istream &operator>>(std::istream &is, Mint &a) {
+        i64 x;
+        is >> x;
+        a.v = a.modulo(x);
         return is;
     }
-    friend std::ostream &operator<<(std::ostream &os, const mint &a) {
-        os << a.x;
+    friend std::ostream &operator<<(std::ostream &os, const Mint &a) {
+        os << a.val();
         return os;
     }
 
-    int val() const {
-        return x;
-    }
+    constexpr int val() const { return v; }
 
-    mint operator-() const {
-        return mint(modulo(-x));
-    }
+    Mint operator-() const { return Mint(modulo(-v)); }
 
-    mint inv() const {
-        assert(x != 0);
+    Mint inv() const {
+        assert(v != 0);
         return power(*this, P - 2);
     }
 
-    mint& operator++() { return *this += 1; }
-	mint& operator--() { return *this -= 1; }
+    Mint &operator++() { return *this += 1; }
+    Mint &operator--() { return *this -= 1; }
 
-    mint &operator*=(const mint &rhs) {
-        x = modulo(1LL * x * rhs.x);
+    Mint &operator*=(const Mint &rhs) {
+        v = modulo(1LL * v * rhs.v);
         return *this;
     }
-    mint &operator+=(const mint &rhs) {
-        x = modulo(x + rhs.x);
+    Mint &operator+=(const Mint &rhs) {
+        v = modulo(v + rhs.v);
         return *this;
     }
-    mint &operator-=(const mint &rhs) {
-        x = modulo(x - rhs.x);
+    Mint &operator-=(const Mint &rhs) {
+        v = modulo(v - rhs.v);
         return *this;
     }
-    mint &operator/=(const mint &rhs) {
+    Mint &operator/=(const Mint &rhs) {
         *this *= rhs.inv();
         return *this;
     }
 
-    friend mint operator*(const mint &lhs, const mint &rhs) {
-        mint res = lhs;
+    friend Mint operator*(const Mint &lhs, const Mint &rhs) {
+        Mint res = lhs;
         res *= rhs;
         return res;
     }
-    friend mint operator+(const mint &lhs, const mint &rhs) {
-        mint res = lhs;
+    friend Mint operator+(const Mint &lhs, const Mint &rhs) {
+        Mint res = lhs;
         res += rhs;
         return res;
     }
-    friend mint operator-(const mint &lhs, const mint &rhs) {
-        mint res = lhs;
+    friend Mint operator-(const Mint &lhs, const Mint &rhs) {
+        Mint res = lhs;
         res -= rhs;
         return res;
     }
-    friend mint operator/(const mint &lhs, const mint &rhs) {
-        mint res = lhs;
+    friend Mint operator/(const Mint &lhs, const Mint &rhs) {
+        Mint res = lhs;
         res /= rhs;
         return res;
     }
 };
 
-template <typename T> 
+using mint = Mint<998244353>;
+
+template <typename T>
 T A(int n, int m) {
     if (m > n) return 0;
     T ans = 1;
@@ -108,7 +105,7 @@ T A(int n, int m) {
     return ans;
 }
 
-template <typename T> 
+template <typename T>
 T C(int n, int m) {
     if (m > n) return 0;
     T ans = 1;
