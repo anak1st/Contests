@@ -6,7 +6,7 @@
 
 // Segment Tree
 template <typename T>
-class segtree {
+class SegTree {
 private:
     struct node {
         int l, r;
@@ -83,7 +83,7 @@ private:
     }
 
 public:
-    segtree(const std::vector<T>& num) : n(num.size()), tree(n * 4) {
+    SegTree(const std::vector<T>& num) : n(num.size()), tree(n * 4) {
         tree[0].l = 0;
         tree[0].r = n - 1;
         build(0, num);

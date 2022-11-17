@@ -4,12 +4,12 @@
 #include <numeric>
 
 // Disjoint Set Union
-class dsu {
+class DSU {
 private:
     std::vector<int> f, s;
 
 public:
-    dsu(int n) : f(n), s(n, 1) { std::iota(f.begin(), f.end(), 0); }
+    DSU(int n) : f(n), s(n, 1) { std::iota(f.begin(), f.end(), 0); }
     
     int find(int x) {
         if (f[x] != x) {

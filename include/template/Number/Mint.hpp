@@ -1,31 +1,12 @@
-/**
- * @author: XiaFan
- * @date: 11-17 18:30
- **/
-#include <bits/stdc++.h>
+#pragma once
+
+#include <cassert>
+#include <iostream>
 
 using i64 = long long;
 
-template <typename T>
-std::ostream& operator<<(std::ostream& os, std::vector<T> v) {
-    for (auto it : v) {
-        os << it << " ";
-    }
-    return os;
-}
+constexpr int P = 1e9 + 7;
 
-template<typename T>
-void print(const T& val) {
-    std::cerr << val << "\n";
-}
-
-template<typename T, typename... Args>
-void print(const T& val, const Args&... args) {
-    std::cerr << val << " ";
-    print(args...);
-}
-
-template <int P>
 struct Mint {
 private:
     int v;
@@ -101,8 +82,6 @@ public:
     }
 };
 
-using mint = Mint<998244353>;
-
 template <typename T>
 T power(T a, i64 b) {
     T res = 1;
@@ -134,25 +113,4 @@ T C(int n, int m) {
         ans = ans * a / i;
     }
     return ans;
-}
-
-int main() {
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    
-    int n;
-    std::cin >> n;
-    std::vector<int> a;
-    for (int i = 1; i <= n - 1; i++) {
-        if (n % i != 0 || i == 1) {
-            a.push_back(i);
-        }
-    }
-    std::cout << a.size() << "\n";
-    for (int i = 0; i < (int)a.size(); i++) {
-        std::cout << a[i] << " ";
-    }
-    std::cout << "\n";
-    
-    return 0;
 }

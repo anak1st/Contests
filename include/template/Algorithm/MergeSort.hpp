@@ -4,7 +4,7 @@
 
 using i64 = long long;
 
-namespace __ms {
+namespace __MS {
 
 template <typename T>
 i64 merge(int left, int right, std::vector<T> &a, std::vector<T> &b) {
@@ -47,10 +47,10 @@ i64 sort(int left, int right, std::vector<T> &a, std::vector<T> &b) {
     return res;
 }
 
-}  // namespace __ms
+}  // namespace __MS
 
 template <typename T>
-i64 merge_sort(std::vector<T> &a) {
+i64 MergeSort(std::vector<T> &a) {
     std::vector<T> b(a);
-    return __ms::sort<T>(0, a.size() - 1, a, b);
+    return __MS::sort<T>(0, a.size() - 1, a, b);
 }

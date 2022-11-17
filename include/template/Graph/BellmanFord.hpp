@@ -8,7 +8,7 @@
 constexpr int inf = 1e9;
 
 template <typename T> 
-bool bellman_ford(int n, int start, T val, std::vector<edge<T>> e) {
+bool BellmanFord(int n, int start, T val, std::vector<edge<T>> e) {
     std::vector<T> d(n, inf);
     d[start] = val;
     int m = e.size();

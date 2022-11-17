@@ -4,30 +4,30 @@
 using i64 = long long;
 
 template <typename T>
-class matrix {
+class Matrix {
 private:
     const int H, W;
     std::vector<std::vector<T>> mat;
 
 public:
-    matrix(const int h, const int w) : H(h), W(w), mat(h, std::vector<T>(w)) {}
+    Matrix(const int h, const int w) : H(h), W(w), mat(h, std::vector<T>(w)) {}
 
-    matrix(const int h, const int w, const T val)
+    Matrix(const int h, const int w, const T val)
     : H(h), W(w), mat(h, std::vector<T>(w)) {
         for (int i = 0; i < std::min(H, W); i++) {
             mat[i][i] = val;
         }
     }
 
-    matrix(const matrix &M) : H(M.h()), W(M.w()), mat(M.mat) {}
+    Matrix(const Matrix &M) : H(M.h()), W(M.w()), mat(M.mat) {}
 
     T &at(const int i, const int j) { return mat[i][j]; }
 
     constexpr int h() const { return H; }
     constexpr int w() const { return W; }
 
-    friend matrix operator+(const matrix &lhs, const matrix &rhs) {
-        matrix res(lhs);
+    friend Matrix operator+(const Matrix &lhs, const Matrix &rhs) {
+        Matrix res(lhs);
         assert(lhs.H == rhs.H && lhs.W == rhs.W);
         for (int i = 0; i < lhs.H; i++) {
             for (int j = 0; j < rhs.W; j++) {
@@ -37,8 +37,8 @@ public:
         return res;
     }
 
-    friend matrix operator*(const matrix &lhs, const matrix &rhs) {
-        matrix res(lhs.H, rhs.W);
+    friend Matrix operator*(const Matrix &lhs, const Matrix &rhs) {
+        Matrix res(lhs.H, rhs.W);
         assert(lhs.W == rhs.H);
         for (int i = 0; i < lhs.H; i++) {
             for (int j = 0; j < rhs.W; j++) {
@@ -50,21 +50,21 @@ public:
         return res;
     }
 
-    matrix &operator+=(const matrix &rhs) {
-        matrix lhs = *this;
+    Matrix &operator+=(const Matrix &rhs) {
+        Matrix lhs = *this;
         *this = lhs + rhs;
         return *this;
     }
-    matrix &operator*=(const matrix &rhs) {
-        matrix lhs = *this;
+    Matrix &operator*=(const Matrix &rhs) {
+        Matrix lhs = *this;
         *this = lhs * rhs;
         return *this;
     }
 };
 
 template <typename T>
-matrix<T> mat_power(matrix<T> a, i64 b) {
-    matrix<T> res(a.h(), a.w(), 1);
+Matrix<T> mat_power(Matrix<T> a, i64 b) {
+    Matrix<T> res(a.h(), a.w(), 1);
     for (; b; b /= 2, a *= a) {
         if (b % 2) {
             res *= a;

@@ -5,7 +5,7 @@
 
 // Fenwick Tree
 template <typename T>
-class fenwick {
+class Fenwick {
 private:
     int n;
     std::vector<T> a;
@@ -13,9 +13,9 @@ private:
     int lowbit(int x) { return x & -x; }
 
 public:
-    fenwick(int size) : n(size), a(n) {}
+    Fenwick(int size) : n(size), a(n) {}
 
-    fenwick(const std::vector<T> &v) : n(int(v.size())), a(n) {
+    Fenwick(const std::vector<T> &v) : n(int(v.size())), a(n) {
         for (int i = 0; i < n; i++) {
             modify(i, v[i]);
         }

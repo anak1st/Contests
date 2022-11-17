@@ -1,22 +1,33 @@
-#pragma once
-
-#include <cassert>
-#include <iostream>
+/**
+ * @author: XiaFan
+ * @date: 11-17 21:47
+ **/
+#include <bits/stdc++.h>
 
 using i64 = long long;
 
-template <class T>
-T power(T a, i64 b) {
-    T res = 1;
-    for (; b; b /= 2, a *= a) {
-        if (b % 2) {
-            res *= a;
-        }
+template <typename T>
+std::ostream& operator<<(std::ostream& os, std::vector<T> v) {
+    for (auto it : v) {
+        os << it << " ";
     }
-    return res;
+    return os;
 }
 
-template <int P>
+template<typename T>
+void print(const T& val) {
+    std::cerr << val << "\n";
+}
+
+template<typename T, typename... Args>
+void print(const T& val, const Args&... args) {
+    std::cerr << val << " ";
+    print(args...);
+}
+
+// constexpr int P = 1e9 + 7;
+int P;
+
 struct Mint {
 private:
     int v;
@@ -92,26 +103,18 @@ public:
     }
 };
 
-using mint = Mint<998244353>;
+int main() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    
+    int n;
+    std::cin >> n;
+    using mint = Mint<n>;
+    for (int i = 1; i <= n; i++) {
+        if (std::gcd(i, n)) {
 
-template <typename T>
-T A(int n, int m) {
-    if (m > n) return 0;
-    T ans = 1;
-    for (int i = 1; i <= m; i++) {
-        T a = n + i - m;
-        ans *= a;
+        }
     }
-    return ans;
-}
-
-template <typename T>
-T C(int n, int m) {
-    if (m > n) return 0;
-    T ans = 1;
-    for (int i = 1; i <= m; i++) {
-        T a = n + i - m;
-        ans = ans * a / i;
-    }
-    return ans;
+    
+    return 0;
 }

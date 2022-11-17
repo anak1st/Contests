@@ -6,7 +6,7 @@
 constexpr double inf = 1e9;
 
 template <typename T> 
-std::vector<T> dijkstra(int start, T val, const std::vector<std::vector<T>> &G) {
+std::vector<T> Dijkstra(int start, T val, const std::vector<std::vector<T>> &G) {
     int n = G.size();
     std::vector<T> d(n, inf);
     d[start] = val;
