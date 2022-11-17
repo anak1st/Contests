@@ -5,7 +5,7 @@
 
 using i64 = long long;
 
-bool isPrime(i64 x) {
+bool is_prime(i64 x) {
     if (x <= 1) return false;
     i64 n = std::sqrt(x);
     for (i64 i = 2; i <= n; i++) {
@@ -24,7 +24,7 @@ std::tuple<int, int, int> exgcd(int a, int b) {
     return {g, y, x - a / b * y};
 }
 
-i64 Euler(i64 n) {
+i64 euler(i64 n) {
     i64 res = n;
     for (i64 i = 2; i * i <= n; i++) {
         if (n % i == 0) {

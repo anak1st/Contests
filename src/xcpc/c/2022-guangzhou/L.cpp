@@ -1,7 +1,8 @@
-#pragma once
-
-#include <cassert>
-#include <iostream>
+/**
+ * @author: XiaFan
+ * @date: 11-14 20:36
+ **/
+#include <bits/stdc++.h>
 
 using i64 = long long;
 
@@ -54,9 +55,6 @@ public:
         assert(x != 0);
         return power(*this, P - 2);
     }
-
-    mint& operator++() { return *this += 1; }
-	mint& operator--() { return *this -= 1; }
 
     mint &operator*=(const mint &rhs) {
         x = modulo(1LL * x * rhs.x);
@@ -117,4 +115,23 @@ T C(int n, int m) {
         ans = ans * a / i;
     }
     return ans;
+}
+
+void solve() {
+    int n, m;
+    std::cin >> n >> m;
+    std::cout << A<mint>(n, n) * C<mint>(n - 1, m - 1)  << "\n";
+}
+
+int main() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    
+    int tt;
+    std::cin >> tt;
+    while (tt--) {
+        solve();
+    }
+    
+    return 0;
 }

@@ -4,17 +4,17 @@
 #include <iostream>
 
 struct timer {
-    using Clock = std::chrono::high_resolution_clock;
-    std::chrono::time_point<Clock> start, end;
+    using clock = std::chrono::high_resolution_clock;
+    std::chrono::time_point<clock> start, end;
     std::chrono::duration<float> duration;
 
     timer() {
         std::cerr << "[Start]" << std::endl;
-        start = Clock::now();
+        start = clock::now();
     }
 
     ~timer() {
-        end = Clock::now();
+        end = clock::now();
         duration = end - start;
         float ms = duration.count() * 1000.0f;
         std::cerr << "[End] time took " << ms << "ms" << std::endl;
