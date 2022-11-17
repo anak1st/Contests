@@ -6,27 +6,18 @@
 
 using i64 = long long;
 
-template <typename T>
-std::ostream& operator<<(std::ostream& os, std::vector<T> v) {
-    for (auto it : v) {
-        os << it << " ";
-    }
-    return os;
-}
-
-template<typename T>
-void print(const T& val) {
-    std::cerr << val << "\n";
-}
-
-template<typename T, typename... Args>
-void print(const T& val, const Args&... args) {
-    std::cerr << val << " ";
-    print(args...);
-}
-
-// constexpr int P = 1e9 + 7;
 int P;
+
+template <typename T>
+T power(T a, i64 b) {
+    T res = 1;
+    for (; b; b /= 2, a *= a) {
+        if (b % 2) {
+            res *= a;
+        }
+    }
+    return res;
+}
 
 struct Mint {
 private:
@@ -109,12 +100,24 @@ int main() {
     
     int n;
     std::cin >> n;
-    using mint = Mint<n>;
-    for (int i = 1; i <= n; i++) {
-        if (std::gcd(i, n)) {
-
+    P = n;
+    Mint x = 1;
+    std::vector<int> ans;
+    for (int i = 1; i < n; i++) {
+        if (std::gcd(i, n) == 1) {
+            x *= i;
+            ans.push_back(i);
         }
     }
+    if (x.val() != 1) {
+        int e = x.val();
+        ans.erase(std::lower_bound(ans.begin(), ans.end(), e));
+    }
+    std::cout << ans.size() << "\n";
+    for (auto i : ans) {
+        std::cout << i << " ";
+    }
+    std::cout << "\n";
     
     return 0;
 }

@@ -7,6 +7,17 @@ using i64 = long long;
 
 constexpr int P = 1e9 + 7;
 
+template <typename T>
+T power(T a, i64 b) {
+    T res = 1;
+    for (; b; b /= 2, a *= a) {
+        if (b % 2) {
+            res *= a;
+        }
+    }
+    return res;
+}
+
 struct Mint {
 private:
     int v;
@@ -81,17 +92,6 @@ public:
         return res;
     }
 };
-
-template <typename T>
-T power(T a, i64 b) {
-    T res = 1;
-    for (; b; b /= 2, a *= a) {
-        if (b % 2) {
-            res *= a;
-        }
-    }
-    return res;
-}
 
 template <typename T>
 T A(int n, int m) {
