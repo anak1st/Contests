@@ -3,12 +3,16 @@
 #include <algorithm>
 #include <vector>
 
-#include "base.hpp"
+template <typename T>
+struct Edge {
+    int a, b;
+    T c;
+};
 
 constexpr int inf = 1e9;
 
 template <typename T> 
-bool BellmanFord(int n, int start, T val, std::vector<edge<T>> e) {
+bool BellmanFord(int n, int start, T val, std::vector<Edge<T>> e) {
     std::vector<T> d(n, inf);
     d[start] = val;
     int m = e.size();

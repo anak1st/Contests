@@ -2,6 +2,7 @@
 
 #include <cassert>
 #include <iostream>
+#include <vector>
 
 using i64 = long long;
 
@@ -26,10 +27,8 @@ public:
     Mint() : v(0) {}
     Mint(int x) : v(modulo(x)) {}
     Mint(i64 x) : v(modulo(x)) {}
-    
-    int modulo(i64 x) const { 
-        return (x % P + P) % P; 
-    }
+
+    int modulo(i64 x) const { return (x % P + P) % P; }
 
     friend std::istream &operator>>(std::istream &is, Mint &a) {
         i64 x;
@@ -42,7 +41,7 @@ public:
         return os;
     }
 
-    constexpr int val() const { return v; }
+    int val() const { return v; }
 
     Mint operator-() const { return Mint(modulo(-v)); }
 
@@ -54,16 +53,16 @@ public:
     Mint &operator++() { return *this += 1; }
     Mint &operator--() { return *this -= 1; }
 
-    Mint &operator*=(const Mint &rhs) {
-        v = modulo(1LL * v * rhs.v);
-        return *this;
-    }
     Mint &operator+=(const Mint &rhs) {
         v = modulo(v + rhs.v);
         return *this;
     }
     Mint &operator-=(const Mint &rhs) {
         v = modulo(v - rhs.v);
+        return *this;
+    }
+    Mint &operator*=(const Mint &rhs) {
+        v = modulo(1LL * v * rhs.v);
         return *this;
     }
     Mint &operator/=(const Mint &rhs) {
@@ -93,24 +92,19 @@ public:
     }
 };
 
-template <typename T>
-T A(int n, int m) {
-    if (m > n) return 0;
-    T ans = 1;
-    for (int i = 1; i <= m; i++) {
-        T a = n + i - m;
-        ans *= a;
-    }
-    return ans;
+namespace fast {
+std::vector<Mint> fact;
+void init() {
+    fact.push_back(1);
 }
 
-template <typename T>
-T C(int n, int m) {
-    if (m > n) return 0;
-    T ans = 1;
-    for (int i = 1; i <= m; i++) {
-        T a = n + i - m;
-        ans = ans * a / i;
+Mint C(i64 n, i64 k) {
+    if (k < 0 || k > n) {
+        return 0;
     }
-    return ans;
+    while ((i64)fact.size() <= n) {
+        fact.push_back(fact.back() * (i64)fact.size());
+    }
+    return fact[n] / fact[k] / fact[n - k];
 }
+}  // namespace fast

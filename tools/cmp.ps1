@@ -1,6 +1,6 @@
 $in="./temp/log/in.txt"
 $out="./temp/log/out.txt"
-$ok="./temp/log/out.txt"
+$ok="./temp/log/ok.txt"
 
 for($i=1; $i -le 100; $i++) {
     ./build/data.exe > $in

@@ -1,13 +1,8 @@
 /**
  * @author: XiaFan
- * @date: 11-29 18:08
+ * @date: 11-20 14:55
  **/
 #include <bits/stdc++.h>
-// #include "xf.hpp"
-
-#ifndef DEBUG_XF
-#define printIn(...)
-#endif
 
 using i64 = long long;
 
@@ -32,8 +27,10 @@ public:
     Mint() : v(0) {}
     Mint(int x) : v(modulo(x)) {}
     Mint(i64 x) : v(modulo(x)) {}
-
-    int modulo(i64 x) const { return (x % P + P) % P; }
+    
+    int modulo(i64 x) const { 
+        return (x % P + P) % P; 
+    }
 
     friend std::istream &operator>>(std::istream &is, Mint &a) {
         i64 x;
@@ -97,39 +94,26 @@ public:
     }
 };
 
-namespace fast {
-std::vector<Mint> fact;
-void init() {
-    if (fact.empty()) fact.push_back(1);
-}
-
-Mint C(i64 a, i64 b) {
-    if (b < 0 || b > a) {
-        return 0;
-    }
-    while ((i64)fact.size() <= a) {
-        fact.push_back(fact.back() * (i64)fact.size());
-    }
-    return fact[a] / fact[b] / fact[a - b];
-}
-}  // namespace fast
-
-
-void solve() {
-    int x, y;
-    std::cin >> x >> y;
-    std::cout << fast::C(x, y) << "\n";
-}
-
 int main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
+
+    int K = 1e3;
+    std::vector<Mint> a(K + 1);
+    a[0] = 0;
+    for (int i = 1; i <= K; i++) {
+        Mint p = Mint(1) / i;
+        for (int j = 0; j < i; j++) {
+            a[i] += (a[j] + 1) * p;
+        }
+    }
     
-    fast::init();
     int tt;
     std::cin >> tt;
     while (tt--) {
-        solve();
+        int n, k;
+        std::cin >> n >> k;
+        std::cout << a[k] * n << "\n";
     }
     
     return 0;

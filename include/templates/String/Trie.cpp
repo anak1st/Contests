@@ -3,7 +3,7 @@
 
 using i64 = long long;
 
-namespace trie {
+namespace Trie {
 constexpr int N = 5E5 + 2;
 
 int tree[N][26], have[N], sum[N];
@@ -34,4 +34,4 @@ bool find(const std::string &s) {
     return have[p];
 }
 
-}  // namespace trie
+}  // namespace Trie

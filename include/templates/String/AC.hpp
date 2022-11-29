@@ -3,7 +3,7 @@
 #include <queue>
 #include <string>
 
-namespace trie {
+namespace Trie {
 constexpr int N = 5e5, M = 26;
 
 int tree[N][M];
@@ -56,4 +56,4 @@ bool find(const std::string &s) {
     return false;
 }
 
-}  // namespace trie
+}  // namespace Trie

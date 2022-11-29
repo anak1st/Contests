@@ -19,23 +19,22 @@ std::vector<int> get_next(std::string &s) {
     return next;  // size (n+1)
 }
 
-void KMP() {
-    std::string a, b;
-    std::cin >> a >> b;
-    int na = a.length();
-    int nb = b.length();
-    auto next = get_next(a);
-    for (int i = 0, j = 0; j < nb; j++) {
-        while (i > 0 && b[j] != a[i]) {
+int KMP(std::string s, std::string t) {
+    int ns = s.length();
+    int nt = t.length();
+    auto next = get_next(t);
+    for (int i = 0, j = 0; j < ns; j++) {
+        while (i > 0 && s[j] != t[i]) {
             i = next[i];
         }
-        if (b[j] == a[i]) {
+        if (s[j] == t[i]) {
             i++;
         }
-        if (i == na) {
+        if (i == nt) {
             // success !!!
+            return i;
             i = next[i];
         }
     }
-    return;
+    return -1;
 }
