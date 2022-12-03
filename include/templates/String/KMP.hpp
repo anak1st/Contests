@@ -1,6 +1,5 @@
 #pragma once
 
-#include <iostream>
 #include <string>
 #include <vector>
 
@@ -19,6 +18,7 @@ std::vector<int> get_next(std::string &s) {
     return next;  // size (n+1)
 }
 
+// Knuth-Morris-Pratt
 int KMP(std::string s, std::string t) {
     int ns = s.length();
     int nt = t.length();

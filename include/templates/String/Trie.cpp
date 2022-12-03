@@ -1,7 +1,6 @@
 #pragma once
-#include <string>
 
-using i64 = long long;
+#include <string>
 
 namespace Trie {
 constexpr int N = 5E5 + 2;

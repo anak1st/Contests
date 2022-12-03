@@ -1,30 +1,15 @@
-/**
- * @author: XiaFan
- * @date: 11-29 17:52
- **/
-#include <bits/stdc++.h>
-// #include "xf.hpp"
+#include <bits/extc++.h>
 
-#ifndef DEBUG_XF
-#define printIn(...)
-#endif
-
-using i64 = long long;
-
-void solve() {
-    int n;
-    std::cin >> n;
-}
+template <typename T>
+using SplayBase =
+    __gnu_pbds::tree<T, __gnu_pbds::null_type, std::less<T>,
+                     __gnu_pbds::splay_tree_tag,
+                     __gnu_pbds::tree_order_statistics_node_update>;
 
 int main() {
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    
-    int tt;
-    std::cin >> tt;
-    while (tt--) {
-        solve();
-    }
-    
+    SplayBase<int> S;
+    S.find_by_order(1);
+    S.order_of_key(1);
+
     return 0;
 }

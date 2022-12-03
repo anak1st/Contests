@@ -1,7 +1,7 @@
+#pragma once
+
 #include <cassert>
 #include <vector>
-
-using i64 = long long;
 
 template <typename T>
 class Matrix {
@@ -62,8 +62,8 @@ public:
     }
 };
 
-template <typename T>
-Matrix<T> mat_power(Matrix<T> a, i64 b) {
+template <typename T, typename U>
+Matrix<T> mat_power(Matrix<T> a, U b) {
     Matrix<T> res(a.h(), a.w(), 1);
     for (; b; b /= 2, a *= a) {
         if (b % 2) {

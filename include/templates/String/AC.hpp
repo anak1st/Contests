@@ -1,8 +1,8 @@
-// Aho-Corasick Automaton
 #pragma once
 #include <queue>
 #include <string>
 
+// Aho-Corasick automaton
 namespace Trie {
 constexpr int N = 5e5, M = 26;
 
