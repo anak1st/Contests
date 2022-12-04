@@ -8,9 +8,9 @@
             "program": "${workspaceFolder}/build/main",
             "args": [
                 "<",
-                "${workspaceFolder}/log/in.txt",
+                "${workspaceFolder}/temp/log/in.txt",
                 ">",
-                "${workspaceFolder}/log/out.txt"
+                "${workspaceFolder}/temp/log/out.txt"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
