@@ -1,0 +1,71 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+% xcolor宏包一般要放在最前面！否则那3张颜色表容易加不进来。
+\usepackage[dvipsnames, svgnames, x11names]{xcolor} 
+\usepackage{amsmath, amsthm, amssymb, graphicx}
+\usepackage{listings}
+\usepackage[bookmarks=true, colorlinks, citecolor=blue, linkcolor=black]{hyperref}
+% 导言区
+
+\title{我的第一个\LaTeX 文档}
+\author{夏凡 XiaFan}
+\date{\today}
+
+\lstset{
+    basicstyle          =   \sffamily,          % 基本代码风格
+    keywordstyle        =   \bfseries,          % 关键字风格
+    commentstyle        =   \rmfamily\itshape,  % 注释的风格，斜体
+    stringstyle         =   \ttfamily,  % 字符串风格
+    flexiblecolumns,                % 别问为什么，加上这个
+    numbers             =   left,   % 行号的位置在左边
+    showspaces          =   false,  % 是否显示空格，显示了有点乱，所以不现实了
+    numberstyle         =   \zihao{-5}\ttfamily,    % 行号的样式，小五号，tt等宽字体
+    showstringspaces    =   false,
+    captionpos          =   t,      % 这段代码的名字所呈现的位置，t指的是top上面
+    frame               =   lrtb,   % 显示边框
+}
+
+\lstdefinestyle{Python}{
+    language        =   Python, % 语言选Python
+    basicstyle      =   \zihao{-5}\ttfamily,
+    numberstyle     =   \zihao{-5}\ttfamily,
+    keywordstyle    =   \color{blue},
+    keywordstyle    =   [2]\color{teal},
+    stringstyle     =   \color{ForestGreen},
+    commentstyle    =   \color{gray}\ttfamily,
+    breaklines      =   true,   % 自动换行，建议不要写太长的行
+    columns         =   fixed,  % 如果不加这一句，字间距就不固定，很丑，必须加
+    basewidth       =   0.5em,
+}
+
+\begin{document}
+
+\maketitle
+
+\section{一级标题}
+
+$ Y^{-1} A^{-1} D^{-1} \iff (DAY)^{-1} $
+
+\subsection{离散之夺冠}
+\begin{center}
+    $P$ : 死, $Q$ : 夺冠, $F(x)$ : 是人 \\
+    ${\forall}x(F(x) \wedge Q \Rightarrow P)$
+\end{center}
+
+\subsection{测试数学}
+\begin{center}
+    $P(x)=\sum_{min}^{max}f(x)$ \\
+    $P(x)=\int_{min}^{max}f(x)$ \\
+    $(v(L_1, L_1 + w - 1) \times v(l_i, r_i) + v(L_2, L_2 + w - 1)) \equiv k \mod 9$
+\end{center}
+
+\newpage
+\subsection{代码}
+\lstinputlisting[
+    style       =   Python,
+    caption     =   {\bf src/test/test.py},
+    label       =   {src/test/test.py}
+]{../../src/test/test.py}
+
+这里是正文.这里是正文.这里是正文.这里是正文.这里是正文.这里是正文.这里是正文.这里是正文.这里是正文.这里是正文.这里是正文.这里是正文.这里是正文.这里是正文.这里是正文.这里是正文.这里是正文.这里是正文.这里是正文.这里是正文.这里是正文.这里是正文.
+
+\end{document}

@@ -1,24 +1,23 @@
-# Practice for Programming Competitions :joy: 🤗 :confounded:
+# Practice for Programming Competitions :joy:  
 
-> Stop learning useless algorithms
+> Stop learning useless algorithms 🤗
 
 ---
 
-## File Structure
+## File Structure :confounded:
 
 - src
   - AtCoder
   - Codeforces
-  - JiangNan
-  - LuoGu
-  - LanQiao 
-  - ICPC + CCPC
+  - XCPC
 
 - tools
   - cmp 
 
-## Usefull VSCode Plugins
+## Usefull VSCode Plugins :smile:
 
 - CPH (Competitive Programming Helper)
 
-3 2 1 1 2 3
+$$
+e^{ix} =  \cos{x} + i \sin{x}
+$$

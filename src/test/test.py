@@ -1,4 +1,6 @@
 import math
+print("This is s string")
+# This is a comment
 while True:
     try:
         n = int(input())
