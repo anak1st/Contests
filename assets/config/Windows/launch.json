@@ -11,9 +11,9 @@
             "program": "${workspaceFolder}/build/main.exe",
             "args": [
                 "<",
-                "${workspaceFolder}/data/log/in.txt",
+                "${workspaceFolder}/temp/log/in.txt",
                 ">",
-                "${workspaceFolder}/data/log/out.txt"
+                "${workspaceFolder}/temp/log/out.txt"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

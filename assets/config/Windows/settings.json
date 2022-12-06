@@ -1,5 +1,6 @@
 {
     "cph.general.saveLocation": "C:/Users/xiafa/Repos/C++/Contests/build/cph",
-    "cph.language.cpp.Args": "-O2 -std=c++23",
-    "cph.general.autoShowJudge": false
+    "cph.language.cpp.Args": "-O2 -std=c++23 -I C:/Users/xiafa/Repos/C++/Contests/include",
+    "cph.general.autoShowJudge": false,
+    "cph.general.timeOut": 10000
 }

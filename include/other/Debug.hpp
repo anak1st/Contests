@@ -8,24 +8,36 @@
 #include <array>
 
 template <typename T, typename U>
+std::ostream& operator<<(std::ostream& os, std::pair<T, U> p);
+template <typename T>
+std::ostream& operator<<(std::ostream& os, std::vector<T> v);
+template <typename T, size_t S>
+std::ostream& operator<<(std::ostream& os, std::array<T, S> a);
+
+
+template <typename T, typename U>
 std::ostream& operator<<(std::ostream& os, std::pair<T, U> p) {
-    os << p.first << " " << p.second;
+    os << "p( " << p.first << " " << p.second << ")";
     return os;
 }
 
 template <typename T>
 std::ostream& operator<<(std::ostream& os, std::vector<T> v) {
+    os << "v[ ";
     for (auto it : v) {
-        os << it << "\n";
+        os << it << " ";
     }
+    os << "]";
     return os;
 }
 
 template <typename T, size_t S>
 std::ostream& operator<<(std::ostream& os, std::array<T, S> a) {
+    os << "a[ ";
     for (auto it : a) {
-        os << it << "\n";
+        os << it << " ";
     }
+    os << "]";
     return os;
 }
 

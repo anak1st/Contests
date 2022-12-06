@@ -3,7 +3,8 @@
 #include <algorithm>
 #include <vector>
 
-void Floyd(std::vector<std::vector<int>> &G) {
+template <typename T>
+void Floyd(std::vector<std::vector<T>> &G) {
     int n = G.size();
     for (int k = 0; k < n; ++k) {
         for (int i = 0; i < n; ++i) {
