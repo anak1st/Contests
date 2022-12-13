@@ -40,13 +40,10 @@ T C(T n, T m) {
 }
 
 namespace Fast {
-
 constexpr int P = 1e9 + 7;
 using Mint = MintBase<P>;
-
 std::vector<Mint> fact;
 void init() { fact.push_back(1); }
-
 Mint C(i64 n, i64 k) {
     if (k < 0 || k > n) {
         return 0;
@@ -56,5 +53,4 @@ Mint C(i64 n, i64 k) {
     }
     return fact[n] / fact[k] / fact[n - k];
 }
-
 }  // namespace Fast

@@ -6,10 +6,12 @@
 constexpr double inf = 1e9;
 
 template <typename T> 
-std::vector<T> Dijkstra(int start, T val, const std::vector<std::vector<T>> &G) {
+std::pair<std::vector<T>, std::vector<int>> 
+Dijkstra(const std::vector<std::vector<T>> &G, int s) {
     int n = G.size();
     std::vector<T> d(n, inf);
-    d[start] = val;
+    std::vector<int> from(n, -1);
+    d[s] = 0;
     std::vector<bool> vis(n);
     for (int i = 0; i < n; i++) {
         int k = -1;
@@ -22,9 +24,11 @@ std::vector<T> Dijkstra(int start, T val, const std::vector<std::vector<T>> &G) 
         vis[k] = true;
         for (int j = 0; j < n; j++) {
             if (vis[j]) continue;
-            d[j] = std::min(d[j], d[k] + G[k][j]);
-            // d[j] = std::min(d[j], std::max(d[k], g[k][j]));
+            if (d[j] > d[k] + G[k][j]) {
+                d[j] = d[k] + G[k][j];
+                from[j] = k;
+            }
         }
     }
-    return d;
+    return {d, from};
 }

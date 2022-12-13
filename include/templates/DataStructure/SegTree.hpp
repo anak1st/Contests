@@ -4,21 +4,20 @@
 #include <iostream>
 #include <vector>
 
-// Segment Tree
 template <typename T>
+struct SegTreeNode {
+    int l, r;
+    T val, tag;
+    SegTreeNode() : val(0), tag(0) {}
+    int mid() { return (l + r) / 2; }
+};
+
+// Segment Tree
+template <typename T, typename Node = SegTreeNode<T>>
 class SegTree {
 private:
-    struct node {
-        int l, r;
-        T val, tag;
-
-        node() : val(0), tag(0) {}
-
-        int mid() { return (l + r) / 2; }
-    };
-
     int n;
-    std::vector<node> tree;
+    std::vector<Node> tree;
 
     constexpr int ls(int root) { return root * 2 + 1; }
     constexpr int rs(int root) { return root * 2 + 2; }
@@ -62,7 +61,7 @@ private:
         push_down(root);
         int mid = tree[root].mid();
         if (left <= mid) update(ls(root), left, right, val);
-        if (mid + 1 <= right) update(rs(root), left, right, val);
+        if (mid < right) update(rs(root), left, right, val);
         push_up(root);
     }
 
@@ -73,16 +72,14 @@ private:
         T ans = 0;
         push_down(root);
         int mid = tree[root].mid();
-        if (left <= mid) {
-            ans += query(ls(root), left, right);
-        }
-        if (mid + 1 <= right) {
-            ans += query(rs(root), left, right);
-        }
+        if (left <= mid) ans += query(ls(root), left, right);
+        if (mid < right) ans += query(rs(root), left, right);
         return ans;
     }
 
 public:
+    SegTree(int n) : SegTree(std::vector<T>(n, 0)) {}
+
     SegTree(const std::vector<T>& num) : n(num.size()), tree(n * 4) {
         tree[0].l = 0;
         tree[0].r = n - 1;

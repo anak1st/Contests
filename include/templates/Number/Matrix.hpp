@@ -10,17 +10,19 @@ private:
     std::vector<std::vector<T>> mat;
 
 public:
-    Matrix(const int h, const int w) : H(h), W(w), mat(h, std::vector<T>(w)) {}
+    using i64 = long long;
 
+    Matrix(const int h, const int w) : H(h), W(w), mat(h, std::vector<T>(w)) {}
     Matrix(const int h, const int w, const T val)
     : H(h), W(w), mat(h, std::vector<T>(w)) {
         for (int i = 0; i < std::min(H, W); i++) {
-            mat[i][i] = val;
+            at(i, i) = val;
         }
     }
 
     Matrix(const Matrix &M) : H(M.h()), W(M.w()), mat(M.mat) {}
 
+    T get(const int i, const int j) const { return mat[i][j]; }
     T &at(const int i, const int j) { return mat[i][j]; }
 
     constexpr int h() const { return H; }
@@ -31,7 +33,7 @@ public:
         assert(lhs.H == rhs.H && lhs.W == rhs.W);
         for (int i = 0; i < lhs.H; i++) {
             for (int j = 0; j < rhs.W; j++) {
-                res.mat[i][j] += rhs.mat[i][j];
+                res.at(i, j) += rhs.get(i, j);
             }
         }
         return res;
@@ -43,7 +45,7 @@ public:
         for (int i = 0; i < lhs.H; i++) {
             for (int j = 0; j < rhs.W; j++) {
                 for (int k = 0; k < lhs.W; k++) {
-                    res.mat[i][j] += lhs.mat[i][k] * rhs.mat[k][j];
+                    res.at(i, j) += lhs.get(i, k) * rhs.get(k, j);
                 }
             }
         }
@@ -60,15 +62,14 @@ public:
         *this = lhs * rhs;
         return *this;
     }
-};
 
-template <typename T, typename U>
-Matrix<T> mat_power(Matrix<T> a, U b) {
-    Matrix<T> res(a.h(), a.w(), 1);
-    for (; b; b /= 2, a *= a) {
-        if (b % 2) {
-            res *= a;
+    Matrix mat_power(Matrix<T> a, i64 b) {
+        Matrix res(a.h(), a.w(), 1);
+        for (; b; b /= 2, a *= a) {
+            if (b % 2) {
+                res *= a;
+            }
         }
+        return res;
     }
-    return res;
-}
+};

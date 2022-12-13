@@ -24,13 +24,15 @@ int main() {
     std::cin.tie(nullptr);
 
     int t = 1;
-    std::cout << t << "\n";
+    // std::cout << t << "\n";
     while (t--) {
-        int n = 500, m = 100;
-        std::cout << n << " " << m << "\n";
-        Randomer<i64> R(1E8, 1E9);
+        int n = 100;
+        std::cout << n << "\n";
+        Randomer<i64> R(1E5, 1E6);
         for (int i = 0; i < n; i++) {
-            std::cout << R() << " ";
+            int x = R();
+            int y = x + R();
+            std::cout << x << " " << y << "\n";
         }
     }
 

@@ -3,30 +3,32 @@
 #include <cassert>
 #include <iostream>
 
+using i64 = long long;
+
+template <typename T>
+T power(T a, i64 b) {
+    MintBase res = 1;
+    for (; b; b /= 2, a *= a) {
+        if (b % 2) {
+            res *= a;
+        }
+    }
+    return res;
+}
+
 template <int Mod>
 class MintBase {
-public:
-    using i64 = long long;
-
-    int mod(i64 x) const { return (x % Mod + Mod) % Mod; }
-
-    MintBase power(MintBase a, i64 b) {
-        MintBase res = 1;
-        for (; b; b /= 2, a *= a) {
-            if (b % 2) {
-                res *= a;
-            }
-        }
-        return res;
-    }
-
 private:
     int v;
 
 public:
+    int mod(i64 x) const { return (x % Mod + Mod) % Mod; }
+    
     MintBase() : v(0) {}
     MintBase(int x) : v(mod(x)) {}
     MintBase(i64 x) : v(mod(x)) {}
+    
+    int val() const { return v; }
 
     friend std::istream &operator>>(std::istream &is, MintBase &a) {
         i64 x;
@@ -39,10 +41,7 @@ public:
         return os;
     }
 
-    int val() const { return v; }
-
     MintBase operator-() const { return MintBase(mod(-v)); }
-
     MintBase inv() const {
         assert(v != 0);
         return power(*this, Mod - 2);
@@ -50,7 +49,6 @@ public:
 
     MintBase &operator++() { return *this += 1; }
     MintBase &operator--() { return *this -= 1; }
-
     MintBase &operator+=(const MintBase &rhs) {
         v = modulo(v + rhs.v);
         return *this;
@@ -89,5 +87,3 @@ public:
         return res;
     }
 };
-
-
