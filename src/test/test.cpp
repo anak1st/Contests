@@ -1,65 +1,39 @@
+/**
+ * @author: XiaFan
+ * @date: 12-18 10:50
+ **/
 #include <bits/stdc++.h>
 
 using i64 = long long;
 
-constexpr int N = 1E7;
-
-namespace Primes {
-constexpr int N = 1e7;
-std::vector<int> primes;
-int minp[N + 1];  // minp[i] = min prime factor of i
-void init() {
-    for (int i = 2; i <= N; i++) {
-        if (!minp[i]) {
-            minp[i] = i;
-            primes.push_back(i);
-        }
-        for (auto p : primes) {
-            if (i * p > N) break;
-            minp[i * p] = p;
-            if (i % p == 0) break;
-        }
-    }
-}
-}  // namespace Primes
-
 void solve() {
-    int x, y;
-    std::cin >> x >> y;
+    int n, m, k;
+    std::cin >> n >> m >> k;
+    std::vector<int> a(m);
+    for (auto &x : a) std::cin >> x;
+    std::sort(a.begin(), a.end(), std::greater<int>());
+    for (auto &x : a) std::cout << x << ' ';
+    std::cout << '\n';
 
-    int d = y - x;
-    if (d == 1) {
-        std::cout << -1 << "\n";
-        return;
+    for (int i = 0; i < m; i++) {
+        int max = n / k;
+        if (i < n % k) max++;
+        if (a[i] > max) {
+            std::cout << "NO\n";
+            return;
+        }
     }
 
-    auto fun = [&](int p) -> int {
-        int a = (x + p - 1) / p;
-        int da = a * p - x;
-        int b = (y + p - 1) / p;
-        int db = b * p - y;
-        return std::max(da, db);
-    };
-
-    int ans = 1E9;
-    while (d > 1) {
-        int p = Primes::minp[d];
-        d /= p;
-        ans = std::min(ans, fun(p));
-    }
-
-    std::cout << ans << "\n";
+    std::cout << "YES\n";
 }
 
 int main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
-
-    Primes::init();
-
-    int T;
+    
+    int T = 1;
     std::cin >> T;
     while (T--) solve();
-
+    
     return 0;
 }

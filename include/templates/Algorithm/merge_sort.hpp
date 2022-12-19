@@ -11,10 +11,11 @@ i64 merge(std::vector<T> &a, std::vector<T> &b, int l, int r) {
     int i = l, j = m + 1, k = l;
     i64 res = 0;
     while (i <= m && j <= r) {
+        res++;
         if (a[i] <= a[j]) {
             b[k++] = a[i++];
         } else {
-            res += (j - k);
+            // res += (j - k);
             b[k++] = a[j++];
         }
     }
@@ -30,6 +31,7 @@ i64 merge(std::vector<T> &a, std::vector<T> &b, int l, int r) {
     }
     return res;
 }
+
 template <typename T>
 i64 merge_sort(std::vector<T> &a, std::vector<T> &b, int l, int r) {
     i64 res = 0;
@@ -45,5 +47,5 @@ i64 merge_sort(std::vector<T> &a, std::vector<T> &b, int l, int r) {
 template <typename T>
 i64 merge_sort(std::vector<T> &a) {
     std::vector<T> b(a);
-    return detail::merge_sort<T>(0, (int)a.size() - 1, a, b);
+    return detail::merge_sort<T>(a, b, 0, (int)a.size() - 1);
 }
