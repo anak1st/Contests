@@ -40,5 +40,8 @@ std::ostream &operator<<(std::ostream &os, i128 x) {
 }
 
 i128 i128_gcd(i128 a, i128 b) {
-    return b ? i128_gcd(b, a % b) : a;
+    if (b == 0) {
+        return a;
+    }
+    return i128_gcd(b, a % b);
 }

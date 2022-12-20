@@ -7,17 +7,6 @@
 using i64 = long long;
 
 template <typename T>
-T power(T a, i64 b) {
-    T res = 1;
-    for (; b; b /= 2, a *= a) {
-        if (b % 2) {
-            res *= a;
-        }
-    }
-    return res;
-}
-
-template <typename T>
 T A(T n, T m) {
     if (m > n) return 0;
     T ans = 1;
@@ -40,10 +29,14 @@ T C(T n, T m) {
 }
 
 namespace Fast {
+
 constexpr int P = 1e9 + 7;
 using Mint = MintBase<P>;
+
 std::vector<Mint> fact;
+
 void init() { fact.push_back(1); }
+
 Mint C(i64 n, i64 k) {
     if (k < 0 || k > n) {
         return 0;
@@ -53,4 +46,5 @@ Mint C(i64 n, i64 k) {
     }
     return fact[n] / fact[k] / fact[n - k];
 }
+
 }  // namespace Fast
