@@ -289,7 +289,7 @@ struct is_less
 
 template <typename a>
 struct abs_
-: public if_else<is_greater<a, number<0>>, a, number<-a::type::numer, a::type::denom>> {};
+: public if_else<is_greater<a, number<0>>, a, number< -a::type::numer, a::type::denom>> {};
 
 template <typename a, typename b, typename tagA, typename tagB>
 struct is_equal_impl : public boolean<false> {};
@@ -310,6 +310,7 @@ template <typename a, typename b>
 struct not_equal : public not_<is_equal<a, b>> {};
 
 /////////////////////////////////////////////////////////////////////
+
 template <typename T>
 struct display_impl {
     static std::ostream &display(std::ostream &os, bool showBracket, number_tag) {

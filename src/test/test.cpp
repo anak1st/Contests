@@ -1,18 +1,26 @@
 /**
  * @author: XiaFan
- * @date: 12-20 00:11
+ * @date: 12-25 09:58
  **/
 #include <bits/stdc++.h>
-#include "testing/MetaLisp.hpp"
+#include <openssl/md5.h>
 
 using i64 = long long;
 
+void solve() {
+    int n;
+    std::cin >> n;
+}
+
 int main() {
-    
-    using p = add<number<1>, number<2>>;
-    using l = list<number<1>, number<2>, number<3>>;
-    display<p>();
-    display<length<l>>();
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+
+    int t = 1;
+    std::cin >> t;
+    while (t--) {
+        solve();
+    }
 
     return 0;
 }

@@ -1,8 +1,10 @@
+$latexdir=".\assets\docs\"
+
 Remove-Item .\build\cph\*
-Remove-Item .\assets\docs\*.aux
-Remove-Item .\assets\docs\*.fdb_latexmk
-Remove-Item .\assets\docs\*.fls
-Remove-Item .\assets\docs\*.log
-Remove-Item .\assets\docs\*.out
-Remove-Item .\assets\docs\*.synctex.gz
-Remove-Item .\assets\docs\*.xdv
+Remove-Item $latexdir\*.aux
+Remove-Item $latexdir\*.fdb_latexmk
+Remove-Item $latexdir\*.fls
+Remove-Item $latexdir\*.log
+Remove-Item $latexdir\*.out
+Remove-Item $latexdir\*.synctex.gz
+Remove-Item $latexdir\*.xdv

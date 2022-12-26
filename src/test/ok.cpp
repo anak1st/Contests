@@ -1,24 +1,18 @@
 /**
  * @author: XiaFan
- * @date: 12-17 18:37
+ * @date: 12-20 00:11
  **/
 #include <bits/stdc++.h>
+#include "testing/MetaLisp.hpp"
 
 using i64 = long long;
 
 int main() {
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
     
-    int n = 3;
-    std::vector<int> a(n);
-    std::iota(a.begin(), a.end(), 1);
-    do {
-        for (auto x : a) {
-            std::cout << x << ' ';
-        }
-        std::cout << '\n';
-    } while (std::next_permutation(a.begin(), a.end()));
+    using l = list<number<1>, number<2>, number<3>>;
+
+    display<l>();
+    display<length<l>>();
 
     return 0;
 }
