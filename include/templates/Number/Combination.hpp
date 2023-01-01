@@ -8,7 +8,8 @@ using i64 = long long;
 
 template <typename T>
 T A(T n, T m) {
-    if (m > n) return 0;
+    if (m > n)
+        return 0;
     T ans = 1;
     for (int i = 1; i <= m; i++) {
         T a = n + i - m;
@@ -19,7 +20,8 @@ T A(T n, T m) {
 
 template <typename T>
 T C(T n, T m) {
-    if (m > n) return 0;
+    if (m > n)
+        return 0;
     T ans = 1;
     for (int i = 1; i <= m; i++) {
         T a = n + i - m;
@@ -35,7 +37,9 @@ using Mint = MintBase<P>;
 
 std::vector<Mint> fact;
 
-void init() { fact.push_back(1); }
+void init() {
+    fact.push_back(1);
+}
 
 Mint C(i64 n, i64 k) {
     if (k < 0 || k > n) {
@@ -47,4 +51,4 @@ Mint C(i64 n, i64 k) {
     return fact[n] / fact[k] / fact[n - k];
 }
 
-}  // namespace Fast
+} // namespace Fast

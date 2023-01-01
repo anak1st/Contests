@@ -10,7 +10,9 @@ private:
     int n;
     std::vector<T> a;
 
-    int lowbit(int x) { return x & -x; }
+    int lowbit(int x) {
+        return x & -x;
+    }
 
 public:
     Fenwick(int size) : n(size), a(n) {}

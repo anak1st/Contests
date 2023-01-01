@@ -69,11 +69,18 @@ void idft(std::vector<Mint> &a) {
 
 struct Poly {
     std::vector<Mint> a;
+    
     Poly() {}
     Poly(const std::vector<Mint> &a) : a(a) {}
     Poly(const std::initializer_list<Mint> &a) : a(a) {}
-    int size() const { return a.size(); }
-    void resize(int n) { a.resize(n); }
+    
+    int size() const {
+        return a.size();
+    }
+    void resize(int n) {
+        a.resize(n);
+    }
+    
     Mint operator[](int idx) const {
         if (idx < size()) {
             return a[idx];
@@ -81,19 +88,21 @@ struct Poly {
             return 0;
         }
     }
-    Mint &operator[](int idx) { return a[idx]; }
+    Mint &operator[](int idx) {
+        return a[idx];
+    }
 
     Poly mulxk(int k) const {
         auto b = a;
         b.insert(b.begin(), k, 0);
         return Poly(b);
     }
-    
+
     Poly modxk(int k) const {
         k = std::min(k, size());
         return Poly(std::vector<Mint>(a.begin(), a.begin() + k));
     }
-    
+
     Poly divxk(int k) const {
         if (size() <= k) {
             return Poly();
@@ -108,7 +117,7 @@ struct Poly {
         }
         return Poly(res);
     }
-    
+
     friend Poly operator-(const Poly &a, const Poly &b) {
         std::vector<Mint> res(std::max(a.size(), b.size()));
         for (int i = 0; i < int(res.size()); i++) {
@@ -116,7 +125,7 @@ struct Poly {
         }
         return Poly(res);
     }
-    
+
     friend Poly operator*(Poly a, Poly b) {
         if (a.size() == 0 || b.size() == 0) {
             return Poly();
@@ -136,24 +145,30 @@ struct Poly {
         a.resize(tot);
         return a;
     }
-    
+
     friend Poly operator*(Mint a, Poly b) {
         for (int i = 0; i < int(b.size()); i++) {
             b[i] *= a;
         }
         return b;
     }
-    
+
     friend Poly operator*(Poly a, Mint b) {
         for (int i = 0; i < int(a.size()); i++) {
             a[i] *= b;
         }
         return a;
     }
-    
-    Poly &operator+=(Poly b) { return (*this) = (*this) + b; }
-    Poly &operator-=(Poly b) { return (*this) = (*this) - b; }
-    Poly &operator*=(Poly b) { return (*this) = (*this) * b; }
+
+    Poly &operator+=(Poly b) {
+        return (*this) = (*this) + b;
+    }
+    Poly &operator-=(Poly b) {
+        return (*this) = (*this) - b;
+    }
+    Poly &operator*=(Poly b) {
+        return (*this) = (*this) * b;
+    }
 
     Poly deriv() const {
         if (a.empty()) {
@@ -165,7 +180,7 @@ struct Poly {
         }
         return Poly(res);
     }
-    
+
     Poly integr() const {
         std::vector<Mint> res(size() + 1);
         for (int i = 0; i < size(); ++i) {
@@ -173,7 +188,7 @@ struct Poly {
         }
         return Poly(res);
     }
-    
+
     Poly inv(int m) const {
         Poly x{a[0].inv()};
         int k = 1;
@@ -183,9 +198,11 @@ struct Poly {
         }
         return x.modxk(m);
     }
-    
-    Poly log(int m) const { return (deriv() * inv(m)).integr().modxk(m); }
-    
+
+    Poly log(int m) const {
+        return (deriv() * inv(m)).integr().modxk(m);
+    }
+
     Poly exp(int m) const {
         Poly x{1};
         int k = 1;
@@ -195,7 +212,7 @@ struct Poly {
         }
         return x.modxk(m);
     }
-    
+
     Poly pow(int k, int m) const {
         int i = 0;
         while (i < size() && a[i].val() == 0) {
@@ -208,7 +225,7 @@ struct Poly {
         auto f = divxk(i) * v.inv();
         return (f.log(m - i * k) * k).exp(m - i * k).mulxk(i * k) * power(v, k);
     }
-    
+
     Poly sqrt(int m) const {
         Poly x{1};
         int k = 1;
@@ -218,7 +235,7 @@ struct Poly {
         }
         return x.modxk(m);
     }
-    
+
     Poly mulT(Poly b) const {
         if (b.size() == 0) {
             return Poly();
@@ -227,7 +244,7 @@ struct Poly {
         std::reverse(b.a.begin(), b.a.end());
         return ((*this) * b).divxk(n - 1);
     }
-    
+
     std::vector<Mint> eval(std::vector<Mint> x) const {
         if (size() == 0) {
             return std::vector<Mint>(x.size(), 0);
@@ -264,4 +281,4 @@ struct Poly {
     }
 };
 
-}  // namespace ploy
+} // namespace ploy

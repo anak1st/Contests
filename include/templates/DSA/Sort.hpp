@@ -10,25 +10,27 @@ namespace detail {
 
 template <typename T>
 void quick_sort(std::vector<T> &a, int l, int r) {
-    if (l >= r) return;
+    if (l >= r) {
+        return;
+    }
     int i = l, j = r;
     T x = a[l];
     while (i < j) {
         while (i < j && a[j] >= x) {
             j--;
         }
-        if (i < j) a[i++] = a[j];
+        a[i] = a[j];
         while (i < j && a[i] <= x) {
             i++;
         }
-        if (i < j) a[j--] = a[i];
+        a[j] = a[i];
     }
     a[i] = x;
     quick_sort(a, l, i - 1);
     quick_sort(a, i + 1, r);
 }
 
-}  // namespace detail
+} // namespace detail
 
 template <typename T>
 void quick_sort(std::vector<T> &a) {
@@ -60,9 +62,6 @@ i64 merge(std::vector<T> &a, std::vector<T> &b, int l, int r) {
         b[k++] = a[j++];
     }
     std::copy(b.begin() + l, b.begin() + r + 1, a.begin() + l);
-    for (int i = l; i <= r; i++) {
-        a[i] = b[i];
-    }
     return res;
 }
 
@@ -78,7 +77,7 @@ i64 merge_sort(std::vector<T> &a, std::vector<T> &b, int l, int r) {
     return res;
 }
 
-}  // namespace detail
+} // namespace detail
 template <typename T>
 i64 merge_sort(std::vector<T> &a) {
     std::vector<T> b(a);

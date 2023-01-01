@@ -27,9 +27,13 @@ public:
     MintBase(int x) : v(mod(x)) {}
     MintBase(i64 x) : v(mod(x)) {}
 
-    int mod(i64 x) const { return (x % MOD + MOD) % MOD; }
+    int mod(i64 x) const {
+        return (x % MOD + MOD) % MOD;
+    }
 
-    int val() const { return v; }
+    int val() const {
+        return v;
+    }
 
     friend std::istream &operator>>(std::istream &is, MintBase &a) {
         i64 x;
@@ -42,15 +46,21 @@ public:
         return os;
     }
 
-    MintBase operator-() const { return MintBase(mod(-v)); }
+    MintBase operator-() const {
+        return MintBase(mod(-v));
+    }
 
     MintBase inv() const {
         assert(v != 0);
         return power(*this, MOD - 2);
     }
 
-    MintBase &operator++() { return *this += 1; }
-    MintBase &operator--() { return *this -= 1; }
+    MintBase &operator++() {
+        return *this += 1;
+    }
+    MintBase &operator--() {
+        return *this -= 1;
+    }
 
     MintBase &operator+=(const MintBase &rhs) {
         v = mod(v + rhs.v);

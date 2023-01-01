@@ -10,7 +10,7 @@
 #define clz(x) __builtin_clz(x)
 
 // Sparse Table
-template <typename T, class F = std::function<T(const T&, const T&)>>
+template <typename T, class F = std::function<T(const T &, const T &)>>
 class ST {
 private:
     int n;
@@ -18,7 +18,9 @@ private:
     F fn;
 
 public:
-    ST(const std::vector<T>& a, const F& f) : n(int(a.size())), fn(f) { init(); }
+    ST(const std::vector<T> &a, const F &f) : n(int(a.size())), fn(f) {
+        init();
+    }
 
     void init() {
         int max_log = 32 - clz(n);
@@ -34,7 +36,7 @@ public:
     }
 
     T get(int from, int to) const {
-        assert(0 <= from && from <= to && to < n);
+        // assert(0 <= from && from <= to && to < n);
         int lg = 32 - clz(to - from + 1) - 1;
         return fn(mat[lg][from], mat[lg][to - (1 << lg) + 1]);
     }

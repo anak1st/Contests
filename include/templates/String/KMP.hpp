@@ -15,7 +15,7 @@ std::vector<int> get_next(std::string &s) {
             j = next[j];
         }
     }
-    return next;  // size (n+1)
+    return next; // size (n+1)
 }
 
 // Knuth-Morris-Pratt

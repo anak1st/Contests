@@ -7,14 +7,14 @@
 
 template<typename T>
 struct Flow {
-    struct Edge {
+    struct edge {
         int to;
         T cap;
-        Edge(int to, T cap) : to(to), cap(cap) {}
+        edge(int to, T cap) : to(to), cap(cap) {}
     };
 
     const int n;
-    std::vector<Edge> E;
+    std::vector<edge> E;
     std::vector<std::vector<int>> G;
     std::vector<int> cur, h;
 

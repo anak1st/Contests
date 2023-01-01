@@ -33,4 +33,4 @@ bool find(const std::string &s) {
     return have[p];
 }
 
-}  // namespace Trie
+} // namespace Trie

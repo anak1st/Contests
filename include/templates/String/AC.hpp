@@ -12,7 +12,9 @@ int tree[N][M];
 int fail[N], have[M];
 int cnt = 1;
 
-void init() { std::fill(tree[0], tree[0] + M, 1); }
+void init() {
+    std::fill(tree[0], tree[0] + M, 1);
+}
 
 void insert(std::string t) {
     int p = 1;
@@ -58,4 +60,4 @@ bool find(const std::string &s) {
     return false;
 }
 
-}  // namespace Trie
+} // namespace Trie

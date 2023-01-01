@@ -13,8 +13,9 @@ public:
     using i64 = long long;
 
     Matrix(const int h, const int w) : H(h), W(w), mat(h, std::vector<T>(w)) {}
+    
     Matrix(const int h, const int w, const T val)
-    : H(h), W(w), mat(h, std::vector<T>(w)) {
+        : H(h), W(w), mat(h, std::vector<T>(w)) {
         for (int i = 0; i < std::min(H, W); i++) {
             at(i, i) = val;
         }
@@ -22,11 +23,19 @@ public:
 
     Matrix(const Matrix &M) : H(M.h()), W(M.w()), mat(M.mat) {}
 
-    T get(const int i, const int j) const { return mat[i][j]; }
-    T &at(const int i, const int j) { return mat[i][j]; }
+    T get(const int i, const int j) const {
+        return mat[i][j];
+    }
+    T &at(const int i, const int j) {
+        return mat[i][j];
+    }
 
-    constexpr int h() const { return H; }
-    constexpr int w() const { return W; }
+    constexpr int h() const {
+        return H;
+    }
+    constexpr int w() const {
+        return W;
+    }
 
     friend Matrix operator+(const Matrix &lhs, const Matrix &rhs) {
         Matrix res(lhs);

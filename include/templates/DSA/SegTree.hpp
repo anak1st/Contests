@@ -9,7 +9,9 @@ struct SegTreeNode {
     int l, r;
     T val, tag;
     SegTreeNode() : val(0), tag(0) {}
-    int mid() { return (l + r) / 2; }
+    int mid() {
+        return (l + r) / 2;
+    }
 };
 
 // Segment Tree
@@ -19,14 +21,18 @@ private:
     int n;
     std::vector<Node> tree;
 
-    constexpr int ls(int root) { return root * 2 + 1; }
-    constexpr int rs(int root) { return root * 2 + 2; }
+    constexpr int ls(int root) {
+        return root * 2 + 1;
+    }
+    constexpr int rs(int root) {
+        return root * 2 + 2;
+    }
 
     void push_up(int root) {
         tree[root].val = tree[ls(root)].val + tree[rs(root)].val;
     }
 
-    void build(int root, const std::vector<T>& num) {
+    void build(int root, const std::vector<T> &num) {
         if (tree[root].l == tree[root].r) {
             tree[root].val = num[tree[root].l];
             return;
@@ -60,8 +66,10 @@ private:
         }
         push_down(root);
         int mid = tree[root].mid();
-        if (left <= mid) update(ls(root), left, right, val);
-        if (mid < right) update(rs(root), left, right, val);
+        if (left <= mid)
+            update(ls(root), left, right, val);
+        if (mid < right)
+            update(rs(root), left, right, val);
         push_up(root);
     }
 
@@ -72,21 +80,27 @@ private:
         T ans = 0;
         push_down(root);
         int mid = tree[root].mid();
-        if (left <= mid) ans += query(ls(root), left, right);
-        if (mid < right) ans += query(rs(root), left, right);
+        if (left <= mid)
+            ans += query(ls(root), left, right);
+        if (mid < right)
+            ans += query(rs(root), left, right);
         return ans;
     }
 
 public:
     SegTree(int n) : SegTree(std::vector<T>(n, 0)) {}
 
-    SegTree(const std::vector<T>& num) : n(num.size()), tree(n * 4) {
+    SegTree(const std::vector<T> &num) : n(num.size()), tree(n * 4) {
         tree[0].l = 0;
         tree[0].r = n - 1;
         build(0, num);
     }
 
-    void update(int left, int right, int val) { update(0, left, right, val); }
+    void update(int left, int right, int val) {
+        update(0, left, right, val);
+    }
 
-    T query(int left, int right) { return query(0, left, right); }
+    T query(int left, int right) {
+        return query(0, left, right);
+    }
 };

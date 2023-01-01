@@ -5,7 +5,11 @@
 
 constexpr double inf = 1e9;
 
-template <typename T> 
+/**
+ * @return std::pair<std::vector<T>,  // distance
+ *         std::vector<int>>          // midpoint
+ */
+template <typename T>
 std::pair<std::vector<T>, std::vector<int>> 
 Dijkstra(const std::vector<std::vector<T>> &G, int s) {
     int n = G.size();
@@ -16,14 +20,16 @@ Dijkstra(const std::vector<std::vector<T>> &G, int s) {
     for (int i = 0; i < n; i++) {
         int k = -1;
         for (int j = 0; j < n; j++) {
-            if (vis[j]) continue;
+            if (vis[j])
+                continue;
             if (k == -1 || d[j] < d[k]) {
                 k = j;
             }
         }
         vis[k] = true;
         for (int j = 0; j < n; j++) {
-            if (vis[j]) continue;
+            if (vis[j])
+                continue;
             if (d[j] > d[k] + G[k][j]) {
                 d[j] = d[k] + G[k][j];
                 from[j] = k;

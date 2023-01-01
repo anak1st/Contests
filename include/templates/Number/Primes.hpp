@@ -7,7 +7,7 @@ namespace pre {
 constexpr int N = 1e7;
 
 std::vector<int> primes;
-int minp[N + 1];  // minp[i] = min prime factor of i
+int minp[N + 1]; // minp[i] = min prime factor of i
 
 void init() {
     for (int i = 2; i <= N; i++) {
@@ -17,11 +17,13 @@ void init() {
         }
 
         for (auto p : primes) {
-            if (i * p > N) break;
+            if (i * p > N)
+                break;
             minp[i * p] = p;
-            if (i % p == 0) break;
+            if (i % p == 0)
+                break;
         }
     }
 }
 
-}  // namespace pre
+} // namespace pre
