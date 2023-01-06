@@ -35,77 +35,77 @@ struct MintBase {
         return v;
     }
 
-    friend std::istream &operator>>(std::istream &is, Self &a) {
+    friend std::istream &operator>>(std::istream &is, MintBase &a) {
         i64 x;
         is >> x;
         a.v = a.mod(x);
         return is;
     }
-    friend std::ostream &operator<<(std::ostream &os, const Self &a) {
+    friend std::ostream &operator<<(std::ostream &os, const MintBase &a) {
         os << a.val();
         return os;
     }
 
-    Self operator-() const {
-        return Self(-v);
+    MintBase operator-() const {
+        return MintBase(-v);
     }
 
-    Self inv() const {
+    MintBase inv() const {
         assert(v != 0);
         return power(*this, MOD - 2);
     }
 
-    Self &operator++() {
+    MintBase &operator++() {
         return *this += 1;
     }
-    Self &operator--() {
+    MintBase &operator--() {
         return *this -= 1;
     }
-    Self operator++(int) {
-        Self res = *this;
+    MintBase operator++(int) {
+        MintBase res = *this;
         *this += 1;
         return res;
     }
-    Self operator--(int) {
-        Self res = *this;
+    MintBase operator--(int) {
+        MintBase res = *this;
         *this -= 1;
         return res;
     }
 
-    Self &operator+=(const Self &rhs) {
+    MintBase &operator+=(const MintBase &rhs) {
         v = mod(v + rhs.v);
         return *this;
     }
-    Self &operator-=(const Self &rhs) {
+    MintBase &operator-=(const MintBase &rhs) {
         v = mod(v - rhs.v);
         return *this;
     }
-    Self &operator*=(const Self &rhs) {
+    MintBase &operator*=(const MintBase &rhs) {
         v = mod(1LL * v * rhs.v);
         return *this;
     }
-    Self &operator/=(const Self &rhs) {
+    MintBase &operator/=(const MintBase &rhs) {
         *this *= rhs.inv();
         return *this;
     }
 
-    friend Self operator*(const Self &lhs, const Self &rhs) {
-        Self res = lhs;
+    friend MintBase operator*(const MintBase &lhs, const MintBase &rhs) {
+        MintBase res = lhs;
         res *= rhs;
         return res;
     }
-    friend Self operator+(const Self &lhs, const Self &rhs) {
-        Self res = lhs;
+    friend MintBase operator+(const MintBase &lhs, const MintBase &rhs) {
+        MintBase res = lhs;
         res += rhs;
         return res;
     }
-    friend Self operator-(const Self &lhs, const Self &rhs) {
-        Self res = lhs;
+    friend MintBase operator-(const MintBase &lhs, const MintBase &rhs) {
+        MintBase res = lhs;
         res -= rhs;
         return res;
     }
-    friend Self operator/(const Self &lhs, const Self &rhs) {
-        Self res = lhs;
+    friend MintBase operator/(const MintBase &lhs, const MintBase &rhs) {
+        MintBase res = lhs;
         res /= rhs;
         return res;
     }
