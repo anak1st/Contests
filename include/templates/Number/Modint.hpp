@@ -1,8 +1,8 @@
-/**
- * @author: XiaFan
- * @date: 01-06 18:39
- **/
-#include <bits/stdc++.h>
+// from tourist and jiangly
+#pragma once
+
+#include <cassert>
+#include <iostream>
 
 using i64 = long long;
 
@@ -127,28 +127,3 @@ struct MintBase {
 // using Mint = MintBase<-1>;
 
 } // namespace MintBase
-
-using Mint = Modint::MintBase<1000000007>;
-
-void solve() {
-    int n;
-    std::cin >> n;
-    Mint x = 1;
-    for (int i = 1; i <= n; ++i) {
-        x *= i;
-    }
-    std::cout << x << "\n";
-}
-
-int main() {
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-
-    int t = 1;
-    std::cin >> t >> Modint::P;
-    while (t--) {
-        solve();
-    }
-
-    return 0;
-}

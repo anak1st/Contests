@@ -7,12 +7,14 @@
 #include <iostream>
 #include <vector>
 
-#include "Mint_v2.hpp"
+#include "Modint.hpp"
 
 #define ctz(x) __builtin_ctz(x)
 
+namespace Poly {
+
 constexpr int P = 998244353;
-using Mint = MintBase<P>;
+using Mint = Modint::MintBase<P>;
 
 std::vector<int> rev;
 std::vector<Mint> roots{0, 1};
@@ -282,3 +284,5 @@ struct Poly {
         return ans;
     }
 };
+
+} // namespace Poly

@@ -2,8 +2,6 @@
 
 #include <vector>
 
-#include "Mint_v2.hpp"
-
 using i64 = long long;
 
 template <typename T>
@@ -30,10 +28,12 @@ T C(T n, T m) {
     return ans;
 }
 
+#include "templates/Number/Modint.hpp"
+
 namespace Fast {
 
 constexpr int P = 1e9 + 7;
-using Mint = MintBase<P>;
+using Mint = Modint::MintBase<P>;
 
 std::vector<Mint> fact;
 
