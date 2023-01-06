@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TIMER_HPP
+#define TIMER_HPP
 
 #include <chrono>
 #include <iostream>
@@ -20,3 +21,5 @@ struct Timer {
         std::cerr << "[End] time took " << ms << "ms" << std::endl;
     }
 };
+
+#endif

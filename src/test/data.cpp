@@ -24,16 +24,17 @@ int main() {
     std::cin.tie(nullptr);
 
     int t = 1;
-    // std::cout << t << "\n";
+    std::cout << t << "\n";
     while (t--) {
-        int n = 100;
+        int n = 6;
         std::cout << n << "\n";
-        Randomer<i64> R(1E5, 1E6);
+        std::vector<int> a(n);
+        std::iota(a.begin(), a.end(), 1);
+        std::shuffle(a.begin(), a.end(), std::mt19937(std::random_device()()));
         for (int i = 0; i < n; i++) {
-            int x = R();
-            int y = x + R();
-            std::cout << x << " " << y << "\n";
+            std::cout << a[i] << " ";
         }
+        std::cout << "\n";
     }
 
     return 0;

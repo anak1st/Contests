@@ -12,7 +12,9 @@ private:
 
 public:
     Randomer(T min, T max)
-    : seed(std::random_device()()), engine(seed), distribution(min, max) {}
+        : seed(std::random_device()()), engine(seed), distribution(min, max) {}
 
-    T operator()() { return distribution(engine); }
+    T operator()() {
+        return distribution(engine);
+    }
 };

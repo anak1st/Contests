@@ -7,9 +7,9 @@
 #include <iostream>
 #include <vector>
 
-#include "Mint.hpp"
+#include "Mint_v2.hpp"
 
-namespace ploy {
+#define ctz(x) __builtin_ctz(x)
 
 constexpr int P = 998244353;
 using Mint = MintBase<P>;
@@ -21,7 +21,7 @@ void dft(std::vector<Mint> &a) {
     int n = a.size();
 
     if (int(rev.size()) != n) {
-        int k = __builtin_ctz(n) - 1;
+        int k = ctz(n) - 1;
         rev.resize(n);
         for (int i = 0; i < n; i++) {
             rev[i] = rev[i >> 1] >> 1 | (i & 1) << k;
@@ -34,7 +34,7 @@ void dft(std::vector<Mint> &a) {
         }
     }
     if (int(roots.size()) < n) {
-        int k = __builtin_ctz(roots.size());
+        int k = ctz(roots.size());
         roots.resize(n);
         while ((1 << k) < n) {
             Mint e = power(Mint(3), (P - 1) >> (k + 1));
@@ -69,18 +69,18 @@ void idft(std::vector<Mint> &a) {
 
 struct Poly {
     std::vector<Mint> a;
-    
+
     Poly() {}
     Poly(const std::vector<Mint> &a) : a(a) {}
     Poly(const std::initializer_list<Mint> &a) : a(a) {}
-    
+
     int size() const {
         return a.size();
     }
     void resize(int n) {
         a.resize(n);
     }
-    
+
     Mint operator[](int idx) const {
         if (idx < size()) {
             return a[idx];
@@ -92,26 +92,9 @@ struct Poly {
         return a[idx];
     }
 
-    Poly mulxk(int k) const {
-        auto b = a;
-        b.insert(b.begin(), k, 0);
-        return Poly(b);
-    }
-
-    Poly modxk(int k) const {
-        k = std::min(k, size());
-        return Poly(std::vector<Mint>(a.begin(), a.begin() + k));
-    }
-
-    Poly divxk(int k) const {
-        if (size() <= k) {
-            return Poly();
-        }
-        return Poly(std::vector<Mint>(a.begin() + k, a.end()));
-    }
-
     friend Poly operator+(const Poly &a, const Poly &b) {
-        std::vector<Mint> res(std::max(a.size(), b.size()));
+        int sz = std::max(a.size(), b.size());
+        std::vector<Mint> res(sz);
         for (int i = 0; i < int(res.size()); i++) {
             res[i] = a[i] + b[i];
         }
@@ -119,7 +102,8 @@ struct Poly {
     }
 
     friend Poly operator-(const Poly &a, const Poly &b) {
-        std::vector<Mint> res(std::max(a.size(), b.size()));
+        int sz = std::max(a.size(), b.size());
+        std::vector<Mint> res(sz);
         for (int i = 0; i < int(res.size()); i++) {
             res[i] = a[i] - b[i];
         }
@@ -168,6 +152,24 @@ struct Poly {
     }
     Poly &operator*=(Poly b) {
         return (*this) = (*this) * b;
+    }
+
+    Poly mulxk(int k) const {
+        auto b = a;
+        b.insert(b.begin(), k, 0);
+        return Poly(b);
+    }
+
+    Poly modxk(int k) const {
+        k = std::min(k, size());
+        return Poly(std::vector<Mint>(a.begin(), a.begin() + k));
+    }
+
+    Poly divxk(int k) const {
+        if (size() <= k) {
+            return Poly();
+        }
+        return Poly(std::vector<Mint>(a.begin() + k, a.end()));
     }
 
     Poly deriv() const {
@@ -264,8 +266,8 @@ struct Poly {
             }
         };
         build(1, 0, n);
-        std::function<void(int, int, int, const Poly &)> 
-                work = [&](int p, int l, int r, const Poly &num) {
+        std::function<void(int, int, int, const Poly &)> work = [&](int p, int l, int r,
+                                                                    const Poly &num) {
             if (r - l == 1) {
                 if (l < int(ans.size())) {
                     ans[l] = num[0];
@@ -280,5 +282,3 @@ struct Poly {
         return ans;
     }
 };
-
-} // namespace ploy

@@ -2,9 +2,9 @@
 
 #include <vector>
 
-namespace pre {
-
 constexpr int N = 1e7;
+
+namespace Fast {
 
 std::vector<int> primes;
 int minp[N + 1]; // minp[i] = min prime factor of i
@@ -15,15 +15,16 @@ void init() {
             minp[i] = i;
             primes.push_back(i);
         }
-
         for (auto p : primes) {
-            if (i * p > N)
+            if (i * p > N) {
                 break;
+            }
             minp[i * p] = p;
-            if (i % p == 0)
+            if (i % p == 0) {
                 break;
+            }
         }
     }
 }
 
-} // namespace pre
+} // namespace Fast

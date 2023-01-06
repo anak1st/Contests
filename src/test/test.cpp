@@ -1,39 +1,77 @@
 /**
  * @author: XiaFan
- * @date: 12-30 18:29
+ * @date: 01-05 23:23
  **/
 #include <bits/stdc++.h>
 
+// #include "debug.hpp"
+#ifndef DEBUG_HPP
+#define printErr(...) 42
+#define Timer int
+#endif
+
 using i64 = long long;
+
+struct DSU {
+    std::vector<int> f, cnt_v;
+
+    DSU(int n) : f(n), cnt_v(n, 1) {
+        std::iota(f.begin(), f.end(), 0);
+    }
+
+    int find(int x) {
+        if (f[x] != x) {
+            f[x] = find(f[x]);
+        }
+        return f[x];
+    }
+
+    bool same(int x, int y) {
+        return find(x) == find(y);
+    }
+
+    bool merge(int x, int y) {
+        x = find(x);
+        y = find(y);
+        if (x == y) {
+            return false;
+        }
+        cnt_v[x] += cnt_v[y];
+        f[y] = x;
+        return true;
+    }
+};
 
 void solve() {
     int n;
     std::cin >> n;
     std::vector<int> a(n);
-    int N = 0;
     for (int i = 0; i < n; i++) {
         std::cin >> a[i];
-        N |= a[i];
+        a[i]--;
     }
-
-    std::vector<int> mp(N + 1);
-    i64 ans = 0;
-    int xsum = 0;
-    mp[0] = 1;
+    DSU dsu(n);
     for (int i = 0; i < n; i++) {
-        int add = i + 1;
-        xsum ^= a[i];
-        for (int j = 0; j < 600; j++) {
-            int f = (j * j) ^ xsum;
-            if (f <= N) {
-                add -= mp[f];
-            }   
-        }
-        ans += add;
-        mp[xsum]++;
+        dsu.merge(i, a[i]);
     }
-
-    std::cout << ans << "\n";
+    std::set<int> cnt;
+    for (int i = 0; i < n; i++) {
+        cnt.insert(dsu.find(i));
+    }
+    int op = n - cnt.size() + 1;
+    printErr("cnt:", cnt.size(), "op:", op);
+    // std::cerr << cnt.size() << "\n";
+    for (int i = 0; i < n; i++) {
+        if (i + 1 < n && dsu.same(i, i + 1)) {
+            op -= 2;
+            break;
+        }
+        if (i - 1 >= 0 && dsu.same(i, i - 1)) {
+            op -= 2;
+            break;
+        }
+    }
+    std::cout << op << "\n";
 }
 
 int main() {

@@ -53,13 +53,14 @@ void solve() {
         cnt.insert(dsu.find(i));
     }
     int op = n - cnt.size() + 1;
+
     // std::cerr << cnt.size() << "\n";
     for (int i = 0; i < n; i++) {
-        if (i + 1 < n  && a[i] == i + 1) {
+        if (i + 1 < n && dsu.same(i, i + 1)) {
             op -= 2;
             break;
         }
-        if (i - 1 >= 0 && a[i] == i - 1) {
+        if (i - 1 >= 0 && dsu.same(i, i - 1)) {
             op -= 2;
             break;
         }

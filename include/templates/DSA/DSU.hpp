@@ -5,12 +5,10 @@
 #include <vector>
 
 // Disjoint Set Union
-class DSU {
-private:
-    std::vector<int> f, s;
+struct DSU {
+    std::vector<int> f, cnt_v;
 
-public:
-    DSU(int n) : f(n), s(n, 1) {
+    DSU(int n) : f(n), cnt_v(n, 1) {
         std::iota(f.begin(), f.end(), 0);
     }
 
@@ -31,12 +29,8 @@ public:
         if (x == y) {
             return false;
         }
-        s[x] += s[y];
+        cnt_v[x] += cnt_v[y];
         f[y] = x;
         return true;
-    }
-
-    int size(int x) {
-        return s[find(x)];
     }
 };
