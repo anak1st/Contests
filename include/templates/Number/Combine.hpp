@@ -9,11 +9,7 @@ using i64 = long long;
 constexpr int P = 1e9 + 7;
 
 int mod(i64 x) {
-    x %= P;
-    if (x < 0) {
-        x += P;
-    }
-    return x;
+    return (x % P + P) % P;
 }
 
 template <class T>
@@ -37,7 +33,6 @@ struct Mint {
     int val() const {
         return x;
     }
-
     Mint operator+() const {
         return *this;
     }
@@ -62,7 +57,8 @@ struct Mint {
         return *this;
     }
     Mint &operator/=(const Mint &rhs) {
-        return *this *= rhs.inv();
+        *this *= rhs.inv();
+        return *this;
     }
 
     friend Mint operator*(const Mint &lhs, const Mint &rhs) {
@@ -85,6 +81,26 @@ struct Mint {
         res /= rhs;
         return res;
     }
+
+    Mint &operator++() {
+        *this += 1;
+        return *this;
+    }
+    Mint &operator--() {
+        *this -= 1;
+        return *this;
+    }
+    Mint operator++(int) {
+        Mint res = *this;
+        ++(*this);
+        return res;
+    }
+    Mint operator--(int) {
+        Mint res = *this;
+        --(*this);
+        return res;
+    }
+
     friend std::istream &operator>>(std::istream &is, Mint &a) {
         i64 v;
         is >> v;
