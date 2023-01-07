@@ -1,7 +1,7 @@
+// from jiangly
 #pragma once
 #include <cassert>
 #include <iostream>
-#include <vector>
 using i64 = long long;
 
 constexpr int P = 1e9 + 7;
@@ -99,51 +99,24 @@ struct MintBase {
 };
 using Mint = MintBase<-1>;
 
-std::vector<Mint> fact, invfact;
-void init(int size) {
-    fact.resize(size + 1);
-    invfact.resize(size + 1);
-    fact[0] = 1;
-    for (int i = 1; i <= size; i++) {
-        fact[i] = fact[i - 1] * i;
+constexpr int Mod1 = 1e9 + 7, Mod2 = 1e9 + 9;
+struct Hash {
+    MintBase<Mod1> x;
+    MintBase<Mod2> y;
+    Hash() : x(0), y(0) {}
+    Hash(int _x, int _y) : x(_x), y(_y) {}
+    Hash(MintBase<Mod1> _x, MintBase<Mod2> _y) : x(_x), y(_y) {}
+    friend Hash operator+(const Hash &lhs, const Hash &rhs) {
+        return Hash(lhs.x + rhs.x, lhs.y + rhs.y);
     }
-    invfact[size] = fact[size].inv();
-    for (int i = size; i > 0; i--) {
-        invfact[i - 1] = invfact[i] * i;
+    friend Hash operator-(const Hash &lhs, const Hash &rhs) {
+        return Hash(lhs.x - rhs.x, lhs.y - rhs.y);
     }
-}
-Mint A(i64 n, i64 k) {
-    if (k < 0 || k > n) {
-        return 0;
+    friend Hash operator*(const Hash &lhs, const Hash &rhs) {
+        return Hash(lhs.x * rhs.x, lhs.y * rhs.y);
     }
-    return fact[n] * invfact[n - k];
-}
-Mint C(i64 n, i64 k) {
-    if (k < 0 || k > n) {
-        return 0;
+    friend bool operator==(const Hash &lhs, const Hash &rhs) {
+        return lhs.x == rhs.x && lhs.y == rhs.y;
     }
-    return fact[n] * invfact[n - k] * invfact[k];
-}
-
-// template <typename T>
-// T A(T n, T m) {
-//     if (m > n)
-//         return 0;
-//     T ans = 1;
-//     for (int i = 1; i <= m; i++) {
-//         T a = n + i - m;
-//         ans *= a;
-//     }
-//     return ans;
-// }
-// template <typename T>
-// T C(T n, T m) {
-//     if (m > n)
-//         return 0;
-//     T ans = 1;
-//     for (int i = 1; i <= m; i++) {
-//         T a = n + i - m;
-//         ans = ans * a / i;
-//     }
-//     return ans;
-// }
+};
+Hash base(13331, 23333);

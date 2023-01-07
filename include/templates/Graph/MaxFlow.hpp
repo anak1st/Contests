@@ -6,20 +6,17 @@
 #include <limits>
 
 template<typename T>
-struct Flow {
+struct MaxFlow {
     struct edge {
         int to;
         T cap;
         edge(int to, T cap) : to(to), cap(cap) {}
     };
-
     const int n;
     std::vector<edge> E;
     std::vector<std::vector<int>> G;
     std::vector<int> cur, h;
-
-    Flow(int n) : n(n), G(n) {}
-
+    MaxFlow(int n) : n(n), G(n) {}
     bool bfs(int s, int t) {
         h.assign(n, -1);
         std::queue<int> Q;
@@ -41,7 +38,6 @@ struct Flow {
         }
         return false;
     }
-
     T dfs(int u, int t, T f) {
         if (u == t) {
             return f;
@@ -62,15 +58,13 @@ struct Flow {
         }
         return f - r;
     }
-
     void addEdge(int u, int v, T c) {
         G[u].push_back(E.size());
         E.emplace_back(v, c);
         G[v].push_back(E.size());
         E.emplace_back(u, 0);
     }
-
-    T maxFlow(int s, int t) {
+    T calc(int s, int t) {
         T ans = 0;
         while (bfs(s, t)) {
             cur.assign(n, 0);

@@ -4,7 +4,7 @@
 #include <queue>
 #include <string>
 
-// Aho-Corasick automaton
+// Aho-Corasick Automaton
 namespace Trie {
 constexpr int N = 5e5, M = 26;
 

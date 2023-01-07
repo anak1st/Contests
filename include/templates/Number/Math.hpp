@@ -3,9 +3,20 @@
 #include <array>
 #include <cmath>
 #include <functional>
+using i64 = long long;
 
-template <typename T>
-std::array<T, 3> exgcd(T a, T b) {
+template <class T>
+T power(T a, i64 b) {
+    T res = 1;
+    for (; b; b /= 2, a *= a) {
+        if (b % 2) {
+            res *= a;
+        }
+    }
+    return res;
+}
+
+std::array<i64, 3> exgcd(i64 a, i64 b) {
     if (b == 0) {
         return {a, 1, 0};
     }
@@ -13,10 +24,9 @@ std::array<T, 3> exgcd(T a, T b) {
     return {g, y, x - a / b * y};
 }
 
-template <typename T>
-T euler(T n) {
-    T res = n;
-    for (T i = 2; i * i <= n; i++) {
+i64 euler(i64 n) {
+    i64 res = n;
+    for (i64 i = 2; i * i <= n; i++) {
         if (n % i == 0) {
             res = res / i * (i - 1);
             while (n % i == 0) {

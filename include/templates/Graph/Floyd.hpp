@@ -18,7 +18,6 @@ std::vector<std::vector<int>> Floyd(std::vector<std::vector<T>> &G) {
             }
         }
     }
-
     for (int k = 0; k < n; k++) {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -31,6 +30,5 @@ std::vector<std::vector<int>> Floyd(std::vector<std::vector<T>> &G) {
             }
         }
     }
-
     return P;
 }

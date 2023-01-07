@@ -5,9 +5,7 @@
 using i64 = long long;
 
 // ===== Quick Sort =====
-
-namespace SortDetail {
-
+namespace impl {
 template <typename T>
 void quick_sort(std::vector<T> &a, int l, int r) {
     if (l >= r) {
@@ -29,18 +27,14 @@ void quick_sort(std::vector<T> &a, int l, int r) {
     quick_sort(a, l, i - 1);
     quick_sort(a, i + 1, r);
 }
-
-} // namespace SortDetail
-
+} // namespace impl
 template <typename T>
 void quick_sort(std::vector<T> &a) {
-    SortDetail::quick_sort(a, 0, (int)a.size() - 1);
+    impl::quick_sort(a, 0, (int)a.size() - 1);
 }
 
 // ===== Merge Sort =====
-
-namespace SortDetail {
-
+namespace impl {
 template <typename T>
 i64 merge(std::vector<T> &a, std::vector<T> &b, int l, int r) {
     int m = (l + r) / 2;
@@ -64,7 +58,6 @@ i64 merge(std::vector<T> &a, std::vector<T> &b, int l, int r) {
     std::copy(b.begin() + l, b.begin() + r + 1, a.begin() + l);
     return res;
 }
-
 template <typename T>
 i64 merge_sort(std::vector<T> &a, std::vector<T> &b, int l, int r) {
     i64 res = 0;
@@ -76,11 +69,9 @@ i64 merge_sort(std::vector<T> &a, std::vector<T> &b, int l, int r) {
     }
     return res;
 }
-
-} // namespace SortDetail
-
+} // namespace impl
 template <typename T>
 i64 merge_sort(std::vector<T> &a) {
     std::vector<T> b(a);
-    return SortDetail::merge_sort<T>(a, b, 0, (int)a.size() - 1);
+    return impl::merge_sort<T>(a, b, 0, (int)a.size() - 1);
 }

@@ -1,12 +1,11 @@
+// from jiangly
 #pragma once
 
 #include <vector>
 
 constexpr int N = 1e7;
-
 std::vector<int> primes;
 int minp[N + 1]; // minp[i] = min prime factor of i
-
 void init() {
     for (int i = 2; i <= N; i++) {
         if (!minp[i]) {

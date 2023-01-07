@@ -2,13 +2,11 @@
 
 #include <algorithm>
 #include <iostream>
-
+ 
 using i128 = __int128;
-
 std::istream &operator>>(std::istream &is, i128 &x) {
     std::string s;
     is >> s;
-
     bool flag = false;
     if (s.front() == '-') {
         s = s.substr(1);
@@ -23,7 +21,6 @@ std::istream &operator>>(std::istream &is, i128 &x) {
     }
     return is;
 }
-
 std::ostream &operator<<(std::ostream &os, i128 x) {
     if (x == 0) {
         os << '0';
@@ -38,7 +35,6 @@ std::ostream &operator<<(std::ostream &os, i128 x) {
     }
     return os;
 }
-
 i128 i128_gcd(i128 a, i128 b) {
     if (b == 0) {
         return a;

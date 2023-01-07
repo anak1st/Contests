@@ -20,7 +20,6 @@ class SegTree {
 private:
     int n;
     std::vector<Node> tree;
-
     constexpr int ls(int root) {
         return root * 2 + 1;
     }
@@ -47,18 +46,15 @@ private:
         build(rs(root), num);
         push_up(root);
     }
-
     void change(int root, T val) {
         tree[root].tag += val;
         tree[root].val += (val * (tree[root].r - tree[root].l + 1));
     }
-
     void push_down(int root) {
         change(ls(root), tree[root].tag);
         change(rs(root), tree[root].tag);
         tree[root].tag = 0;
     }
-
     void update(int root, int left, int right, int val) {
         if (left <= tree[root].l && tree[root].r <= right) {
             change(root, val);
@@ -72,7 +68,6 @@ private:
             update(rs(root), left, right, val);
         push_up(root);
     }
-
     T query(int root, int left, int right) {
         if (left <= tree[root].l && tree[root].r <= right) {
             return tree[root].val;
@@ -86,20 +81,16 @@ private:
             ans += query(rs(root), left, right);
         return ans;
     }
-
 public:
-    SegTree(int n) : SegTree(std::vector<T>(n, 0)) {}
-
+    SegTree(int size) : SegTree(std::vector<T>(size, 0)) {}
     SegTree(const std::vector<T> &num) : n(num.size()), tree(n * 4) {
         tree[0].l = 0;
         tree[0].r = n - 1;
         build(0, num);
     }
-
     void update(int left, int right, int val) {
         update(0, left, right, val);
     }
-
     T query(int left, int right) {
         return query(0, left, right);
     }

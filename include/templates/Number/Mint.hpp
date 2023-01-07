@@ -1,15 +1,11 @@
+// from jiangly
+#pragma once
 #include <cassert>
 #include <iostream>
-
 using i64 = long long;
 
 constexpr int P = 1e9 + 7;
-
-int mod(i64 x) {
-    return (x % P + P) % P;
-}
-
-template <class T>
+template <typename T>
 T power(T a, i64 b) {
     T res = 1;
     for (; b; b /= 2, a *= a) {
@@ -19,30 +15,45 @@ T power(T a, i64 b) {
     }
     return res;
 }
-
-struct Mint {
+template <int Mod>
+struct MintBase {
     int x;
-
-    Mint() : x(0) {}
-    Mint(int x) : x(mod(x)) {}
-    Mint(i64 x) : x(mod(x)) {}
-
+    int M() {
+        if constexpr(Mod == -1) {
+            return P;
+        } else {
+            return Mod;
+        }
+    }
+    // assume -M <= x < 2 M
+    int mod(int x) {
+        if (x < 0) {
+            x += M();
+        }
+        if (x >= P) {
+            x -= M();
+        }
+        return x;
+    }
+    MintBase() : x(0) {}
+    MintBase(int x) : x(mod(x)) {}
+    MintBase(i64 x) : x(mod(x % M())) {}
+    using Mint = MintBase<Mod>;
     int val() const {
         return x;
     }
-    Mint operator+() const {
-        return *this;
-    }
     Mint operator-() const {
-        return Mint(mod(P - x));
+        return Mint(mod(M() - x));
     }
     Mint inv() const {
         assert(x != 0);
-        return power(*this, P - 2);
+        return power(*this, M() - 2);
     }
-
+    friend bool operator==(const Mint &lhs, const Mint &rhs) {
+        return lhs.x == rhs.x;
+    }
     Mint &operator*=(const Mint &rhs) {
-        x = mod(1LL * x * rhs.x);
+        x = 1LL * x * rhs.x % M();
         return *this;
     }
     Mint &operator+=(const Mint &rhs) {
@@ -54,10 +65,8 @@ struct Mint {
         return *this;
     }
     Mint &operator/=(const Mint &rhs) {
-        *this *= rhs.inv();
-        return *this;
+        return *this *= rhs.inv();
     }
-
     friend Mint operator*(const Mint &lhs, const Mint &rhs) {
         Mint res = lhs;
         res *= rhs;
@@ -78,26 +87,6 @@ struct Mint {
         res /= rhs;
         return res;
     }
-
-    Mint &operator++() {
-        *this += 1;
-        return *this;
-    }
-    Mint &operator--() {
-        *this -= 1;
-        return *this;
-    }
-    Mint operator++(int) {
-        Mint res = *this;
-        ++(*this);
-        return res;
-    }
-    Mint operator--(int) {
-        Mint res = *this;
-        --(*this);
-        return res;
-    }
-
     friend std::istream &operator>>(std::istream &is, Mint &a) {
         i64 v;
         is >> v;
@@ -108,3 +97,4 @@ struct Mint {
         return os << a.val();
     }
 };
+using Mint = MintBase<-1>;

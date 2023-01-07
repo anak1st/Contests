@@ -13,7 +13,6 @@ struct edge {
         return lhs.c < rhs.c;
     }
 };
-
 template <typename T>
 bool BellmanFord(int n, int start, T val, std::vector<edge<T>> E) {
     std::vector<T> d(n, inf);
