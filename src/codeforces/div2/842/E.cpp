@@ -1,12 +1,18 @@
-#pragma once
+/**
+ * @author: XiaFan
+ * @date: 01-07 09:55
+ **/
+#include <bits/stdc++.h>
 
-#include <cassert>
-#include <iostream>
-#include <vector>
+// #include "debug.hpp"
+#ifndef DEBUG_HPP
+#define printIn(...)
+#define Timer int
+#endif
 
 using i64 = long long;
 
-constexpr int P = 1e9 + 7;
+int P;
 
 int mod(i64 x) {
     x %= P;
@@ -38,9 +44,6 @@ struct Mint {
         return x;
     }
 
-    Mint operator+() const {
-        return *this;
-    }
     Mint operator-() const {
         return Mint(mod(P - x));
     }
@@ -125,26 +128,32 @@ Mint C(i64 n, i64 k) {
     return fact[n] * invfact[n - k] * invfact[k];
 }
 
-// template <typename T>
-// T A(T n, T m) {
-//     if (m > n)
-//         return 0;
-//     T ans = 1;
-//     for (int i = 1; i <= m; i++) {
-//         T a = n + i - m;
-//         ans *= a;
-//     }
-//     return ans;
-// }
+void solve() {
+    int n;
+    std::cin >> n;
+}
 
-// template <typename T>
-// T C(T n, T m) {
-//     if (m > n)
-//         return 0;
-//     T ans = 1;
-//     for (int i = 1; i <= m; i++) {
-//         T a = n + i - m;
-//         ans = ans * a / i;
-//     }
-//     return ans;
-// }
+int main() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+
+    int n;
+    std::cin >> n >> P;
+
+    init(3 * n);
+
+    Mint ans[4];
+    ans[0] = 1;
+    ans[1] = fact[2 * n] * 2 - fact[n];
+    ans[1] -= ans[0];
+    ans[2] = C(2 * n, n) * 2 * fact[2 * n] * fact[n];
+    for (int i = 0; i <= n; i++) {
+        ans[2] -= C(n, i) * C(n, n - i) * C(2 * n - i, n) * fact[n] * fact[n] * fact[n];
+    }
+    ans[2] -= ans[1] + ans[0];
+    ans[3] = fact[3 * n] - ans[2] - ans[1] - ans[0];
+    Mint tot = ans[1] * 1 + ans[2] * 2 + ans[3] * 3;
+    std::cout << tot << std::endl;
+
+    return 0;
+}

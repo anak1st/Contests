@@ -1,5 +1,4 @@
-#ifndef PRINTERR_HPP
-#define PRINTERR_HPP
+#pragma once
 
 #include <array>
 #include <cassert>
@@ -13,9 +12,9 @@ std::ostream &operator<<(std::ostream &os, std::vector<T> v);
 template <typename T, size_t S>
 std::ostream &operator<<(std::ostream &os, std::array<T, S> a);
 template <typename T>
-void printErr(const T &val);
+void WriteLine(const T &val);
 template <typename T, typename... Args>
-void printErr(const T &val, const Args &...args);
+void WriteLine(const T &val, const Args &...args);
 
 template <typename T, typename U>
 std::ostream &operator<<(std::ostream &os, std::pair<T, U> p) {
@@ -50,14 +49,12 @@ std::ostream &operator<<(std::ostream &os, std::array<T, S> a) {
 }
 
 template <typename T>
-void printErr(const T &val) {
+void WriteLine(const T &val) {
     std::cerr << val << "\n";
 }
 
 template <typename T, typename... Args>
-void printErr(const T &val, const Args &...args) {
+void WriteLine(const T &val, const Args &...args) {
     std::cerr << val << " ";
-    printErr(args...);
+    WriteLine(args...);
 }
-
-#endif

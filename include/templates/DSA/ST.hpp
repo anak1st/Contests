@@ -8,6 +8,7 @@
 #include <vector>
 
 #define clz(x) __builtin_clz(x)
+#define ctz(x) __builtin_ctz(x)
 
 // Sparse Table
 template <typename T, class F = std::function<T(const T &, const T &)>>

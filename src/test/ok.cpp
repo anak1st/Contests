@@ -1,7 +1,3 @@
-/**
- * @author: XiaFan
- * @date: 01-06 18:40
- **/
 #include <bits/stdc++.h>
 
 using i64 = long long;

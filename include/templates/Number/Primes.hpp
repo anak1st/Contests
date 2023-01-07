@@ -4,8 +4,6 @@
 
 constexpr int N = 1e7;
 
-namespace Fast {
-
 std::vector<int> primes;
 int minp[N + 1]; // minp[i] = min prime factor of i
 
@@ -26,5 +24,3 @@ void init() {
         }
     }
 }
-
-} // namespace Fast

@@ -6,7 +6,7 @@ using i64 = long long;
 
 // ===== Quick Sort =====
 
-namespace detail {
+namespace SortDetail {
 
 template <typename T>
 void quick_sort(std::vector<T> &a, int l, int r) {
@@ -30,16 +30,16 @@ void quick_sort(std::vector<T> &a, int l, int r) {
     quick_sort(a, i + 1, r);
 }
 
-} // namespace detail
+} // namespace SortDetail
 
 template <typename T>
 void quick_sort(std::vector<T> &a) {
-    detail::quick_sort(a, 0, (int)a.size() - 1);
+    SortDetail::quick_sort(a, 0, (int)a.size() - 1);
 }
 
 // ===== Merge Sort =====
 
-namespace detail {
+namespace SortDetail {
 
 template <typename T>
 i64 merge(std::vector<T> &a, std::vector<T> &b, int l, int r) {
@@ -77,9 +77,10 @@ i64 merge_sort(std::vector<T> &a, std::vector<T> &b, int l, int r) {
     return res;
 }
 
-} // namespace detail
+} // namespace SortDetail
+
 template <typename T>
 i64 merge_sort(std::vector<T> &a) {
     std::vector<T> b(a);
-    return detail::merge_sort<T>(a, b, 0, (int)a.size() - 1);
+    return SortDetail::merge_sort<T>(a, b, 0, (int)a.size() - 1);
 }

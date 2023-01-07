@@ -3,13 +3,16 @@
 #include <algorithm>
 #include <vector>
 
+constexpr int inf = 1e9;
+
 template <typename T>
 struct edge {
     int a, b;
     T c;
+    friend bool operator<(const edge &lhs, const edge &rhs) {
+        return lhs.c < rhs.c;
+    }
 };
-
-constexpr int inf = 1e9;
 
 template <typename T>
 bool BellmanFord(int n, int start, T val, std::vector<edge<T>> E) {
