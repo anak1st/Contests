@@ -13,13 +13,9 @@ void init() {
             primes.push_back(i);
         }
         for (auto p : primes) {
-            if (i * p > N) {
-                break;
-            }
+            if (i * p > N) break;
             minp[i * p] = p;
-            if (i % p == 0) {
-                break;
-            }
+            if (i % p == 0) break;
         }
     }
 }

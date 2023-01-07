@@ -1,12 +1,11 @@
 // from jiangly
 #pragma once
 
-#include <vector>
-#include <queue>
 #include <limits>
+#include <queue>
+#include <vector>
 
-template<typename T>
-struct MaxFlow {
+template <typename T> struct MaxFlow {
     struct edge {
         int to;
         T cap;
@@ -29,9 +28,7 @@ struct MaxFlow {
                 auto [v, c] = E[i];
                 if (c > 0 && h[v] == -1) {
                     h[v] = h[u] + 1;
-                    if (v == t) {
-                        return true;
-                    }
+                    if (v == t) return true;
                     Q.push(v);
                 }
             }
@@ -39,11 +36,9 @@ struct MaxFlow {
         return false;
     }
     T dfs(int u, int t, T f) {
-        if (u == t) {
-            return f;
-        }
+        if (u == t) return f;
         auto r = f;
-        for (int& i = cur[u]; i < int(G[u].size()); i++) {
+        for (int &i = cur[u]; i < int(G[u].size()); i++) {
             const int j = G[u][i];
             auto [v, c] = E[j];
             if (c > 0 && h[v] == h[u] + 1) {
@@ -51,9 +46,7 @@ struct MaxFlow {
                 E[j].cap -= a;
                 E[j ^ 1].cap += a;
                 r -= a;
-                if (r == 0) {
-                    return f;
-                }
+                if (r == 0) return f;
             }
         }
         return f - r;

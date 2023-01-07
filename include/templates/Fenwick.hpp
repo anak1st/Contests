@@ -4,14 +4,12 @@
 #include <vector>
 
 // Fenwick Tree
-template <typename T>
-class Fenwick {
+template <typename T> class Fenwick {
 private:
     int n;
     std::vector<T> a;
-    int lowbit(int x) {
-        return x & -x;
-    }
+    int lowbit(int x) { return x & -x; }
+
 public:
     Fenwick(int size) : n(size), a(n) {}
     Fenwick(const std::vector<T> &v) : n(int(v.size())), a(n) {

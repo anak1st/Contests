@@ -6,21 +6,14 @@ using i64 = long long;
 
 // ===== Quick Sort =====
 namespace impl {
-template <typename T>
-void quick_sort(std::vector<T> &a, int l, int r) {
-    if (l >= r) {
-        return;
-    }
+template <typename T> void quick_sort(std::vector<T> &a, int l, int r) {
+    if (l >= r) return;
     int i = l, j = r;
     T x = a[l];
     while (i < j) {
-        while (i < j && a[j] >= x) {
-            j--;
-        }
+        while (i < j && a[j] >= x) j--;
         a[i] = a[j];
-        while (i < j && a[i] <= x) {
-            i++;
-        }
+        while (i < j && a[i] <= x) i++;
         a[j] = a[i];
     }
     a[i] = x;
@@ -28,15 +21,13 @@ void quick_sort(std::vector<T> &a, int l, int r) {
     quick_sort(a, i + 1, r);
 }
 } // namespace impl
-template <typename T>
-void quick_sort(std::vector<T> &a) {
+template <typename T> void quick_sort(std::vector<T> &a) {
     impl::quick_sort(a, 0, (int)a.size() - 1);
 }
 
 // ===== Merge Sort =====
 namespace impl {
-template <typename T>
-i64 merge(std::vector<T> &a, std::vector<T> &b, int l, int r) {
+template <typename T> i64 merge(std::vector<T> &a, std::vector<T> &b, int l, int r) {
     int m = (l + r) / 2;
     int i = l, j = m + 1, k = l;
     i64 res = 0;
@@ -49,17 +40,12 @@ i64 merge(std::vector<T> &a, std::vector<T> &b, int l, int r) {
             b[k++] = a[j++];
         }
     }
-    while (i <= m) {
-        b[k++] = a[i++];
-    }
-    while (j <= r) {
-        b[k++] = a[j++];
-    }
+    while (i <= m) b[k++] = a[i++];
+    while (j <= r) b[k++] = a[j++];
     std::copy(b.begin() + l, b.begin() + r + 1, a.begin() + l);
     return res;
 }
-template <typename T>
-i64 merge_sort(std::vector<T> &a, std::vector<T> &b, int l, int r) {
+template <typename T> i64 merge_sort(std::vector<T> &a, std::vector<T> &b, int l, int r) {
     i64 res = 0;
     if (l < r) {
         int m = (l + r) / 2;
@@ -70,8 +56,7 @@ i64 merge_sort(std::vector<T> &a, std::vector<T> &b, int l, int r) {
     return res;
 }
 } // namespace impl
-template <typename T>
-i64 merge_sort(std::vector<T> &a) {
+template <typename T> i64 merge_sort(std::vector<T> &a) {
     std::vector<T> b(a);
     return impl::merge_sort<T>(a, b, 0, (int)a.size() - 1);
 }

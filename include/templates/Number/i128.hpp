@@ -2,7 +2,7 @@
 
 #include <algorithm>
 #include <iostream>
- 
+
 using i128 = __int128;
 std::istream &operator>>(std::istream &is, i128 &x) {
     std::string s;
@@ -16,9 +16,7 @@ std::istream &operator>>(std::istream &is, i128 &x) {
     for (auto c : s) {
         x = 10 * x + (c - '0');
     }
-    if (flag) {
-        x = -x;
-    }
+    if (flag) x = -x;
     return is;
 }
 std::ostream &operator<<(std::ostream &os, i128 x) {
@@ -36,8 +34,6 @@ std::ostream &operator<<(std::ostream &os, i128 x) {
     return os;
 }
 i128 i128_gcd(i128 a, i128 b) {
-    if (b == 0) {
-        return a;
-    }
+    if (b == 0) return a;
     return i128_gcd(b, a % b);
 }

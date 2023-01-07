@@ -5,8 +5,7 @@
 #include <functional>
 using i64 = long long;
 
-template <class T>
-T power(T a, i64 b) {
+template <typename T> T power(T a, i64 b) {
     T res = 1;
     for (; b; b /= 2, a *= a) {
         if (b % 2) {

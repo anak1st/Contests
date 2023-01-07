@@ -1,3 +1,7 @@
+/**
+ * @author: XiaFan
+ * @date: 01-08 00:33
+ **/
 #include <bits/stdc++.h>
 
 using i64 = long long;
@@ -13,9 +17,7 @@ int main() {
 
     int t = 1;
     std::cin >> t;
-    while (t--) {
-        solve();
-    }
+    while (t--) solve();
 
     return 0;
 }

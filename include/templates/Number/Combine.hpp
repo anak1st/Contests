@@ -5,8 +5,7 @@
 using i64 = long long;
 
 constexpr int P = 1e9 + 7;
-template <typename T>
-T power(T a, i64 b) {
+template <typename T> T power(T a, i64 b) {
     T res = 1;
     for (; b; b /= 2, a *= a) {
         if (b % 2) {
@@ -15,11 +14,10 @@ T power(T a, i64 b) {
     }
     return res;
 }
-template <int Mod>
-struct MintBase {
+template <int Mod> struct MintBase {
     int x;
     int M() {
-        if constexpr(Mod == -1) {
+        if constexpr (Mod == -1) {
             return P;
         } else {
             return Mod;
@@ -27,31 +25,21 @@ struct MintBase {
     }
     // assume -M <= x < 2 M
     int mod(int x) {
-        if (x < 0) {
-            x += M();
-        }
-        if (x >= P) {
-            x -= M();
-        }
+        if (x < 0) x += M();
+        if (x >= P) x -= M();
         return x;
     }
     MintBase() : x(0) {}
     MintBase(int x) : x(mod(x)) {}
     MintBase(i64 x) : x(mod(x % M())) {}
     using Mint = MintBase<Mod>;
-    int val() const {
-        return x;
-    }
-    Mint operator-() const {
-        return Mint(mod(M() - x));
-    }
+    int val() const { return x; }
+    Mint operator-() const { return Mint(mod(M() - x)); }
     Mint inv() const {
         assert(x != 0);
         return power(*this, M() - 2);
     }
-    friend bool operator==(const Mint &lhs, const Mint &rhs) {
-        return lhs.x == rhs.x;
-    }
+    friend bool operator==(const Mint &lhs, const Mint &rhs) { return lhs.x == rhs.x; }
     Mint &operator*=(const Mint &rhs) {
         x = 1LL * x * rhs.x % M();
         return *this;
@@ -64,9 +52,7 @@ struct MintBase {
         x = mod(x - rhs.x);
         return *this;
     }
-    Mint &operator/=(const Mint &rhs) {
-        return *this *= rhs.inv();
-    }
+    Mint &operator/=(const Mint &rhs) { return *this *= rhs.inv(); }
     friend Mint operator*(const Mint &lhs, const Mint &rhs) {
         Mint res = lhs;
         res *= rhs;
@@ -113,22 +99,17 @@ void init(int size) {
     }
 }
 Mint A(i64 n, i64 k) {
-    if (k < 0 || k > n) {
-        return 0;
-    }
+    if (k < 0 || k > n) return 0;
     return fact[n] * invfact[n - k];
 }
 Mint C(i64 n, i64 k) {
-    if (k < 0 || k > n) {
-        return 0;
-    }
+    if (k < 0 || k > n) return 0;
     return fact[n] * invfact[n - k] * invfact[k];
 }
 
 // template <typename T>
 // T A(T n, T m) {
-//     if (m > n)
-//         return 0;
+//     if (m > n) return 0;
 //     T ans = 1;
 //     for (int i = 1; i <= m; i++) {
 //         T a = n + i - m;
@@ -138,8 +119,7 @@ Mint C(i64 n, i64 k) {
 // }
 // template <typename T>
 // T C(T n, T m) {
-//     if (m > n)
-//         return 0;
+//     if (m > n) return 0;
 //     T ans = 1;
 //     for (int i = 1; i <= m; i++) {
 //         T a = n + i - m;
