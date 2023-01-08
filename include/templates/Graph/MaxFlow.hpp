@@ -1,9 +1,5 @@
-// from jiangly
 #pragma once
-
-#include <limits>
-#include <queue>
-#include <vector>
+#include "templates/XCPC.h"
 
 template <typename T> struct MaxFlow {
     struct edge {

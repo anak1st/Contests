@@ -1,12 +1,9 @@
 #pragma once
-
-#include <cmath>
-#include <functional>
-#include <ctime>
+#include "templates/xcpc.h"
 
 // Simulated Annealing
 // F -> to the min
-double SA(double begin, std::function<double (double)> F) {
+double SA(double begin, std::function<double(double)> F) {
     double T = 200, eps = 1e-15, k = 0.998;
     double L = 1, R = 1e9;
     double ans = begin;

@@ -1,7 +1,5 @@
 #pragma once
-
-#include <algorithm>
-#include <iostream>
+#include "templates/XCPC.h"
 
 using i128 = __int128;
 std::istream &operator>>(std::istream &is, i128 &x) {

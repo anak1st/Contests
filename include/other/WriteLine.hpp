@@ -1,29 +1,20 @@
 #pragma once
-
-#include <array>
-#include <cassert>
-#include <iostream>
-#include <vector>
+#include "templates/XCPC.h"
 
 template <typename T, typename U>
 std::ostream &operator<<(std::ostream &os, std::pair<T, U> p);
-template <typename T>
-std::ostream &operator<<(std::ostream &os, std::vector<T> v);
+template <typename T> std::ostream &operator<<(std::ostream &os, std::vector<T> v);
 template <typename T, size_t S>
 std::ostream &operator<<(std::ostream &os, std::array<T, S> a);
-template <typename T>
-void WriteLine(const T &val);
-template <typename T, typename... Args>
-void WriteLine(const T &val, const Args &...args);
+template <typename T> void WriteLine(const T &val);
+template <typename T, typename... Args> void WriteLine(const T &val, const Args &...args);
 
 template <typename T, typename U>
 std::ostream &operator<<(std::ostream &os, std::pair<T, U> p) {
     os << "p(" << p.first << ", " << p.second << ")";
     return os;
 }
-
-template <typename T>
-std::ostream &operator<<(std::ostream &os, std::vector<T> v) {
+template <typename T> std::ostream &operator<<(std::ostream &os, std::vector<T> v) {
     os << "v(";
     for (auto it = v.begin(); it != v.end(); it++) {
         os << *it;
@@ -34,7 +25,6 @@ std::ostream &operator<<(std::ostream &os, std::vector<T> v) {
     os << ")";
     return os;
 }
-
 template <typename T, size_t S>
 std::ostream &operator<<(std::ostream &os, std::array<T, S> a) {
     os << "a(";
@@ -48,11 +38,7 @@ std::ostream &operator<<(std::ostream &os, std::array<T, S> a) {
     return os;
 }
 
-template <typename T>
-void WriteLine(const T &val) {
-    std::cerr << val << "\n";
-}
-
+template <typename T> void WriteLine(const T &val) { std::cerr << val << "\n"; }
 template <typename T, typename... Args>
 void WriteLine(const T &val, const Args &...args) {
     std::cerr << val << " ";

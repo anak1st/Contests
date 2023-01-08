@@ -1,7 +1,5 @@
-// from jiangly
 #pragma once
-
-#include <vector>
+#include "templates/XCPC.h"
 
 constexpr int N = 1e7;
 std::vector<int> primes;

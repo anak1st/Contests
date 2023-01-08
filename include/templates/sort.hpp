@@ -1,8 +1,5 @@
 #pragma once
-
-#include <vector>
-
-using i64 = long long;
+#include "templates/XCPC.h"
 
 // ===== Quick Sort =====
 namespace impl {
@@ -32,11 +29,10 @@ template <typename T> i64 merge(std::vector<T> &a, std::vector<T> &b, int l, int
     int i = l, j = m + 1, k = l;
     i64 res = 0;
     while (i <= m && j <= r) {
-        res++;
         if (a[i] <= a[j]) {
             b[k++] = a[i++];
         } else {
-            // res += (j - k);
+            res += (j - k);
             b[k++] = a[j++];
         }
     }

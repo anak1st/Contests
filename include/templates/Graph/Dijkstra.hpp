@@ -1,10 +1,7 @@
 #pragma once
-
-#include <algorithm>
-#include <vector>
+#include "templates/XCPC.h"
 
 constexpr double inf = 1e9;
-
 /**
  * @return std::pair<std::vector<T>,  // distance
  *         std::vector<int>>          // midpoint

@@ -1,18 +1,14 @@
 #pragma once
-
-#include <chrono>
-#include <iostream>
+#include "templates/XCPC.h"
 
 struct Timer {
     using clock = std::chrono::high_resolution_clock;
     std::chrono::time_point<clock> start, end;
     std::chrono::duration<float> duration;
-
     Timer() {
         std::cerr << "[Start]" << std::endl;
         start = clock::now();
     }
-
     ~Timer() {
         end = clock::now();
         duration = end - start;

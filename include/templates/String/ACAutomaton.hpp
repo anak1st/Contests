@@ -1,19 +1,13 @@
-// from jiangly
 #pragma once
-
-#include <queue>
-#include <string>
+#include "templates/XCPC.h"
 
 // Aho-Corasick Automaton
 namespace Trie {
 constexpr int N = 5e5, M = 26;
-
 int tree[N][M];
 int fail[N], have[M];
 int cnt = 1;
-
 void init() { std::fill(tree[0], tree[0] + M, 1); }
-
 void insert(std::string t) {
     int p = 1;
     for (auto c : t) {
@@ -23,7 +17,6 @@ void insert(std::string t) {
     }
     have[p] = 1;
 }
-
 void build() {
     std::queue<int> q;
     q.push(1);
@@ -41,7 +34,6 @@ void build() {
         }
     }
 }
-
 bool find(const std::string &s) {
     int p = 1;
     for (const auto c : s) {
@@ -51,5 +43,4 @@ bool find(const std::string &s) {
     }
     return false;
 }
-
 } // namespace Trie

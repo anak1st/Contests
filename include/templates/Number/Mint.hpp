@@ -1,8 +1,5 @@
-// from jiangly
 #pragma once
-#include <cassert>
-#include <iostream>
-using i64 = long long;
+#include "templates/XCPC.h"
 
 constexpr int P = 1e9 + 7;
 template <typename T> T power(T a, i64 b) {
@@ -32,55 +29,56 @@ template <int Mod> struct MintBase {
     MintBase() : x(0) {}
     MintBase(int x) : x(mod(x)) {}
     MintBase(i64 x) : x(mod(x % M())) {}
-    using Mint = MintBase<Mod>;
     int val() const { return x; }
-    Mint operator-() const { return Mint(mod(M() - x)); }
-    Mint inv() const {
+    MintBase operator-() const { return MintBase(mod(M() - x)); }
+    MintBase inv() const {
         assert(x != 0);
         return power(*this, M() - 2);
     }
-    friend bool operator==(const Mint &lhs, const Mint &rhs) { return lhs.x == rhs.x; }
-    Mint &operator*=(const Mint &rhs) {
+    friend bool operator==(const MintBase &lhs, const MintBase &rhs) {
+        return lhs.x == rhs.x;
+    }
+    MintBase &operator*=(const MintBase &rhs) {
         x = 1LL * x * rhs.x % M();
         return *this;
     }
-    Mint &operator+=(const Mint &rhs) {
+    MintBase &operator+=(const MintBase &rhs) {
         x = mod(x + rhs.x);
         return *this;
     }
-    Mint &operator-=(const Mint &rhs) {
+    MintBase &operator-=(const MintBase &rhs) {
         x = mod(x - rhs.x);
         return *this;
     }
-    Mint &operator/=(const Mint &rhs) { return *this *= rhs.inv(); }
-    friend Mint operator*(const Mint &lhs, const Mint &rhs) {
-        Mint res = lhs;
+    MintBase &operator/=(const MintBase &rhs) { return *this *= rhs.inv(); }
+    friend MintBase operator*(const MintBase &lhs, const MintBase &rhs) {
+        MintBase res = lhs;
         res *= rhs;
         return res;
     }
-    friend Mint operator+(const Mint &lhs, const Mint &rhs) {
-        Mint res = lhs;
+    friend MintBase operator+(const MintBase &lhs, const MintBase &rhs) {
+        MintBase res = lhs;
         res += rhs;
         return res;
     }
-    friend Mint operator-(const Mint &lhs, const Mint &rhs) {
-        Mint res = lhs;
+    friend MintBase operator-(const MintBase &lhs, const MintBase &rhs) {
+        MintBase res = lhs;
         res -= rhs;
         return res;
     }
-    friend Mint operator/(const Mint &lhs, const Mint &rhs) {
-        Mint res = lhs;
+    friend MintBase operator/(const MintBase &lhs, const MintBase &rhs) {
+        MintBase res = lhs;
         res /= rhs;
         return res;
     }
-    friend std::istream &operator>>(std::istream &is, Mint &a) {
+    friend std::istream &operator>>(std::istream &is, MintBase &a) {
         i64 v;
         is >> v;
-        a = Mint(v);
+        a = MintBase(v);
         return is;
     }
-    friend std::ostream &operator<<(std::ostream &os, const Mint &a) {
+    friend std::ostream &operator<<(std::ostream &os, const MintBase &a) {
         return os << a.val();
     }
 };
-using Mint = MintBase<-1>;
+// using Mint = MintBase<-1>;

@@ -1,7 +1,5 @@
 #pragma once
-
-#include <algorithm>
-#include <vector>
+#include "templates/XCPC.h"
 
 /**
  * @return std::vector<std::vector<int>>

@@ -1,9 +1,5 @@
 #pragma once
-
-#include <array>
-#include <cmath>
-#include <functional>
-using i64 = long long;
+#include "templates/XCPC.h"
 
 template <typename T> T power(T a, i64 b) {
     T res = 1;

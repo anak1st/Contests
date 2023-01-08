@@ -1,16 +1,11 @@
 #pragma once
-
-#include <cassert>
-#include <vector>
+#include "templates/XCPC.h"
 
 // Fenwick Tree
-template <typename T> class Fenwick {
-private:
+template <typename T> struct Fenwick {
     int n;
     std::vector<T> a;
     int lowbit(int x) { return x & -x; }
-
-public:
     Fenwick(int size) : n(size), a(n) {}
     Fenwick(const std::vector<T> &v) : n(int(v.size())), a(n) {
         for (int i = 0; i < n; i++) {

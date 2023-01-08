@@ -1,13 +1,10 @@
 #pragma once
-
-#include <string>
+#include "templates/XCPC.h"
 
 namespace Trie {
 constexpr int N = 5E5 + 2;
-
 int tree[N][26], have[N], sum[N];
 int cnt = 1;
-
 void insert(std::string s) {
     int p = 1;
     for (auto c : s) {
@@ -18,7 +15,6 @@ void insert(std::string s) {
     }
     have[p] = 1;
 }
-
 bool find(const std::string &s) {
     int p = 1;
     for (const auto c : s) {
@@ -28,5 +24,4 @@ bool find(const std::string &s) {
     }
     return have[p];
 }
-
 } // namespace Trie

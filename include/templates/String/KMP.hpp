@@ -1,7 +1,5 @@
 #pragma once
-
-#include <string>
-#include <vector>
+#include "templates/XCPC.h"
 
 std::vector<int> get_next(std::string &s) {
     int n = s.size();
@@ -17,7 +15,6 @@ std::vector<int> get_next(std::string &s) {
     }
     return next; // size (n+1)
 }
-
 // Knuth-Morris-Pratt
 int KMP(std::string s, std::string t) {
     int ns = s.length();

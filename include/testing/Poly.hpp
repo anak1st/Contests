@@ -1,128 +1,14 @@
-// from jiangly
 #pragma once
+#include "templates/Number/Mint.hpp"
+#include "templates/xcpc.h"
 
-#include <algorithm>
-#include <cassert>
-#include <functional>
-#include <iostream>
-#include <vector>
-
-#define ctz(x) __builtin_ctz(x)
-
-using i64 = long long;
-
-constexpr int P = 1e9 + 7;
-
-int mod(i64 x) {
-    return (x % P + P) % P;
-}
-
-template <class T>
-T power(T a, i64 b) {
-    T res = 1;
-    for (; b; b /= 2, a *= a) {
-        if (b % 2) {
-            res *= a;
-        }
-    }
-    return res;
-}
-
-struct Mint {
-    int x;
-
-    Mint() : x(0) {}
-    Mint(int x) : x(mod(x)) {}
-    Mint(i64 x) : x(mod(x)) {}
-
-    int val() const {
-        return x;
-    }
-    Mint operator+() const {
-        return *this;
-    }
-    Mint operator-() const {
-        return Mint(mod(P - x));
-    }
-    Mint inv() const {
-        assert(x != 0);
-        return power(*this, P - 2);
-    }
-
-    Mint &operator*=(const Mint &rhs) {
-        x = mod(1LL * x * rhs.x);
-        return *this;
-    }
-    Mint &operator+=(const Mint &rhs) {
-        x = mod(x + rhs.x);
-        return *this;
-    }
-    Mint &operator-=(const Mint &rhs) {
-        x = mod(x - rhs.x);
-        return *this;
-    }
-    Mint &operator/=(const Mint &rhs) {
-        *this *= rhs.inv();
-        return *this;
-    }
-
-    friend Mint operator*(const Mint &lhs, const Mint &rhs) {
-        Mint res = lhs;
-        res *= rhs;
-        return res;
-    }
-    friend Mint operator+(const Mint &lhs, const Mint &rhs) {
-        Mint res = lhs;
-        res += rhs;
-        return res;
-    }
-    friend Mint operator-(const Mint &lhs, const Mint &rhs) {
-        Mint res = lhs;
-        res -= rhs;
-        return res;
-    }
-    friend Mint operator/(const Mint &lhs, const Mint &rhs) {
-        Mint res = lhs;
-        res /= rhs;
-        return res;
-    }
-
-    Mint &operator++() {
-        *this += 1;
-        return *this;
-    }
-    Mint &operator--() {
-        *this -= 1;
-        return *this;
-    }
-    Mint operator++(int) {
-        Mint res = *this;
-        ++(*this);
-        return res;
-    }
-    Mint operator--(int) {
-        Mint res = *this;
-        --(*this);
-        return res;
-    }
-
-    friend std::istream &operator>>(std::istream &is, Mint &a) {
-        i64 v;
-        is >> v;
-        a = Mint(v);
-        return is;
-    }
-    friend std::ostream &operator<<(std::ostream &os, const Mint &a) {
-        return os << a.val();
-    }
-};
-
+constexpr int Mod = 998244353;
+using Mint = MintBase<Mod>;
 std::vector<int> rev;
 std::vector<Mint> roots{0, 1};
 
 void dft(std::vector<Mint> &a) {
     int n = a.size();
-
     if (int(rev.size()) != n) {
         int k = ctz(n) - 1;
         rev.resize(n);
@@ -130,7 +16,6 @@ void dft(std::vector<Mint> &a) {
             rev[i] = rev[i >> 1] >> 1 | (i & 1) << k;
         }
     }
-
     for (int i = 0; i < n; i++) {
         if (rev[i] < i) {
             std::swap(a[i], a[rev[i]]);
@@ -159,7 +44,6 @@ void dft(std::vector<Mint> &a) {
         }
     }
 }
-
 void idft(std::vector<Mint> &a) {
     int n = a.size();
     std::reverse(a.begin() + 1, a.end());
@@ -172,18 +56,11 @@ void idft(std::vector<Mint> &a) {
 
 struct Poly {
     std::vector<Mint> a;
-
     Poly() {}
     Poly(const std::vector<Mint> &a) : a(a) {}
     Poly(const std::initializer_list<Mint> &a) : a(a) {}
-
-    int size() const {
-        return a.size();
-    }
-    void resize(int n) {
-        a.resize(n);
-    }
-
+    int size() const { return a.size(); }
+    void resize(int n) { a.resize(n); }
     Mint operator[](int idx) const {
         if (idx < size()) {
             return a[idx];
@@ -191,10 +68,7 @@ struct Poly {
             return 0;
         }
     }
-    Mint &operator[](int idx) {
-        return a[idx];
-    }
-
+    Mint &operator[](int idx) { return a[idx]; }
     friend Poly operator+(const Poly &a, const Poly &b) {
         int sz = std::max(a.size(), b.size());
         std::vector<Mint> res(sz);
@@ -203,7 +77,6 @@ struct Poly {
         }
         return Poly(res);
     }
-
     friend Poly operator-(const Poly &a, const Poly &b) {
         int sz = std::max(a.size(), b.size());
         std::vector<Mint> res(sz);
@@ -212,7 +85,6 @@ struct Poly {
         }
         return Poly(res);
     }
-
     friend Poly operator*(Poly a, Poly b) {
         if (a.size() == 0 || b.size() == 0) {
             return Poly();
@@ -232,49 +104,36 @@ struct Poly {
         a.resize(tot);
         return a;
     }
-
     friend Poly operator*(Mint a, Poly b) {
         for (int i = 0; i < int(b.size()); i++) {
             b[i] *= a;
         }
         return b;
     }
-
     friend Poly operator*(Poly a, Mint b) {
         for (int i = 0; i < int(a.size()); i++) {
             a[i] *= b;
         }
         return a;
     }
-
-    Poly &operator+=(Poly b) {
-        return (*this) = (*this) + b;
-    }
-    Poly &operator-=(Poly b) {
-        return (*this) = (*this) - b;
-    }
-    Poly &operator*=(Poly b) {
-        return (*this) = (*this) * b;
-    }
-
+    Poly &operator+=(Poly b) { return (*this) = (*this) + b; }
+    Poly &operator-=(Poly b) { return (*this) = (*this) - b; }
+    Poly &operator*=(Poly b) { return (*this) = (*this) * b; }
     Poly mulxk(int k) const {
         auto b = a;
         b.insert(b.begin(), k, 0);
         return Poly(b);
     }
-
     Poly modxk(int k) const {
         k = std::min(k, size());
         return Poly(std::vector<Mint>(a.begin(), a.begin() + k));
     }
-
     Poly divxk(int k) const {
         if (size() <= k) {
             return Poly();
         }
         return Poly(std::vector<Mint>(a.begin() + k, a.end()));
     }
-
     Poly deriv() const {
         if (a.empty()) {
             return Poly();
@@ -285,7 +144,6 @@ struct Poly {
         }
         return Poly(res);
     }
-
     Poly integr() const {
         std::vector<Mint> res(size() + 1);
         for (int i = 0; i < size(); ++i) {
@@ -293,7 +151,6 @@ struct Poly {
         }
         return Poly(res);
     }
-
     Poly inv(int m) const {
         Poly x{a[0].inv()};
         int k = 1;
@@ -303,11 +160,7 @@ struct Poly {
         }
         return x.modxk(m);
     }
-
-    Poly log(int m) const {
-        return (deriv() * inv(m)).integr().modxk(m);
-    }
-
+    Poly log(int m) const { return (deriv() * inv(m)).integr().modxk(m); }
     Poly exp(int m) const {
         Poly x{1};
         int k = 1;
@@ -317,7 +170,6 @@ struct Poly {
         }
         return x.modxk(m);
     }
-
     Poly pow(int k, int m) const {
         int i = 0;
         while (i < size() && a[i].val() == 0) {
@@ -330,7 +182,6 @@ struct Poly {
         auto f = divxk(i) * v.inv();
         return (f.log(m - i * k) * k).exp(m - i * k).mulxk(i * k) * power(v, k);
     }
-
     Poly sqrt(int m) const {
         Poly x{1};
         int k = 1;
@@ -340,7 +191,6 @@ struct Poly {
         }
         return x.modxk(m);
     }
-
     Poly mulT(Poly b) const {
         if (b.size() == 0) {
             return Poly();
@@ -349,7 +199,6 @@ struct Poly {
         std::reverse(b.a.begin(), b.a.end());
         return ((*this) * b).divxk(n - 1);
     }
-
     std::vector<Mint> eval(std::vector<Mint> x) const {
         if (size() == 0) {
             return std::vector<Mint>(x.size(), 0);

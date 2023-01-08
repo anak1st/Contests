@@ -1,8 +1,7 @@
-// from https://github.com/hjcapple/MetaLisp
 #pragma once
+#include "templates/XCPC.h"
 
-#include <iostream>
-
+// from https://github.com/hjcapple/MetaLisp
 struct number_tag {
     static const bool is_pair = false;
     static const bool is_null = false;

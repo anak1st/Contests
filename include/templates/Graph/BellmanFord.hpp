@@ -1,10 +1,7 @@
 #pragma once
-
-#include <algorithm>
-#include <vector>
+#include "templates/XCPC.h"
 
 constexpr int inf = 1e9;
-
 template <typename T> struct edge {
     int a, b;
     T c;
