@@ -15,26 +15,31 @@ private:
 public:
     Randomer(T min, T max)
     : seed(std::random_device()()), engine(seed), distribution(min, max) {}
-
     T operator()() { return distribution(engine); }
 };
+
+constexpr int P = 1e9 + 7;
+char itoc(int x) {
+    if (x < 10) {
+        return '0' + x;
+    } else if (x < 10 + 26) {
+        return 'a' + x - 10;
+    } else {
+        return 'A' + x - 10 - 26;
+    }
+}
 
 int main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
 
-    int t = 1;
-    std::cout << t << "\n";
-    while (t--) {
-        int n = 6;
-        std::cout << n << "\n";
-        std::vector<int> a(n);
-        std::iota(a.begin(), a.end(), 1);
-        std::shuffle(a.begin(), a.end(), std::mt19937(std::random_device()()));
-        for (int i = 0; i < n; i++) {
-            std::cout << a[i] << " ";
-        }
-        std::cout << "\n";
+    // int t = 10;
+    // std::cout << t << "\n";
+    
+    constexpr i64 Len = 1000000;
+    Randomer<i64> R(0, 61);
+    for (int i = 0; i < Len; i++) {
+        std::cout << itoc(R());
     }
 
     return 0;

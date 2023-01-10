@@ -1,5 +1,5 @@
 #pragma once
-#include "templates/XCPC.h"
+#include "XCPC.h"
 
 namespace Trie {
 constexpr int N = 5E5 + 2;

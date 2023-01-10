@@ -1,5 +1,5 @@
 #pragma once
-#include "templates/XCPC.h"
+#include "XCPC.h"
 
 constexpr int inf = 1e9;
 template <typename T> struct edge {

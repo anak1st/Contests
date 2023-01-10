@@ -1,5 +1,5 @@
 #pragma once
-#include "templates/XCPC.h"
+#include "XCPC.h"
 
 template <typename T, typename U>
 std::ostream &operator<<(std::ostream &os, std::pair<T, U> p);

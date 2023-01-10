@@ -1,5 +1,5 @@
 #pragma once
-#include "templates/XCPC.h"
+#include "XCPC.h"
 
 template <unsigned int Size> struct IntegerBase {
     int length = 0;

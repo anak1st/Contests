@@ -1,5 +1,5 @@
 #pragma once
-#include "templates/XCPC.h"
+#include "XCPC.h"
 
 struct Timer {
     using clock = std::chrono::high_resolution_clock;

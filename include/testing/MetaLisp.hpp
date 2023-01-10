@@ -1,5 +1,5 @@
 #pragma once
-#include "templates/XCPC.h"
+#include "XCPC.h"
 
 // from https://github.com/hjcapple/MetaLisp
 struct number_tag {

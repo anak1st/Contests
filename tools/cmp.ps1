@@ -8,13 +8,23 @@ $in="./temp/log/in.txt"
 $out="./temp/log/out.txt"
 $ok="./temp/log/ok.txt"
 
+function Run-Test {
+    Get-Content $in | ./build/main.exe > $out
+}
+function Run-STD {
+    Get-Content $in | ./build/ok.exe   > $ok
+}
+
 for($i=1; $i -le 100; $i++) {
     ./build/data.exe > $in
-    Get-Content $in | ./build/main.exe > $out
-    Get-Content $in | ./build/ok.exe   > $ok
+    Write-Output ("# Test case {0}" -f $i)
+    $t1 = (Measure-Command -Expression { Run-Test }).TotalSeconds
+    Write-Output ("    Test Time: {0}" -f $t1)
+    $t2 = (Measure-Command -Expression { Run-STD }).TotalSeconds
+    Write-Output ("    STD  Time: {0}" -f $t2)
     if (Compare-Object (Get-Content $out) (Get-Content $ok)) {
         Write-Output "Wrong Answer"
         break
     }
-    Write-Output ("#{0} Accepted" -f $i)
+    Write-Output ("    Accepted" -f $i)
 }

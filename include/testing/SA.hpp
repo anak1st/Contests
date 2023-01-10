@@ -1,5 +1,5 @@
 #pragma once
-#include "templates/xcpc.h"
+#include "XCPC.h"
 
 // Simulated Annealing
 // F -> to the min

@@ -1,5 +1,5 @@
 #pragma once
-#include "templates/XCPC.h"
+#include "XCPC.h"
 
 // Sparse Table
 template <typename T, class F = std::function<T(const T &, const T &)>> struct ST {

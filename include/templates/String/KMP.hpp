@@ -1,5 +1,5 @@
 #pragma once
-#include "templates/XCPC.h"
+#include "XCPC.h"
 
 std::vector<int> get_next(std::string &s) {
     int n = s.size();

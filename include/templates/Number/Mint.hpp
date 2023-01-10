@@ -1,5 +1,5 @@
 #pragma once
-#include "templates/XCPC.h"
+#include "XCPC.h"
 
 constexpr int P = 1e9 + 7;
 template <typename T> T power(T a, i64 b) {
@@ -12,42 +12,39 @@ template <typename T> T power(T a, i64 b) {
     return res;
 }
 template <int Mod> struct MintBase {
-    int x;
-    int M() {
-        if constexpr (Mod == -1) {
-            return P;
-        } else {
-            return Mod;
-        }
+    int v;
+    int M() const {
+        if (Mod <= 0) return P;
+        else return Mod;
     }
-    // assume -M <= x < 2 M
-    int mod(int x) {
-        if (x < 0) x += M();
+    // assume -M <= __x < 2 M
+    int mod(int x) const {
         if (x >= P) x -= M();
+        else if (x < 0) x += M();
         return x;
     }
-    MintBase() : x(0) {}
-    MintBase(int x) : x(mod(x)) {}
-    MintBase(i64 x) : x(mod(x % M())) {}
-    int val() const { return x; }
-    MintBase operator-() const { return MintBase(mod(M() - x)); }
+    MintBase() : v(0) {}
+    MintBase(int x) : v(mod(x)) {}
+    MintBase(i64 x) : v(mod(x % M())) {}
+    int val() const { return v; }
+    MintBase operator-() const { return MintBase(mod(M() - v)); }
     MintBase inv() const {
-        assert(x != 0);
+        assert(v != 0);
         return power(*this, M() - 2);
     }
     friend bool operator==(const MintBase &lhs, const MintBase &rhs) {
-        return lhs.x == rhs.x;
+        return lhs.val() == rhs.val();
     }
     MintBase &operator*=(const MintBase &rhs) {
-        x = 1LL * x * rhs.x % M();
+        v = 1LL * v * rhs.v % M();
         return *this;
     }
     MintBase &operator+=(const MintBase &rhs) {
-        x = mod(x + rhs.x);
+        v = mod(v + rhs.v);
         return *this;
     }
     MintBase &operator-=(const MintBase &rhs) {
-        x = mod(x - rhs.x);
+        v = mod(v - rhs.v);
         return *this;
     }
     MintBase &operator/=(const MintBase &rhs) { return *this *= rhs.inv(); }
@@ -72,13 +69,13 @@ template <int Mod> struct MintBase {
         return res;
     }
     friend std::istream &operator>>(std::istream &is, MintBase &a) {
-        i64 v;
-        is >> v;
-        a = MintBase(v);
+        i64 x;
+        is >> x;
+        a = MintBase(x);
         return is;
     }
     friend std::ostream &operator<<(std::ostream &os, const MintBase &a) {
         return os << a.val();
     }
 };
-// using Mint = MintBase<-1>;
+// using Mint = MintBase<0>;

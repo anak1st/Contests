@@ -1,5 +1,5 @@
 #pragma once
-#include "templates/XCPC.h"
+#include "XCPC.h"
 #include "templates/Number/Mint.hpp"
 
 constexpr int Mod = 1e9 + 7;

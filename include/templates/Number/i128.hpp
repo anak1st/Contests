@@ -1,5 +1,5 @@
 #pragma once
-#include "templates/XCPC.h"
+#include "XCPC.h"
 
 using i128 = __int128;
 std::istream &operator>>(std::istream &is, i128 &x) {
@@ -11,9 +11,7 @@ std::istream &operator>>(std::istream &is, i128 &x) {
         flag = true;
     }
     x = 0;
-    for (auto c : s) {
-        x = 10 * x + (c - '0');
-    }
+    for (auto c : s) x = 10 * x + (c - '0');
     if (flag) x = -x;
     return is;
 }
@@ -21,11 +19,9 @@ std::ostream &operator<<(std::ostream &os, i128 x) {
     if (x == 0) {
         os << '0';
     } else {
+        if (x < 0) os << '-', x = -x;
         std::string s;
-        while (x) {
-            s.push_back('0' + x % 10);
-            x /= 10;
-        }
+        for (; x; x /= 10) s.push_back('0' + x % 10);
         std::reverse(s.begin(), s.end());
         os << s;
     }

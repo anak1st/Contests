@@ -1,6 +1,6 @@
 #pragma once
+#include "XCPC.h"
 #include "templates/Number/Mint.hpp"
-#include "templates/xcpc.h"
 
 constexpr int Mod = 998244353;
 using Mint = MintBase<Mod>;
@@ -55,31 +55,29 @@ void idft(std::vector<Mint> &a) {
 }
 
 struct Poly {
-    std::vector<Mint> a;
-    Poly() {}
-    Poly(const std::vector<Mint> &a) : a(a) {}
-    Poly(const std::initializer_list<Mint> &a) : a(a) {}
-    int size() const { return a.size(); }
-    void resize(int n) { a.resize(n); }
+    std::vector<Mint> v;
+    Poly() = default;
+    Poly(const std::vector<Mint> &a) : v(a) {}
+    Poly(const std::initializer_list<Mint> &a) : v(a) {}
+    int size() const { return v.size(); }
+    void resize(int n) { v.resize(n); }
     Mint operator[](int idx) const {
         if (idx < size()) {
-            return a[idx];
+            return v[idx];
         } else {
             return 0;
         }
     }
-    Mint &operator[](int idx) { return a[idx]; }
+    Mint &operator[](int idx) { return v[idx]; }
     friend Poly operator+(const Poly &a, const Poly &b) {
-        int sz = std::max(a.size(), b.size());
-        std::vector<Mint> res(sz);
+        std::vector<Mint> res(std::max(a.size(), b.size()));
         for (int i = 0; i < int(res.size()); i++) {
             res[i] = a[i] + b[i];
         }
         return Poly(res);
     }
     friend Poly operator-(const Poly &a, const Poly &b) {
-        int sz = std::max(a.size(), b.size());
-        std::vector<Mint> res(sz);
+        std::vector<Mint> res(std::max(a.size(), b.size()));
         for (int i = 0; i < int(res.size()); i++) {
             res[i] = a[i] - b[i];
         }
@@ -93,14 +91,14 @@ struct Poly {
         while (sz < tot) {
             sz *= 2;
         }
-        a.a.resize(sz);
-        b.a.resize(sz);
-        dft(a.a);
-        dft(b.a);
+        a.resize(sz);
+        b.resize(sz);
+        dft(a.v);
+        dft(b.v);
         for (int i = 0; i < sz; ++i) {
-            a.a[i] = a[i] * b[i];
+            a.v[i] = a[i] * b[i];
         }
-        idft(a.a);
+        idft(a.v);
         a.resize(tot);
         return a;
     }
@@ -120,39 +118,39 @@ struct Poly {
     Poly &operator-=(Poly b) { return (*this) = (*this) - b; }
     Poly &operator*=(Poly b) { return (*this) = (*this) * b; }
     Poly mulxk(int k) const {
-        auto b = a;
+        auto b = v;
         b.insert(b.begin(), k, 0);
         return Poly(b);
     }
     Poly modxk(int k) const {
         k = std::min(k, size());
-        return Poly(std::vector<Mint>(a.begin(), a.begin() + k));
+        return Poly(std::vector<Mint>(v.begin(), v.begin() + k));
     }
     Poly divxk(int k) const {
         if (size() <= k) {
             return Poly();
         }
-        return Poly(std::vector<Mint>(a.begin() + k, a.end()));
+        return Poly(std::vector<Mint>(v.begin() + k, v.end()));
     }
     Poly deriv() const {
-        if (a.empty()) {
+        if (v.empty()) {
             return Poly();
         }
         std::vector<Mint> res(size() - 1);
         for (int i = 0; i < size() - 1; ++i) {
-            res[i] = (i + 1) * a[i + 1];
+            res[i] = (i + 1) * v[i + 1];
         }
         return Poly(res);
     }
     Poly integr() const {
         std::vector<Mint> res(size() + 1);
         for (int i = 0; i < size(); ++i) {
-            res[i + 1] = a[i] / (i + 1);
+            res[i + 1] = v[i] / (i + 1);
         }
         return Poly(res);
     }
     Poly inv(int m) const {
-        Poly x{a[0].inv()};
+        Poly x{v[0].inv()};
         int k = 1;
         while (k < m) {
             k *= 2;
@@ -172,15 +170,14 @@ struct Poly {
     }
     Poly pow(int k, int m) const {
         int i = 0;
-        while (i < size() && a[i].val() == 0) {
+        while (i < size() && v[i].val() == 0) {
             i++;
         }
         if (i == size() || 1LL * i * k >= m) {
             return Poly(std::vector<Mint>(m));
         }
-        Mint v = a[i];
-        auto f = divxk(i) * v.inv();
-        return (f.log(m - i * k) * k).exp(m - i * k).mulxk(i * k) * power(v, k);
+        auto f = divxk(i) * v[i].inv();
+        return (f.log(m - i * k) * k).exp(m - i * k).mulxk(i * k) * power(v[i], k);
     }
     Poly sqrt(int m) const {
         Poly x{1};
@@ -196,7 +193,7 @@ struct Poly {
             return Poly();
         }
         int n = b.size();
-        std::reverse(b.a.begin(), b.a.end());
+        std::reverse(b.v.begin(), b.v.end());
         return ((*this) * b).divxk(n - 1);
     }
     std::vector<Mint> eval(std::vector<Mint> x) const {

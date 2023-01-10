@@ -1,5 +1,5 @@
 #pragma once
-#include "templates/XCPC.h"
+#include "XCPC.h"
 
 template <typename T> T power(T a, i64 b) {
     T res = 1;

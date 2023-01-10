@@ -1,13 +1,12 @@
 #pragma once
-#ifndef __XCPC_H__
-#define __XCPC_H__
 #include <bits/stdc++.h>
-
 using i64 = long long;
 using u64 = unsigned long long;
 #define clz(x) __builtin_clz(x)
 #define ctz(x) __builtin_ctz(x)
 #define popcnt(x) __builtin_popcount(x)
-#define all(x) (x).begin(), (x).end()
+#define fastio std::ios::sync_with_stdio(false); std::cin.tie(nullptr);
 
-#endif // __XCPC_H__
+// std::string filename = "";
+// std::ifstream cin(filename + ".in");
+// std::ofstream cout(filename + ".out");
