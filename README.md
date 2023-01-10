@@ -12,7 +12,8 @@
   - XCPC
 
 - tools
-  - cmp 
+  - compare
+  - generate data
 
 ## Usefull VSCode Plugins :smile:
 
