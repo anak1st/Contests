@@ -8,12 +8,11 @@ using i64 = long long;
 int main() {
     // std::ios::sync_with_stdio(false);
     // std::cin.tie(nullptr);
-    // using std::cin, std::cout;
-    std::ifstream cin("intel.in");
-    std::ofstream cout("intel.out");
+    freopen("intel.in", "r", stdin);
+    freopen("intel.out", "w", stdout);
 
     int n;
-    cin >> n;
+    std::cin >> n;
     std::vector<int> x(n), y(n);
     for (int i = 0; i < n; i++) {
         cin >> x[i] >> y[i];
@@ -26,7 +25,7 @@ int main() {
     auto [minx, maxx] = std::minmax_element(x.begin(), x.end());
     auto [miny, maxy] = std::minmax_element(y.begin(), y.end());
     ans -= 2 * (*maxx - *minx + *maxy - *miny);
-    cout << ans;
+    std::cout << ans;
 
     return 0;
 }

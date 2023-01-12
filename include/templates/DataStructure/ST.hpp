@@ -6,7 +6,9 @@ template <typename T, class F = std::function<T(const T &, const T &)>> struct S
     int n;
     std::vector<std::vector<T>> mat;
     F fn;
-    ST(const std::vector<T> &a, const F &f) : n(int(a.size())), fn(f) { init(); }
+    ST(const std::vector<T> &a, const F &f) : n(int(a.size())), fn(f) {
+        init();
+    }
     void init() {
         int max_log = 32 - clz(n);
         mat.resize(max_log);

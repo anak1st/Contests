@@ -9,7 +9,9 @@ struct Hash {
     Hash() : m1(0), m2(0) {}
     Hash(int x, int y) : m1(x), m2(y) {}
     Hash(MintBase<Mod1> x, MintBase<Mod2> y) : m1(x), m2(y) {}
-    std::pair<int, int> val() const { return {m1.val(), m2.val()}; }
+    std::pair<int, int> val() const {
+        return {m1.val(), m2.val()};
+    }
     friend Hash operator+(const Hash &lhs, const Hash &rhs) {
         return Hash(lhs.m1 + rhs.m1, lhs.m2 + rhs.m2);
     }

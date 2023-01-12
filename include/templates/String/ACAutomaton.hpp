@@ -7,12 +7,16 @@ constexpr int N = 5e5, M = 26;
 int tree[N][M];
 int fail[N], have[M];
 int cnt = 1;
-void init() { std::fill(tree[0], tree[0] + M, 1); }
+void init() {
+    std::fill(tree[0], tree[0] + M, 1);
+}
 void insert(std::string t) {
     int p = 1;
     for (auto c : t) {
         int x = c - 'a';
-        if (!tree[p][x]) tree[p][x] = ++cnt;
+        if (!tree[p][x]) {
+            tree[p][x] = ++cnt;
+        }
         p = tree[p][x];
     }
     have[p] = 1;
@@ -39,7 +43,9 @@ bool find(const std::string &s) {
     for (const auto c : s) {
         int x = c - 'a';
         p = tree[p][x];
-        if (have[p]) return true;
+        if (have[p]) {
+            return true;
+        }
     }
     return false;
 }

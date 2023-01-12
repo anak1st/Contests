@@ -1,10 +1,8 @@
-# Practice for Programming Competitions :joy:  
+# Practice for Programming Competitions 🤗
 
-> Stop learning useless algorithms 🤗
+> Stop learning useless algorithms -- Um_nik
 
----
-
-## File Structure :confounded:
+## File Structure
 
 - src
   - AtCoder
@@ -15,7 +13,7 @@
   - compare
   - generate data
 
-## Usefull VSCode Plugins :smile:
+## Usefull VSCode Plugins
 
 - CPH (Competitive Programming Helper)
 

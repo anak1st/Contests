@@ -24,7 +24,9 @@ template <typename T> struct MaxFlow {
                 auto [v, c] = E[i];
                 if (c > 0 && h[v] == -1) {
                     h[v] = h[u] + 1;
-                    if (v == t) return true;
+                    if (v == t) {
+                        return true;
+                    }
                     Q.push(v);
                 }
             }
@@ -32,7 +34,9 @@ template <typename T> struct MaxFlow {
         return false;
     }
     T dfs(int u, int t, T f) {
-        if (u == t) return f;
+        if (u == t) {
+            return f;
+        }
         auto r = f;
         for (int &i = cur[u]; i < int(G[u].size()); i++) {
             const int j = G[u][i];
@@ -42,18 +46,20 @@ template <typename T> struct MaxFlow {
                 E[j].cap -= a;
                 E[j ^ 1].cap += a;
                 r -= a;
-                if (r == 0) return f;
+                if (r == 0) {
+                    return f;
+                }
             }
         }
         return f - r;
     }
-    void addEdge(int u, int v, T c) {
+    void add_edge(int u, int v, T cap) {
         G[u].push_back(E.size());
-        E.emplace_back(v, c);
+        E.emplace_back(v, cap);
         G[v].push_back(E.size());
         E.emplace_back(u, 0);
     }
-    T calc(int s, int t) {
+    T calculate(int s, int t) {
         T ans = 0;
         while (bfs(s, t)) {
             cur.assign(n, 0);

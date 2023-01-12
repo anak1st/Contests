@@ -35,8 +35,10 @@ i64 euler(i64 n) {
     return res;
 }
 
-double Ternary(std::function<double(double)> F, int limit) {
-    double L = 0, R = 1e18;
+template <typename T>
+double Ternary(std::function<double(T)> F, std::pair<double, double> range,
+               int limit = 1000) {
+    double L = range.first, R = range.second;
     double Lmid, Rmid;
     for (int i = 0; i < limit; i++) {
         Lmid = L + (R - L) / 3;
@@ -47,9 +49,9 @@ double Ternary(std::function<double(double)> F, int limit) {
             L = Lmid;
         }
     }
-    // if input_type is float / double
-    // double ans = F(L);
-    // if input_type is int / i64
-    double ans = std::min(F(ceil(L)), F(floor(L)));
-    return ans;
+    if constexpr (std::is_integral_v<T>) {
+        return std::min(F(ceil(L)), F(floor(L)));
+    } else {
+        return F(L);
+    }
 }

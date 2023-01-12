@@ -1,11 +1,13 @@
 #pragma once
 #include "XCPC.h"
-#include "templates/DSU.hpp"
+#include "templates/DataStructure/DSU.hpp"
 
 template <typename T> struct edge {
     int a, b;
     T c;
-    friend bool operator<(const edge &lhs, const edge &rhs) { return lhs.c < rhs.c; }
+    friend bool operator<(const edge &lhs, const edge &rhs) {
+        return lhs.c < rhs.c;
+    }
 };
 template <typename T> int Kruskal(int n, std::vector<edge<T>> edges) {
     std::sort(edges.begin(), edges.end());

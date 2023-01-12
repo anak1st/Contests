@@ -7,8 +7,8 @@ constexpr double inf = 1e9;
  *         std::vector<int>>          // midpoint
  */
 template <typename T>
-std::pair<std::vector<T>, std::vector<int>> Dijkstra(const std::vector<std::vector<T>> &G,
-                                                     int s) {
+std::pair<std::vector<T>, std::vector<int>> 
+Dijkstra(const std::vector<std::vector<T>> &G, int s) {
     int n = G.size();
     std::vector<T> d(n, inf);
     std::vector<int> from(n, -1);

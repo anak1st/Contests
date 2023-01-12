@@ -24,10 +24,12 @@ int KMP(std::string s, std::string t) {
         while (i > 0 && s[j] != t[i]) {
             i = next[i];
         }
-        if (s[j] == t[i]) i++;
+        if (s[j] == t[i]) {
+            i++;
+        }
         if (i == nt) {
             // success !!!
-            return i;
+            // return i;
             i = next[i];
         }
     }

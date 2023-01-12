@@ -14,20 +14,30 @@ template <typename T> T power(T a, i64 b) {
 template <int Mod> struct MintBase {
     int v;
     int M() const {
-        if (Mod <= 0) return P;
-        else return Mod;
+        if constexpr (Mod <= 0) {
+            return P;
+        } else {
+            return Mod;
+        }
     }
     // assume -M <= __x < 2 M
-    int mod(int x) const {
-        if (x >= P) x -= M();
-        else if (x < 0) x += M();
+    int norm(int x) const {
+        if (x >= P) {
+            x -= M();
+        } else if (x < 0) {
+            x += M();
+        }
         return x;
     }
     MintBase() : v(0) {}
-    MintBase(int x) : v(mod(x)) {}
-    MintBase(i64 x) : v(mod(x % M())) {}
-    int val() const { return v; }
-    MintBase operator-() const { return MintBase(mod(M() - v)); }
+    MintBase(int x) : v(norm(x)) {}
+    MintBase(i64 x) : v(norm(x % M())) {}
+    int val() const {
+        return v;
+    }
+    MintBase operator-() const {
+        return MintBase(norm(M() - v));
+    }
     MintBase inv() const {
         assert(v != 0);
         return power(*this, M() - 2);
@@ -35,23 +45,20 @@ template <int Mod> struct MintBase {
     friend bool operator==(const MintBase &lhs, const MintBase &rhs) {
         return lhs.val() == rhs.val();
     }
+    MintBase &operator+=(const MintBase &rhs) {
+        v = norm(v + rhs.v);
+        return *this;
+    }
+    MintBase &operator-=(const MintBase &rhs) {
+        v = norm(v - rhs.v);
+        return *this;
+    }
     MintBase &operator*=(const MintBase &rhs) {
         v = 1LL * v * rhs.v % M();
         return *this;
     }
-    MintBase &operator+=(const MintBase &rhs) {
-        v = mod(v + rhs.v);
-        return *this;
-    }
-    MintBase &operator-=(const MintBase &rhs) {
-        v = mod(v - rhs.v);
-        return *this;
-    }
-    MintBase &operator/=(const MintBase &rhs) { return *this *= rhs.inv(); }
-    friend MintBase operator*(const MintBase &lhs, const MintBase &rhs) {
-        MintBase res = lhs;
-        res *= rhs;
-        return res;
+    MintBase &operator/=(const MintBase &rhs) {
+        return *this *= rhs.inv();
     }
     friend MintBase operator+(const MintBase &lhs, const MintBase &rhs) {
         MintBase res = lhs;
@@ -61,6 +68,11 @@ template <int Mod> struct MintBase {
     friend MintBase operator-(const MintBase &lhs, const MintBase &rhs) {
         MintBase res = lhs;
         res -= rhs;
+        return res;
+    }
+    friend MintBase operator*(const MintBase &lhs, const MintBase &rhs) {
+        MintBase res = lhs;
+        res *= rhs;
         return res;
     }
     friend MintBase operator/(const MintBase &lhs, const MintBase &rhs) {

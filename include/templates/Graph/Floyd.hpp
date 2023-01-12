@@ -19,8 +19,7 @@ std::vector<std::vector<int>> Floyd(std::vector<std::vector<T>> &G) {
     for (int k = 0; k < n; k++) {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if (i == j)
-                    continue;
+                if (i == j) continue;
                 if (G[i][k] + G[k][j] < G[i][j]) {
                     G[i][j] = G[i][k] + G[k][j];
                     P[i][j] = P[i][k];
