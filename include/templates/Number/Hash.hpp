@@ -8,6 +8,7 @@ struct Hash {
     MintBase<Mod2> m2;
     Hash() : m1(0), m2(0) {}
     Hash(int x, int y) : m1(x), m2(y) {}
+    Hash(i64 x, i64 y) : m1(x), m2(y) {}
     Hash(MintBase<Mod1> x, MintBase<Mod2> y) : m1(x), m2(y) {}
     std::pair<int, int> val() const {
         return {m1.val(), m2.val()};

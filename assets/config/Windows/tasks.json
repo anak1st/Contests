@@ -13,7 +13,9 @@
                 "-Wall",
                 "-W",
                 "-I",
-                "${workspaceFolder}/include"
+                "${workspaceFolder}/include",
+                // "-I",
+                // "C:/Developer/Source/Competitive/testlib"
             ],
             "options": {
                 "cwd": "C:/Developer/Programs/msys2/ucrt64/bin"

@@ -17,3 +17,14 @@ void init() {
         }
     }
 }
+std::vector<int> get_facts(int x) {
+    std::vector<int> facts;
+    int t = x;
+    while (t > 1) {
+        if (facts.empty() || facts.back() != minp[t]) {
+            facts.push_back(minp[t]);
+        }
+        t /= minp[t];
+    }
+    return facts;
+}

@@ -8,9 +8,13 @@ template <typename T> void quick_sort(std::vector<T> &a, int l, int r) {
     int i = l, j = r;
     T x = a[l];
     while (i < j) {
-        while (i < j && a[j] >= x) j--;
+        while (i < j && a[j] >= x) {
+            j--;
+        }
         a[i] = a[j];
-        while (i < j && a[i] <= x) i++;
+        while (i < j && a[i] <= x) {
+            i++;
+        }
         a[j] = a[i];
     }
     a[i] = x;

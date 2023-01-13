@@ -16,7 +16,9 @@ struct DSU {
     }
     bool merge(int x, int y) {
         x = find(x), y = find(y);
-        if (x == y) return false;
+        if (x == y) {
+            return false;
+        }
         cntv[x] += cntv[y];
         f[y] = x;
         return true;

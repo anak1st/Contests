@@ -17,8 +17,7 @@ private:
 public:
     SparseTable(const std::vector<T>& a, const F& f) : n(int(a.size())), func(f) {
         assert(n > 0);
-        // int max_log = 32 - __builtin_clz(n);
-        int max_log = int(log2(n)) + 1;
+        int max_log = 32 - __builtin_clz(n);
         mat.resize(max_log);
         mat[0] = a;
         for (int i = 1; i < max_log; i++) {
@@ -32,8 +31,7 @@ public:
 
     T get(int from, int to) const {
         assert(0 <= from && from <= to && to < n);
-        // int lg = 32 - __builtin_clz(to - from + 1) - 1;
-        int lg = int(log2(to - from + 1));
+        int lg = 32 - __builtin_clz(to - from + 1) - 1;
         return func(mat[lg][from], mat[lg][to - (1 << lg) + 1]);
     }
 };

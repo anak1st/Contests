@@ -3,7 +3,9 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/include/**",
+                "${workspaceFolder}/**",
+                "C:/Developer/Source/Competitive/testlib/**"
             ],
             "defines": [
                 "_DEBUG",

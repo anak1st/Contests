@@ -11,7 +11,9 @@
                 "-std=c++23",
                 "-g",
                 "-Wall",
-                "-W"
+                "-W",
+                "-I",
+                "${workspaceFolder}/include",
             ],
             "options": {
                 "cwd": "/usr/bin/"

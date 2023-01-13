@@ -2,21 +2,15 @@
 #include "XCPC.h"
 
 template <typename T> struct Matrix {
-    const int H, W;
+    int H, W;
     std::vector<std::vector<T>> mat;
     Matrix(int h, int w) : H(h), W(w), mat(h, std::vector<T>(w)) {}
-    Matrix(int h, int w, T val) : H(h), W(w), mat(h, std::vector<T>(w)) {
-        for (int i = 0; i < std::min(H, W); i++) {
-            mat[i][i] = val;
-        }
-    }
-    Matrix(const Matrix &M) : H(M.H), W(M.W), mat(M.mat) {}
     friend Matrix operator+(const Matrix &lhs, const Matrix &rhs) {
-        Matrix res(lhs);
+        Matrix res(lhs.H, rhs.W);
         assert(lhs.H == rhs.H && lhs.W == rhs.W);
         for (int i = 0; i < lhs.H; i++) {
             for (int j = 0; j < rhs.W; j++) {
-                res.mat[i][i] += rhs.mat[i][i];
+                res.mat[i][i] = lhs.mat[i][j] + rhs.mat[i][j];
             }
         }
         return res;
@@ -27,7 +21,7 @@ template <typename T> struct Matrix {
         for (int i = 0; i < lhs.H; i++) {
             for (int j = 0; j < rhs.W; j++) {
                 for (int k = 0; k < lhs.W; k++) {
-                    res.mat[i][i] += lhs.mat[i][k] * rhs.mat[k][i];
+                    res.mat[i][i] += lhs.mat[i][k] * rhs.mat[k][j];
                 }
             }
         }
@@ -43,13 +37,27 @@ template <typename T> struct Matrix {
         *this = lhs * rhs;
         return *this;
     }
-    Matrix mat_power(Matrix<T> a, i64 b) {
-        Matrix res(a.h(), a.w(), 1);
-        for (; b; b /= 2, a *= a) {
-            if (b % 2) {
-                res *= a;
+    friend std::ostream &operator<<(std::ostream &os, const Matrix &M) {
+        for (int i = 0; i < M.H; i++) {
+            for (int j = 0; j < M.W; j++) {
+                os << M.mat[i][j] << " ";
             }
+            os << "\n";
         }
-        return res;
+        return os;
     }
 };
+
+template <typename T> Matrix<T> mat_power(Matrix<T> a, i64 b) {
+    assert(a.H == a.W);
+    Matrix<T> res(a.H, a.W);
+    for (int i = 0; i < a.H; i++) {
+        res.mat[i][i] = 1;
+    }
+    for (; b; b /= 2, a *= a) {
+        if (b % 2) {
+            res *= a;
+        }
+    }
+    return res;
+}
