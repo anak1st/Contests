@@ -1,10 +1,5 @@
-/**
- * @author: XiaFan
- * @date: 2023-01-16 22:10
- **/
-#include <bits/stdc++.h>
-#include <debug/vector>
-using i64 = long long;
+#pragma once
+#include "XCPC.h"
 
 struct Info {
     i64 sum;
@@ -87,34 +82,3 @@ struct SegTree {
         return range_query(1, 0, n, l, r);
     }
 };
-
-int main() {
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-
-    int n, m;
-    std::cin >> n >> m;
-    std::vector<Info> init(n);
-    for (int i = 0; i < n; ++i) {
-        i64 x;
-        std::cin >> x;
-        init[i] = Info(x);
-    }
-    SegTree tree(init);
-    while (m--) {
-        int op;
-        std::cin >> op;
-        if (op == 1) {
-            int l, r;
-            i64 v;
-            std::cin >> l >> r >> v;
-            tree.range_modify(l - 1, r, Info(v));
-        } else {
-            int l, r;
-            std::cin >> l >> r;
-            std::cout << tree.range_query(l - 1, r).sum << "\n";
-        }
-    }
-
-    return 0;
-}

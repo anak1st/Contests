@@ -5,7 +5,7 @@ template <class Info, class Merge = std::plus<Info>> struct SegTree {
     const int n;
     const Merge merge;
     std::vector<Info> info;
-    constexpr int ls(int p) const { return 2 * p;     }
+    constexpr int ls(int p) const { return 2 * p + 0; }
     constexpr int rs(int p) const { return 2 * p + 1; }
     SegTree(int n) : n(n), merge(Merge()), info(4 << std::__lg(n)) {}
     SegTree(std::vector<Info> init) : SegTree(init.size()) {
@@ -40,23 +40,24 @@ template <class Info, class Merge = std::plus<Info>> struct SegTree {
     void modify(int p, const Info &v) {
         modify(1, 0, n, p, v);
     }
-    // void rangeModify(int p, int l, int r, int x, int y, const Info &v) {
-    //     if (l >= y || r <= x) {
-    //         return;
-    //     }
-    //     if (x <= l && r <= y && r - l == 1) {
-    //         info[p] = v;
-    //         return;
-    //     }
-    //     int m = (l + r) / 2;
-    //     rangeModify(ls(p), l, m, x, y, v);
-    //     rangeModify(rs(p), m, r, x, y, v);
-    //     pull(p);
-    // }
-    // void rangeModify(int l, int r, const Info &v) {
-    //     rangeModify(1, 0, n, l, r, v);
-    // }
-    Info rangeQuery(int p, int l, int r, int x, int y) {
+    void range_modify(int p, int l, int r, int x, int y, const Info &v) {
+        if (l >= y || r <= x) {
+            return;
+        }
+        if (x <= l && r <= y && r - l == 1) {
+            info[p] = v;
+            return;
+        }
+        int m = (l + r) / 2;
+        range_modify(ls(p), l, m, x, y, v);
+        range_modify(rs(p), m, r, x, y, v);
+        pull(p);
+    }
+    /// @brief modify for [l, r)
+    void range_modify(int l, int r, const Info &v) {
+        range_modify(1, 0, n, l, r, v);
+    }
+    Info range_query(int p, int l, int r, int x, int y) {
         if (l >= y || r <= x) {
             return Info();
         }
@@ -67,19 +68,20 @@ template <class Info, class Merge = std::plus<Info>> struct SegTree {
         return merge(rangeQuery(ls(p), l, m, x, y), 
                      rangeQuery(rs(p), m, r, x, y));
     }
-    Info rangeQuery(int l, int r) {
-        return rangeQuery(1, 0, n, l, r);
+    /// @brief query for [l, r)
+    Info range_query(int l, int r) {
+        return range_query(1, 0, n, l, r);
     }
 };
 struct Info {
     int sum;
     int min, max;
     Info(int x = 0) : sum(x), min(sum), max(sum) {}
+    friend Info operator+(const Info &a, const Info &b) {
+        Info c;
+        c.sum = a.sum + b.sum;
+        c.min = std::min(a.min, b.min);
+        c.max = std::max(a.max, b.max);
+        return c;
+    }
 };
-Info operator+(const Info &a, const Info &b) {
-    Info c;
-    c.sum = a.sum + b.sum;
-    c.min = std::min(a.min, b.min);
-    c.max = std::max(a.max, b.max);
-    return c;
-}

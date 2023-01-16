@@ -13,6 +13,8 @@ template <class Info, class Merge = std::plus<Info>> struct SegTree {
     const int n;
     const Merge merge;
     std::vector<Info> info;
+    constexpr int ls(int p) const { return 2 * p;     }
+    constexpr int rs(int p) const { return 2 * p + 1; }
     SegTree(int n) : n(n), merge(Merge()), info(4 << std::__lg(n)) {}
     SegTree(std::vector<Info> init) : SegTree(init.size()) {
         std::function<void(int, int, int)> build = [&](int p, int l, int r) {
@@ -21,17 +23,32 @@ template <class Info, class Merge = std::plus<Info>> struct SegTree {
                 return;
             }
             int m = (l + r) / 2;
-            build(2 * p,     l, m);
-            build(2 * p + 1, m, r);
+            build(ls(p), l, m);
+            build(rs(p), m, r);
             pull(p);
         };
         build(1, 0, n);
     }
     void pull(int p) {
-        info[p] = merge(info[2 * p], info[2 * p + 1]);
+        info[p] = merge(info[ls(p)], info[rs(p)]);
     }
-
-    void rangeModify(int p, int l, int r, int x, int y, int k) {
+    // void modify(int p, int l, int r, int x, const Info &v) {
+    //     if (r - l == 1) {
+    //         info[p] = v;
+    //         return;
+    //     }
+    //     int m = (l + r) / 2;
+    //     if (x < m) {
+    //         modify(ls(p), l, m, x, v);
+    //     } else {
+    //         modify(rs(p), m, r, x, v);
+    //     }
+    //     pull(p);
+    // }
+    // void modify(int p, const Info &v) {
+    //     modify(1, 0, n, p, v);
+    // }
+    void range_modify(int p, int l, int r, int x, int y, int k) {
         if (l >= y || r <= x) {
             return;
         }
@@ -51,15 +68,15 @@ template <class Info, class Merge = std::plus<Info>> struct SegTree {
             return;
         }
         int m = (l + r) / 2;
-        rangeModify(2 * p,     l, m, x, y, k);
-        rangeModify(2 * p + 1, m, r, x, y, k);
+        range_modify(ls(p), l, m, x, y, k);
+        range_modify(rs(p), m, r, x, y, k);
         pull(p);
     }
-    void rangeModify(int l, int r, int k) {
-        rangeModify(1, 0, n, l, r, k);
+    /// @brief modify for [l, r)
+    void range_modify(int l, int r, int k) {
+        range_modify(1, 0, n, l, r, k);
     }
-
-    Info rangeQuery(int p, int l, int r, int x, int y) {
+    Info range_query(int p, int l, int r, int x, int y) {
         if (l >= y || r <= x) {
             return Info();
         }
@@ -67,11 +84,12 @@ template <class Info, class Merge = std::plus<Info>> struct SegTree {
             return info[p];
         }
         int m = (l + r) / 2;
-        return merge(rangeQuery(2 * p,     l, m, x, y), 
-                     rangeQuery(2 * p + 1, m, r, x, y));
+        return merge(range_query(ls(p), l, m, x, y), 
+                     range_query(rs(p), m, r, x, y));
     }
-    Info rangeQuery(int l, int r) {
-        return rangeQuery(1, 0, n, l, r);
+    /// @brief query for [l, r)
+    Info range_query(int l, int r) {
+        return range_query(1, 0, n, l, r);
     }
 };
 struct Info {
@@ -109,9 +127,9 @@ int main() {
         if (op == 1) {
             int l, r, k;
             std::cin >> l >> r >> k;
-            seg.rangeModify(l - 1, r, k);
+            seg.range_modify(l - 1, r, k);
         } else {
-            std::cout << seg.rangeQuery(0, n).sum << "\n";
+            std::cout << seg.range_query(0, n).sum << "\n";
         }
     }
 
