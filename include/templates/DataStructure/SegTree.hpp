@@ -65,8 +65,8 @@ template <class Info, class Merge = std::plus<Info>> struct SegTree {
             return info[p];
         }
         int m = (l + r) / 2;
-        return merge(rangeQuery(ls(p), l, m, x, y), 
-                     rangeQuery(rs(p), m, r, x, y));
+        return merge(range_query(ls(p), l, m, x, y), 
+                     range_query(rs(p), m, r, x, y));
     }
     /// @brief query for [l, r)
     Info range_query(int l, int r) {
