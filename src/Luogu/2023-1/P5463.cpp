@@ -73,7 +73,7 @@ template <typename T> struct Fenwick {
         return ans;
     }
     /// @brief sum of [l, r]
-    T sum_range(int l, int r) {
+    T sum(int l, int r) {
         return sum(r) - sum(l - 1);
     }
 };

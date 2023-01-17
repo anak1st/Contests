@@ -31,7 +31,7 @@ template <typename T> struct Fenwick {
         return ans;
     }
     /// @brief sum of [l, r]
-    T sum_range(int l, int r) {
+    T sum(int l, int r) {
         return sum(r) - sum(l - 1);
     }
 };
@@ -61,7 +61,7 @@ int main() {
     for (int i = 0; i < n; i++) {
         int j = c[i];
         fen.add(j, 1);
-        ans += fen.sum_range(j + 1, n - 1);
+        ans += fen.sum(j + 1, n - 1);
     }
     std::cout << ans;
 

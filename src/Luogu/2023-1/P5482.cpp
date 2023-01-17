@@ -19,21 +19,20 @@ template <typename T> struct Fenwick {
             a[i - 1] += v;
         }
     }
-    // sum of [0, r]
+    /// @brief sum of [0, r]
     T sum(int r) {
+        if (r < 0) {
+            return 0;
+        }
         T ans = 0;
         for (int i = r + 1; i > 0; i -= i & -i) {
             ans += a[i - 1];
         }
         return ans;
     }
-    // sum of [l, r]
-    T sum_range(int l, int r) {
-        if (l == 0) {
-            return sum(r);
-        } else {
-            return sum(r) - sum(l - 1);
-        }
+    /// @brief sum of [l, r]
+    T sum(int l, int r) {
+        return sum(r) - sum(l - 1);
     }
 };
 
@@ -108,7 +107,7 @@ int main() {
         } else {
             int x;
             std::cin >> x;
-            int ans = all + fen1.sum(N + x - 1) + fen2.sum_range(N + x + 1, 2 * N);
+            int ans = all + fen1.sum(N + x - 1) + fen2.sum(N + x + 1, 2 * N);
             std::cout << ans << "\n";
         }
     }
