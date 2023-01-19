@@ -16,57 +16,31 @@ void solve() {
     }
     i64 a, b, c, d;
     std::cin >> a >> b >> c >> d;
-    std::vector<i64> v(6);
-    for (int i = 1; i <= 5; i++) {
+    d++;
+
+    std::array<int, 5> v;
+    for (int i = 0; i < 5; i++) {
         std::cin >> v[i];
     }
 
-    auto calc = [&](i64 h) -> i64 {
-        i64 res = 0;
-        for (auto xi : x) {
-            xi += h;
-            if (xi < a) {
-                res += v[1];
-            } else if (xi < b) {
-                res += v[2];
-            } else if (xi < c) {
-                res += v[3];
-            } else if (xi <= d) {
-                res += v[4];
-            } else {
-                res += v[5];
-            }
-        }
-        return res;
-    };
-
-    auto get_next = [&](i64 h, i64 xi) -> i64 {
-        xi += h;
-        if (xi > d) {
-            return xi - d;
-        } else if (xi > c - 1) {
-            return xi - (c - 1);
-        } else if (xi > b - 1) {
-            return xi - (b - 1);
-        } else if (xi > a - 1) {
-            return xi - (a - 1);
-        }
-        return inf;
-    };
-
-    i64 h = 1e10;
-    i64 ans = -1e17;
-    while (h > -inf) {
-        ans = std::max(ans, calc(h));
-        i64 mv = inf;
-        for (auto xi : x) {
-            mv = std::min(mv, get_next(h, xi));
-        }
-        if (mv == inf || mv == 0) {
-            break;
-        }
-        h -= mv;
+    i64 res = 0;
+    std::vector<std::pair<int, int>> events;
+    for (int i = 0; i < n; i++) {
+        res += v[0];
+        events.emplace_back(a - x[i], v[1] - v[0]);
+        events.emplace_back(b - x[i], v[2] - v[1]);
+        events.emplace_back(c - x[i], v[3] - v[2]);
+        events.emplace_back(d - x[i], v[4] - v[3]);
     }
+    i64 ans = res;
+    std::sort(events.begin(), events.end());
+    int pre = -1;
+    for (auto [k, x] : events) {
+        res += x;
+        ans = std::max(ans, res);
+        pre = k;
+    }
+    ans = std::max(ans, res);
     std::cout << ans << "\n";
 }
 

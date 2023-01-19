@@ -8,45 +8,26 @@ using i64 = long long;
 i64 fun(i64 n, i64 x) {
     return n / x + x - 1;
 }
-i64 get_min(i64 n) {
-    i64 L = sqrt(n) - 6000;
-    L = std::max(L, 1LL);
-    i64 R = sqrt(n);
-    i64 ansx = L;
-    for (i64 x = L; x <= R; x++) {
-        if (fun(n, x) < fun(n, ansx)) {
-            ansx = x;
-        }
-    }
-    return ansx;
-}
 
 void solve() {
     i64 n, L, R;
     std::cin >> n >> L >> R;
-    i64 ans = get_min(n);
-    // std::cerr << ans << "\n";
-    if (ans < L) {
-        ans = L;
-        for (int i = 1; i < 5000; i++) {
-            i64 x = L + i;
-            if (x > R) {
-                break;
-            }
-            if (fun(n, x) < fun(n, ans)) {
-                ans = x;
-            }
-        }
-    } else if (ans > R) {
-        ans = R;
-        for (int i = 1; i < 5000; i++) {
-            i64 x = R - i;
-            if (x < L) {
-                break;
-            }
-            if (fun(n, x) < fun(n, ans)) {
-                ans = x;
-            }
+
+    i64 x = std::sqrt(n) + 1;
+    if (x <= L) {
+        std::cout << L << "\n";
+        return;
+    }
+    x = std::clamp(x, L, R);
+    i64 fx = fun(n, x);
+    i64 l = L, r = x, ans = x;
+    while (l <= r) {
+        i64 mid = (l + r) / 2;
+        if (fun(n, mid) <= fx) {
+            ans = mid;
+            r = mid - 1;
+        } else {
+            l = mid + 1;
         }
     }
     std::cout << ans << "\n";
