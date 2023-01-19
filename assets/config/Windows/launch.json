@@ -1,35 +1,39 @@
 {
-    "tasks": [
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
         {
-            "type": "cppbuild",
-            "label": "C/C++: g++.exe 生成活动文件",
-            "command": "C:/Developer/Programs/msys2/ucrt64/bin/g++.exe",
+            "name": "(gdb) 启动",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/main.exe",
             "args": [
-                "${file}",
-                "-o",
-                "${workspaceFolder}/build/main.exe",
-                "-std=c++23",
-                "-g",
-                "-fdiagnostics-color=always",
-                "-Wall",
-                "-W",
-                "-I",
-                "${workspaceFolder}/include",
-                // "-I",
-                // "C:/Developer/Source/Competitive/testlib"
+                "<",
+                "${workspaceFolder}/temp/log/in.txt",
+                ">",
+                "${workspaceFolder}/temp/log/out.txt"
             ],
-            "options": {
-                "cwd": "C:/Developer/Programs/msys2/ucrt64/bin"
-            },
-            "problemMatcher": [
-                "$gcc"
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "C:/Developer/Programs/msys2/ucrt64/bin/gdb.exe",
+            "setupCommands": [
+                {
+                    "description": "为 gdb 启用整齐打印",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description":  "将反汇编风格设置为 Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "detail": "调试器生成的任务。"
+            "preLaunchTask": "C/C++: g++.exe 生成活动文件"
         }
-    ],
-    "version": "2.0.0"
+    ]
 }

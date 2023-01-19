@@ -31,4 +31,14 @@ template <typename T> struct Fenwick {
     T sum(int l, int r) {
         return sum(r) - sum(l - 1);
     }
+    int kth(T k) {
+        int x = 0;
+        for (int i = 1 << std::__lg(n); i; i /= 2) {
+            if (x + i <= n && k >= a[x + i - 1]) {
+                x += i;
+                k -= a[x - 1];
+            }
+        }
+        return x;
+    }
 };

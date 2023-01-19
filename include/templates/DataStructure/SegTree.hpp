@@ -1,7 +1,8 @@
 #pragma once
 #include "XCPC.h"
 
-template <class Info, class Merge = std::plus<Info>> struct SegTree {
+template <class Info, class Merge = std::plus<Info>> 
+struct SegTree {
     const int n;
     const Merge merge;
     std::vector<Info> info;

@@ -10,12 +10,13 @@
                 "${workspaceFolder}/build/main.exe",
                 "-std=c++23",
                 "-g",
+                "-fdiagnostics-color=always",
                 "-Wall",
                 "-W",
                 "-I",
                 "${workspaceFolder}/include",
                 // "-I",
-                // "C:/Developer/Source/Competitive/testlib"
+                // "C:/Developer/Source/testlib"
             ],
             "options": {
                 "cwd": "C:/Developer/Programs/msys2/ucrt64/bin"

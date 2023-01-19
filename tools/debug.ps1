@@ -1,4 +1,4 @@
-$mingwdir = "C:\Programs\MSYS2\mingw64\bin\"
+$mingwdir = "C:\Developer\Programs\MSYS2\mingw64\bin\"
 $targetdir = ".\build"
 
 Copy-Item $mingwdir\libgcc_s_seh-1.dll $targetdir

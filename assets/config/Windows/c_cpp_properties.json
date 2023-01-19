@@ -5,7 +5,7 @@
             "includePath": [
                 "${workspaceFolder}/include/**",
                 "${workspaceFolder}/**",
-                "C:/Developer/Source/Competitive/testlib/**"
+                "C:/Developer/Source/testlib/**"
             ],
             "defines": [
                 "_DEBUG",
