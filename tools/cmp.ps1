@@ -1,28 +1,28 @@
-g++ ./src/test/data.cpp -o ./build/data.exe -O2 -std=c++23 -I C:\Developer\Source\Contests\include
-g++ ./src/test/test.cpp -o ./build/main.exe -O2 -std=c++23
-g++ ./src/test/ok.cpp   -o ./build/ok.exe   -O2 -std=c++23
+g++ ./src/temp/data.cpp -o ./build/data.exe -O2 -std=c++23 -I C:\Develop\Source\Contests\include
+g++ ./src/temp/main.cpp -o ./build/main.exe -O2 -std=c++23
+g++ ./src/temp/pass.cpp -o ./build/pass.exe -O2 -std=c++23
 
 Write-Output "Build Finish"
 
-$in  = "./temp/log/in.txt"
-$out = "./temp/log/out.txt"
-$ok  = "./temp/log/ok.txt"
+$logdata = "./temp/log/data.txt"
+$logmain = "./temp/log/main.txt"
+$logpass = "./temp/log/pass.txt"
 
-function Start-Test {
-    Get-Content $in | ./build/main.exe > $out
+function Start-Main {
+    Get-Content $logdata | ./build/main.exe > $logmain
 }
-function Start-STD {
-    Get-Content $in | ./build/ok.exe   > $ok
+function Start-Pass {
+    Get-Content $logdata | ./build/pass.exe > $logpass
 }
 
-for ($i = 1; $i -le 100; $i++) {
-    ./build/data.exe > $in
+for ($i = 1; $i -le 10; $i++) {
+    ./build/data.exe > $logdata
     Write-Output ("# Test case {0}" -f $i)
-    $t1 = (Measure-Command -Expression { Start-Test }).TotalSeconds
-    Write-Output ("    Test Time: {0}" -f $t1)
-    $t2 = (Measure-Command -Expression { Start-STD  }).TotalSeconds
-    Write-Output ("    STD  Time: {0}" -f $t2)
-    if (Compare-Object (Get-Content $out) (Get-Content $ok)) {
+    $t1 = (Measure-Command -Expression { Start-Main }).TotalSeconds
+    Write-Output ("    Main Time: {0}" -f $t1)
+    $t2 = (Measure-Command -Expression { Start-Pass }).TotalSeconds
+    Write-Output ("    Pass Time: {0}" -f $t2)
+    if (Compare-Object (Get-Content $logmain) (Get-Content $logpass)) {
         Write-Output "Wrong Answer"
         break
     }

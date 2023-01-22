@@ -1,6 +1,15 @@
 #pragma once
 #include "XCPC.h"
 
+template <typename T> T power(T a, i64 b, T mod) {
+    T res = 1;
+    for (; b; b /= 2, a = (a * a) % mod) {
+        if (b % 2) {
+            res = (res * a) % mod;
+        }
+    }
+    return res;
+}
 template <typename T> T power(T a, i64 b) {
     T res = 1;
     for (; b; b /= 2, a *= a) {

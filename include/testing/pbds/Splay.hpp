@@ -1,13 +1,10 @@
 #pragma once
 #include <bits/extc++.h>
 
-
 /**
  * @brief Splay Tree from pbds
- * 
- * @fn find_by_order find nth val
- * @fn order_of_key  find pos of key
- * 
+ * @fn find_by_order() find nth val
+ * @fn order_of_key()  find pos of key
  */
 template <typename T> 
 using Splay = __gnu_pbds::tree<
