@@ -1,15 +1,15 @@
 #!/usr/bin/zsh
 
-g++ ./src/temp/data.cpp -o ./build/data -O2 -std=c++23
-g++ ./src/temp/main.cpp -o ./build/main -O2 -std=c++23
-g++ ./src/temp/pass.cpp -o ./build/pass -O2 -std=c++23
+g++ ./test/data.cpp -o ./build/data -O2 -std=c++23
+g++ ./test/main.cpp -o ./build/main -O2 -std=c++23
+g++ ./test/pass.cpp -o ./build/pass -O2 -std=c++23
 
 for ((i=1; i<=100; i++))
 do
-	./build/data > ./temp/log/data.txt
-	./build/main < ./temp/log/data.txt > ./temp/log/main.txt
-	./build/pass < ./temp/log/data.txt > ./temp/log/pass.txt
-	if diff ./log/main.txt ./log/pass.txt; then
+	./build/data > ./temp/data.txt
+	./build/main < ./temp/data.txt > ./temp/main.txt
+	./build/pass < ./temp/data.txt > ./temp/pass.txt
+	if diff ./temp/main.txt ./temp/pass.txt; then
 		printf "#$i Accepted\n"
 	else
 		printf "Wrong Answer\n"
