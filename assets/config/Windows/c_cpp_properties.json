@@ -4,15 +4,14 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/include/**",
-                "${workspaceFolder}/**",
-                "C:/Developer/Source/testlib/**"
+                "${workspaceFolder}/**"
             ],
             "defines": [
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE"
             ],
-            "compilerPath": "C:/Developer/Programs/msys2/ucrt64/bin/g++.exe",
+            "compilerPath": "C:/Users/Anak1st/msys2/ucrt64/bin/g++.exe",
             "intelliSenseMode": "windows-gcc-x64",
             "cStandard": "c17",
             "cppStandard": "c++23"

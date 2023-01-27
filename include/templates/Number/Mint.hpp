@@ -42,9 +42,6 @@ template <int Mod> struct MintBase {
         assert(v != 0);
         return power(*this, M() - 2);
     }
-    friend bool operator==(const MintBase &lhs, const MintBase &rhs) {
-        return lhs.val() == rhs.val();
-    }
     MintBase &operator+=(const MintBase &rhs) {
         v = norm(v + rhs.v);
         return *this;
@@ -59,6 +56,9 @@ template <int Mod> struct MintBase {
     }
     MintBase &operator/=(const MintBase &rhs) {
         return *this *= rhs.inv();
+    }
+    friend bool operator==(const MintBase &lhs, const MintBase &rhs) {
+        return lhs.val() == rhs.val();
     }
     friend MintBase operator+(const MintBase &lhs, const MintBase &rhs) {
         MintBase res = lhs;

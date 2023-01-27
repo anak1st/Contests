@@ -11,16 +11,16 @@
             "program": "${workspaceFolder}/build/main.exe",
             "args": [
                 "<",
-                "${workspaceFolder}/temp/log/in.txt",
+                "${workspaceFolder}/temp/log/data.txt",
                 ">",
-                "${workspaceFolder}/temp/log/out.txt"
+                "${workspaceFolder}/temp/log/main.txt"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
-            "miDebuggerPath": "C:/Developer/Programs/msys2/ucrt64/bin/gdb.exe",
+            "miDebuggerPath": "C:/Users/Anak1st/msys2/ucrt64/bin/gdb.exe",
             "setupCommands": [
                 {
                     "description": "为 gdb 启用整齐打印",

@@ -1,4 +1,4 @@
-g++ ./src/temp/data.cpp -o ./build/data.exe -O2 -std=c++23 -I C:\Develop\Source\Contests\include
+g++ ./src/temp/data.cpp -o ./build/data.exe -O2 -std=c++23 -I C:/Users/Anak1st/Contests/include
 g++ ./src/temp/main.cpp -o ./build/main.exe -O2 -std=c++23
 g++ ./src/temp/pass.cpp -o ./build/pass.exe -O2 -std=c++23
 

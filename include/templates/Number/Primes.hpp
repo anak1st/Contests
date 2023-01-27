@@ -17,6 +17,12 @@ void init() {
         }
     }
 }
+bool is_prime(int x) {
+    if (x <= 1) {
+        return false;
+    }
+    return minp[x] == x;
+}
 std::vector<int> get_facts(int x) {
     std::vector<int> facts;
     int t = x;

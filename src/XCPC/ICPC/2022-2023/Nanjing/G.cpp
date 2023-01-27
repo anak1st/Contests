@@ -10,16 +10,29 @@ void solve() {
     int n;
     std::cin >> n;
     std::vector<int> a(n);
-    for (auto &x : a) std::cin >> x;
+    for (auto &x : a) {
+        std::cin >> x;
+    }
 
-    int x = 1, y = 1;
+    bool flag = true;
+    int x = 1, y = 1, z = 0;
     auto fun1 = [&]() {
-        x++, y++;
+        x++;
+        y++;
     };
     auto fun2 = [&]() {
         y--;
+        if (y == 0) {
+            if (z > 0) {
+                z--;
+                x++;
+                y += 2;
+            } else {
+                flag = false;
+            }
+        }
     };
-    int z = 0;
+
     for (auto t : a) {
         if (t == 1) {
             fun1();
@@ -28,22 +41,17 @@ void solve() {
             fun2();
         }
         if (t == 0) {
-            z++;
-        }
-        if (y == 0) {
-            if (z > 0) {
-                z--;
-                fun1();
+            if (y > 0) {
+                z++;
+                fun2();
             } else {
-                std::cout << -1 << "\n";
-                return;
+                fun1();
             }
         }
     }
-
-    while (z--) {
-        if (y > 1) fun2();
-        else fun1();
+    if (!flag) {
+        std::cout << -1 << "\n";
+        return;
     }
 
     int g = std::gcd(x, y);
@@ -55,10 +63,12 @@ void solve() {
 int main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
-    
+
     int T = 1;
     std::cin >> T;
-    while (T--) solve();
-    
+    while (T--) {
+        solve();
+    }
+
     return 0;
 }

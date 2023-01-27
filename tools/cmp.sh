@@ -6,9 +6,9 @@ g++ ./src/temp/pass.cpp -o ./build/pass -O2 -std=c++23
 
 for ((i=1; i<=100; i++))
 do
-	./build/data > ./log/data.txt
-	./build/main < ./log/data.txt > ./log/main.txt
-	./build/pass < ./log/data.txt > ./log/pass.txt
+	./build/data > ./temp/log/data.txt
+	./build/main < ./temp/log/data.txt > ./temp/log/main.txt
+	./build/pass < ./temp/log/data.txt > ./temp/log/pass.txt
 	if diff ./log/main.txt ./log/pass.txt; then
 		printf "#$i Accepted\n"
 	else

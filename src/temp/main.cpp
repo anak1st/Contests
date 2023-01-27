@@ -1,39 +1,51 @@
 /**
  * @author: XiaFan
- * @date: 2023-01-21 16:50
+ * @date: 2023-01-26 07:35
  **/
 #include <bits/stdc++.h>
-#include <bits/extc++.h>
 using i64 = long long;
 
-/**
- * @brief Splay Tree from pbds
- * @fn find_by_order() find nth val
- * @fn order_of_key()  find pos of key
- */
-template <typename T> 
-using Splay = __gnu_pbds::tree<
-    T, 
-    __gnu_pbds::null_type, 
-    std::less<T>,
-    __gnu_pbds::splay_tree_tag,
-    __gnu_pbds::tree_order_statistics_node_update>;
+constexpr int N = 1e7;
+std::vector<int> primes;
+int minp[N + 1]; // minp[i] = min prime factor of i
+void init() {
+    for (int i = 2; i <= N; i++) {
+        if (!minp[i]) {
+            minp[i] = i;
+            primes.push_back(i);
+        }
+        for (auto p : primes) {
+            if (i * p > N) break;
+            minp[i * p] = p;
+            if (i % p == 0) break;
+        }
+    }
+}
+bool is_prime(int x) {
+    if (x <= 1) {
+        return false;
+    }
+    return minp[x] == x;
+}
+std::vector<int> get_facts(int x) {
+    std::vector<int> facts;
+    int t = x;
+    while (t > 1) {
+        if (facts.empty() || facts.back() != minp[t]) {
+            facts.push_back(minp[t]);
+        }
+        t /= minp[t];
+    }
+    return facts;
+}
 
 int main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
 
-    int n;
-    std::cin >> n;
-    Splay<int> splay;
-    for (int i = 0; i < n; ++i) {
-        int x;
-        std::cin >> x;
-        splay.insert(x);
-    }
-    std::cout << "size: " << splay.size() << "\n";
-    for (int i = 0; i < n; ++i) {
-        std::cout << splay.order_of_key(i) << " ";
+    init();
+    for (int i = 0; i <= 100; i++) {
+        std::cerr << i << " " << std::boolalpha << is_prime(i) << "\n";
     }
 
     return 0;
