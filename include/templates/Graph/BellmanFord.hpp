@@ -13,7 +13,7 @@ template <typename T>
 bool BellmanFord(int n, int start, T val, std::vector<edge<T>> E) {
     std::vector<T> d(n, inf);
     d[start] = val;
-    int m = e.size();
+    int m = E.size();
     for (int i = 0; i < n - 1; i++) {
         for (int j = 0; j < m; j++) {
             auto [a, b, c] = E[j];

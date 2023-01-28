@@ -2,8 +2,8 @@ $testlibDir = "C:\Users\Anak1st\Source\testlib\"
 $std = ".\src\problems\Bones\std.cpp"
 $gen = ".\src\problems\Bones\gen.cpp"
 
-g++ $std -o .\build\main.exe -O2 -std=c++23
-g++ $gen -o .\build\data.exe -O2 -std=c++23 -I $testlibDir
+g++ $std -o .\build\main.exe -O2 -std=c++20
+g++ $gen -o .\build\data.exe -O2 -std=c++20 -I $testlibDir
 
 for ($i = 1; $i -le 10; $i++) {
     $in  = ("./temp/private/{0}.in"  -f $i)

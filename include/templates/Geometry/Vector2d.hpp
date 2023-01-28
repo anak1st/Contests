@@ -28,8 +28,9 @@ struct Vector2d {
         return Vector2d(lhs.x - rhs.x, lhs.y - rhs.y);
     }
     double norm() const {
-        return std::sqrt(x * x + y * y);
+        return std::hypot(x, y);
     }
+    /// @brief rotate by radian around point p
     Vector2d rotate(double radian, Vector2d p = Vector2d(0, 0)) {
         Vector2d tmp = p;
         Vector2d v = *this - p;

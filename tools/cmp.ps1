@@ -1,6 +1,6 @@
-g++ ./test/data.cpp -o ./build/data.exe -O2 -std=c++23 -I C:/Users/Anak1st/Repos/Contests/include
-g++ ./test/main.cpp -o ./build/main.exe -O2 -std=c++23
-g++ ./test/pass.cpp -o ./build/pass.exe -O2 -std=c++23
+g++ ./test/data.cpp -o ./build/data.exe -O2 -std=c++20 -I C:/Users/Anak1st/Repos/Contests/include
+g++ ./test/main.cpp -o ./build/main.exe -O2 -std=c++20
+g++ ./test/pass.cpp -o ./build/pass.exe -O2 -std=c++20
 
 Write-Output "Build Finish"
 
@@ -15,7 +15,7 @@ function Start-Pass {
     Get-Content $txtdata | ./build/pass.exe > $txtpass
 }
 
-for ($i = 1; $i -le 10; $i++) {
+for ($i = 1; $i -le 200; $i++) {
     ./build/data.exe > $txtdata
     Write-Output ("# Test case {0}" -f $i)
     $t1 = (Measure-Command -Expression { Start-Main }).TotalSeconds

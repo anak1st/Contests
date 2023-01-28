@@ -12,16 +12,12 @@ int main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
 
-    Randomer<int> R(-1, 1);
+    Randomer<int> R(100000, 200000);
 
-    int t = 100;
+    int t = 10;
     std::cout << t << "\n";
     while (t--) {
-        int n = 100;
-        std::cout << n << "\n";
-        for (int i = 0; i < n; i++) {
-            std::cout << R() << " ";
-        }
+        std::cout << 1 << " " << R() << "\n";
     }
     
     return 0;

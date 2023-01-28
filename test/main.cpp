@@ -1,22 +1,28 @@
 /**
  * @author: XiaFan
- * @date: 2023-01-27 21:57
+ * @date: 2023-01-28 16:29
  **/
 #include <bits/stdc++.h>
-#include <vector>
-#include <debug/vector>
 using i64 = long long;
 
 int main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
 
-    std::cout << __cplusplus << "\n";
-    std::vector<std::string> a;
-    for (int i = 1; i <= 9; i++) {
-        a.emplace_back(i, '0' + i);
+    int n = 5;
+    std::vector<int> a(n);
+    std::iota(a.begin(), a.end(), 1);
+    for (int i = 0; i < n; i++) {
+        std::cout << a[i] << " \n"[i == n - 1];
     }
-    std::cout << a.size() << "\n";
+    std::adjacent_difference(a.begin(), a.end(), a.begin());
+    for (int i = 0; i < n; i++) {
+        std::cout << a[i] << " \n"[i == n - 1];
+    }
+    std::partial_sum(a.begin(), a.end(), a.begin());
+    for (int i = 0; i < n; i++) {
+        std::cout << a[i] << " \n"[i == n - 1];
+    }
 
     return 0;
 }
