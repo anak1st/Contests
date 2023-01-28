@@ -14,7 +14,7 @@
                 "-Wall",
                 "-W",
                 "-I",
-                "${workspaceFolder}/include"
+                "${workspaceFolder}/include",
             ],
             "options": {
                 "cwd": "C:/Users/Anak1st/msys2/ucrt64/bin"

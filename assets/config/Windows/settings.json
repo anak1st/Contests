@@ -3,5 +3,14 @@
     "cph.general.saveLocation": "C:/Users/Anak1st/Repos/Contests/build/cph",
     "cph.language.cpp.Args": "-O2 -std=c++23 -I C:/Users/Anak1st/Repos/Contests/include",
     "cph.general.autoShowJudge": false,
-    "cph.general.timeOut": 10000
+    "cph.general.timeOut": 10000,
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "clangd.path": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\Llvm\\x64\\bin\\clangd.exe",
+    "clangd.fallbackFlags": [
+        "--target=x86_64-w64-windows-gnu",
+        "-std=c++2b",
+        "-I",
+        "C:/Users/Anak1st/Repos/Contests/include",
+        // "-IC:/Users/Anak1st/msys2/ucrt64/include/c++/12.2.0"
+    ]
 }
