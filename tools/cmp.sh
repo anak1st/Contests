@@ -1,8 +1,8 @@
 #!/usr/bin/zsh
 
-g++ ./test/data.cpp -o ./build/data -O2 -std=c++20
-g++ ./test/main.cpp -o ./build/main -O2 -std=c++20
-g++ ./test/pass.cpp -o ./build/pass -O2 -std=c++20
+g++ ./test/data.cpp -o ./build/data -O2 -std=c++23
+g++ ./test/main.cpp -o ./build/main -O2 -std=c++23
+g++ ./test/pass.cpp -o ./build/pass -O2 -std=c++23
 
 for ((i=1; i<=100; i++))
 do

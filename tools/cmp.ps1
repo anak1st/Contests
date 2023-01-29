@@ -1,6 +1,6 @@
-g++ ./test/data.cpp -o ./build/data.exe -O2 -std=c++20 -I C:/Users/Anak1st/Repos/Contests/include
-g++ ./test/main.cpp -o ./build/main.exe -O2 -std=c++20
-g++ ./test/pass.cpp -o ./build/pass.exe -O2 -std=c++20
+g++ ./test/data.cpp -o ./build/data.exe -O2 -std=c++23 -I C:/Users/Anak1st/Repos/Contests/include
+g++ ./test/main.cpp -o ./build/main.exe -O2 -std=c++23
+g++ ./test/pass.cpp -o ./build/pass.exe -O2 -std=c++23
 
 Write-Output "Build Finish"
 
