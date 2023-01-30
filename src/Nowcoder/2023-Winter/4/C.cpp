@@ -29,13 +29,14 @@ int main() {
         return dp[n][m];
     };
 
-    i64 ans = run_dp(N, M, 0);
-
+    i64 max = run_dp(N, M, 0);
+    // std::cerr << "max: " << max << "\n";
     for (int i = 1; i <= N; i++) {
-        if (run_dp(N - 1, M, i) < ans) {
+        // std::cerr << run_dp(N, M, i) << "\n";
+        if (run_dp(N, M, i) < max) {
             std::cout << 0 << "\n";
         } else {
-            std::cout << ans - (run_dp(N - 1, M - w[i], i) + v[i]) + 1 << "\n";
+            std::cout << max - (run_dp(N, M - w[i], i) + v[i]) + 1 << "\n";
         }
     }
 

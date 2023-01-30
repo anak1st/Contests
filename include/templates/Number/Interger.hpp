@@ -54,6 +54,7 @@ struct Integer {
         return is;
     }
 
+    /// @brief for < and > ans =
     friend std::strong_ordering operator<=>(const Integer &lhs, const Integer &rhs) {
         if (lhs.size() != rhs.size()) {
             return lhs.size() <=> rhs.size();
@@ -64,6 +65,9 @@ struct Integer {
             }
         }
         return std::strong_ordering::equal;
+    }
+    friend bool operator==(const Integer &lhs, const Integer &rhs) {
+        return lhs.data == rhs.data;
     }
 
     Integer &operator+=(const Integer &lhs) {
@@ -116,6 +120,7 @@ struct Integer {
     }
 
     Integer &operator/=(const Integer &lhs) {
+        assert(lhs != Integer(0));
         if (lhs > *this) {
             *this = Integer(0);
             return *this;

@@ -1,138 +1,52 @@
+/**
+ * @author: XiaFan
+ * @date: 2023-01-30 13:50
+ **/
 #include <bits/stdc++.h>
+using i64 = long long;
 
-#define FOR(i, a, b) for (int i = a; i <= b; i++)
-#define ROF(i, a, b) for (int i = a; i >= b; i--)
-#define edl '\n'
+int main() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
 
-using namespace std;
-using ll = long long;
-
-constexpr int MXN = 1e6 + 10;
-
-ll n, m;
-ll a[MXN];
-vector<ll> ve;
- 
-void Init(void)
-{
-    a[1] = 1;
-    FOR(i, 2, MXN - 3)
-    a[i] = a[i - 1] + i;
-    return;
-}
-void Solve(void)
-{
-    ve.clear();
-    cin >> n >> m;
-    ll row = (n * n + n) / 2;
-    ll col = (m * m + m) / 2;
-    ll tot = row * col;
-    if (tot & 1)
-    {
-        cout << "No" << edl;
-        return;
+    int n, m;
+    std::cin >> n >> m;
+    std::vector<int> c(n);
+    for (int i = 0; i < n; ++i) {
+        std::cin >> c[i];
     }
-    ll f = 0;
-    if (col % 2 == 0)
-    {
-        ll aim = col / 2 - m;
-        ll sum = 0;
-        ROF(i, m + 1, 1)
-        {
-            if (aim == 0)
-                break;
-            ll k = aim / a[i];
-            FOR(j, 1, k)
-            {
-                ve.push_back(i + 1);
-                sum += i + 1;
-            }
-            aim %= a[i];
+    
+    auto norm = [&](int x) -> int {
+        return (x % m + m) % m;
+    };
+
+    std::vector<int> a(n), b(n);
+    for (int i = 0; i < (n + 1) / 2; ++i) {
+        int j = n - i - 1;
+        int sum = norm(c[i] + c[j]);
+        if (sum % 2) {
+            sum += m;
         }
-        f = 1;
-        FOR(i, 1, m - sum)
-        ve.push_back(1);
-    }
-    else if (row % 2 == 0)
-    {
-        ll aim = row / 2 - n;
-        ll sum = 0;
-        ROF(i, n + 1, 1)
-        {
-            if (aim == 0)
-                break;
-            ll k = aim / a[i];
-            FOR(j, 1, k)
-            {
-                ve.push_back(i + 1);
-                sum += (i + 1);
-            }
-            aim %= a[i];
+        if (sum % 2) {
+            std::cout << "No\n";
+            return 0;
         }
-        f = 2;
-        FOR(i, 1, n - sum)
-        ve.push_back(1);
-    }
-    if (f == 0)
-    {
-        cout << "No" << edl;
-        return;
-    }
-    cout << "Yes" << edl;
-    if (f == 1)
-    {
-        FOR(i, 1, n)
-        {
-            bool flag = true;
-            ll ch = 1;
-            for (auto it : ve)
-            {
-                FOR(j, 1, it)
-                {
-                    if (flag)
-                        flag = false;
-                    else
-                        cout << ' ';
-                    cout << ch;
-                }
-                ch = 1 - ch;
-            }
-            cout << edl;
+        a[i] = sum / 2;
+        a[j] = a[i];
+        b[i] = norm(c[i] - a[i]);
+        b[j] = norm(-b[i]);
+        if (norm(c[j]) != norm(a[j] + b[j])) {
+            std::cout << "No\n";
+            return 0;
         }
     }
-    if (f == 2)
-    {
-        ll ch = 1;
-        for (auto it : ve)
-        {
-            FOR(i, 1, it)
-            {
-                bool flag = true;
-                FOR(j, 1, m)
-                {
-                    if (flag)
-                        flag = false;
-                    else
-                        cout << ' ';
-                    cout << ch;
-                }
-                cout << edl;
-            }
-            ch = 1 - ch;
-        }
+    std::cout << "Yes\n";
+    for (int i = 0; i < n; i++) {
+        std::cout << a[i] << " \n"[i == n - 1];
     }
-}
-int main(void)
-{
-    std::ios::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
-    // #ifdef cincoutcmd
-    //  freopen("cin.txt", "r", stdin);
-    //  freopen("cout.txt", "w", stdout);
-    // #endif
-    Init();
-    int t;
-    cin >> t;
-    while (t--)
-        Solve();
+    for (int i = 0; i < n; i++) {
+        std::cout << b[i] << " \n"[i == n - 1];
+    }
+
     return 0;
 }
