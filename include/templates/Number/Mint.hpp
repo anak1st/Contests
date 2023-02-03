@@ -1,7 +1,7 @@
 #pragma once
 #include "XCPC.h"
 
-constexpr int P = 1e9 + 7;
+constexpr i64 P = 1e9 + 7;
 template <typename T> T power(T a, i64 b) {
     T res = 1;
     for (; b; b /= 2, a *= a) {
@@ -11,28 +11,25 @@ template <typename T> T power(T a, i64 b) {
     }
     return res;
 }
-template <int Mod> struct MintBase {
-    int v;
-    int M() const {
+template <i64 Mod> struct MintBase {
+    i64 v;
+    i64 M() const {
         if constexpr (Mod <= 0) {
             return P;
         } else {
             return Mod;
         }
     }
-    // assume -M <= __x < 2 M
-    int norm(int x) const {
-        if (x >= P) {
-            x -= M();
-        } else if (x < 0) {
+    i64 norm(i64 x) const {
+        x %= M();
+        if (x < 0) {
             x += M();
         }
         return x;
     }
     MintBase() : v(0) {}
-    MintBase(int x) : v(norm(x)) {}
-    MintBase(i64 x) : v(norm(x % M())) {}
-    int val() const {
+    MintBase(i64 x) : v(norm(x)) {}
+    i64 val() const {
         return v;
     }
     MintBase operator-() const {
@@ -51,7 +48,7 @@ template <int Mod> struct MintBase {
         return *this;
     }
     MintBase &operator*=(const MintBase &rhs) {
-        v = 1LL * v * rhs.v % M();
+        v = norm(v * rhs.v);
         return *this;
     }
     MintBase &operator/=(const MintBase &rhs) {

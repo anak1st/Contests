@@ -5,10 +5,7 @@
 #include <bits/stdc++.h>
 using i64 = long long;
 
-void solve() {
-    int n;
-    std::cin >> n;
-}
+constexpr int inf = 1e9;
 
 int main() {
     std::ios::sync_with_stdio(false);
@@ -21,7 +18,7 @@ int main() {
         std::cin >> s;
     }
 
-    std::vector<std::vector<int>> b(N, std::vector<int>(M, -1));
+    std::vector<std::vector<int>> b(N, std::vector<int>(M, inf));
     b[Xs][Ys] = 0;
     std::queue<std::pair<int, int>> q;
     q.emplace(Xs, Ys);
@@ -36,7 +33,7 @@ int main() {
             if (a[nx][ny] == '#') {
                 continue;
             }
-            if (b[nx][ny] != -1) {
+            if (b[nx][ny] != inf) {
                 continue;
             }
             b[nx][ny] = b[x][y] + 1;
@@ -44,25 +41,11 @@ int main() {
         }
     }
 
-    const int inf = N * M;
-
-    std::vector<std::vector<int>> c(N, std::vector<int>(M, inf));
-
-    auto dfs = [&](auto &&dfs, int x, int y, int i, int step) -> int {
-        if (c[x][y] != inf) {
-            return c[x][y];
-        }
-        int now = inf;
-        c[x][y] = std::min(now, dfs(dfs, x, y, i + 1, step)));
-        return c[x][y];
-    };
-
-    while (Q--) {
-        int x, y;
-        std::cin >> x >> y;
-        int ans = inf;
-        for (int i = 1; i <= inf; i++) {
-            int tx = x, ty = y;
+    int step = 20;
+    std::vector dp(N, std::vector(M, std::vector<std::pair<int, int>>(step + 1)));
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            int x = i, y = j;
             if (a[x][y] == 'L') {
                 y--;
             } else if (a[x][y] == 'R') {
@@ -73,17 +56,39 @@ int main() {
                 x++;
             }
             if (a[x][y] == '#') {
-                x = tx, y = ty;
+                x = i, y = j;
             }
-            if (b[x][y] != -1 && b[x][y] <= i) {
-                ans = i;
-                break;
+            dp[i][j][0] = {x, y};
+        }
+    }
+    for (int k = 1; k <= step; k++) {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                auto [x, y] = dp[i][j][k - 1];
+                dp[i][j][k] = dp[x][y][k - 1];
             }
         }
-        if (ans == inf) {
+    }
+
+    while (Q--) {
+        int X, Y;
+        std::cin >> X >> Y;
+        bool ok = false;
+        int ans = 0;
+        for (int i = step; i >= 0; i--) {
+            auto [x, y] = dp[X][Y][i];
+            int tmp = ans + (1 << i);
+            if (b[x][y] > tmp) {
+                X = x, Y = y;
+                ans = tmp;
+            } else {
+                ok = true;
+            }
+        }
+        if (!ok) {
             std::cout << -1 << "\n";
         } else {
-            std::cout << ans << "\n";
+            std::cout << ans + 1 << "\n";
         }
     }
 

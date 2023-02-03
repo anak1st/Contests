@@ -2,20 +2,20 @@
 #include "XCPC.h"
 #include "templates/DataStructure/DSU.hpp"
 
-template <typename T> struct edge {
+struct edge {
     int a, b;
-    T c;
+    int c;
     friend bool operator<(const edge &lhs, const edge &rhs) {
         return lhs.c < rhs.c;
     }
 };
-template <typename T> int Kruskal(int n, std::vector<edge<T>> edges) {
+int Kruskal(int n, std::vector<edge> edges) {
     std::sort(edges.begin(), edges.end());
     DSU dsu(n);
     int ans = 0;
-    for (auto &e : edges) {
-        if (dsu.merge(e.a, e.v)) {
-            ans += e.c;
+    for (auto &[a, b, c] : edges) {
+        if (dsu.merge(a, b)) {
+            ans += c;
         }
     }
     return ans;
