@@ -1,7 +1,7 @@
 {
     "cph.language.cpp.Command": "C:/Users/Anak1st/msys2/ucrt64/bin/g++.exe",
     "cph.general.saveLocation": "C:/Users/Anak1st/Repos/C++/Contests/build/cph",
-    "cph.language.cpp.Args": "-O2 -std=c++20 -I C:/Users/Anak1st/Repos/C++/Contests/include",
+    "cph.language.cpp.Args": "-O2 -std=c++23 -include C:/Users/Anak1st/Repos/C++/Contests/build/Release/stdc++.h -I C:/Users/Anak1st/Repos/C++/Contests/include",
     "cph.general.autoShowJudge": false,
     "cph.general.timeOut": 10000
 }

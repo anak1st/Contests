@@ -10,11 +10,13 @@
                 "${workspaceFolder}/build/main.exe",
                 "-std=c++23",
                 "-g",
-                "-fdiagnostics-color=always",
+                "-include",
+                "${workspaceFolder}/build/Debug/stdc++.h",
+                "-I",
+                "${workspaceFolder}/include",
                 "-Wall",
                 "-W",
-                "-I",
-                "${workspaceFolder}/include"
+                "-fdiagnostics-color=always"
             ],
             "options": {
                 "cwd": "C:/Users/Anak1st/msys2/ucrt64/bin"

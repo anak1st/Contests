@@ -7,6 +7,10 @@ using i64 = long long;
 
 int main() {
     
+    std::vector<std::string> a;
+    for (int i = 1; i <= 9; i++) {
+        a.emplace_back(i, i + '0');
+    }
     std::cout << __cplusplus << "\n";
 
     return 0;
