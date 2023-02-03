@@ -11,7 +11,7 @@
                 "-std=c++23",
                 "-g",
                 "-include",
-                "${workspaceFolder}/build/Debug/stdc++.h",
+                "${workspaceFolder}/build/stdc++.h",
                 "-I",
                 "${workspaceFolder}/include",
                 "-Wall",

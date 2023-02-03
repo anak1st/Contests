@@ -8,8 +8,8 @@ using i64 = long long;
 int main() {
     
     std::vector<std::string> a;
-    for (int i = 1; i <= 9; i++) {
-        a.emplace_back(i, i + '0');
+    for (int i = 1; i <= 19999; i++) {
+        a.emplace_back(i, 'a' + i % 10);
     }
     std::cout << __cplusplus << "\n";
 

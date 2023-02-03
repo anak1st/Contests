@@ -15,15 +15,22 @@ function Start-Pass {
     Get-Content $txtdata | ./build/pass.exe > $txtpass
 }
 
-for ($i = 1; $i -le 200; $i++) {
+$tot = 50;
+$tottime1 = 0
+$tottime2 = 0
+foreach ($i in 1..$tot) {
     ./build/data.exe > $txtdata
-    Write-Output ("# Test case {0}" -f $i)
-    $t1 = (Measure-Command -Expression { Start-Main }).TotalSeconds
-    $t2 = (Measure-Command -Expression { Start-Pass }).TotalSeconds
-    Write-Output ("Main Time: {0:n4} Pass Time: {0:n4}" -f $t1 -f $t2)
+    $time1 = (Measure-Command -Expression { Start-Main }).Milliseconds
+    $time2 = (Measure-Command -Expression { Start-Pass }).Milliseconds
+    $tottime1 += $time1
+    $tottime2 += $time2
+    $str = ("test[{0}] MainTime:{1:n0}ms PassTime:{2:n0}ms" -f $i, $time1, $time2)
+    Write-Progress -Activity "Search in Progress" -Status "$str" -PercentComplete ($i / $tot * 100)
     if (Compare-Object (Get-Content $txtmain) (Get-Content $txtpass)) {
         Write-Output "Wrong Answer"
         break
     }
-    Write-Output ("Accepted" -f $i)
 }
+$avgtime1 = $tottime1 / $tot
+$avgtime2 = $tottime2 / $tot
+Write-Output ("Accepted MainTime:{0:n0}ms PassTime:{1:n0}ms" -f $avgtime1, $avgtime2)
