@@ -1,14 +1,26 @@
 #pragma once
 #include "XCPC.h"
 
-template <class Info, class Merge = std::plus<Info>> 
+struct Info {
+    int sum;
+    int min, max;
+    bool skip;
+    Info(int x = 0) : sum(x), min(sum), max(sum), skip(false) {}
+    friend Info operator+(const Info &a, const Info &b) {
+        Info c;
+        c.sum = a.sum + b.sum;
+        c.min = std::min(a.min, b.min);
+        c.max = std::max(a.max, b.max);
+        return c;
+    }
+};
 struct SegTree {
     const int n;
-    const Merge merge;
+    const std::plus<Info> merge;
     std::vector<Info> info;
     constexpr int ls(int p) const { return 2 * p + 0; }
     constexpr int rs(int p) const { return 2 * p + 1; }
-    SegTree(int n) : n(n), merge(Merge()), info(4 << std::__lg(n)) {}
+    SegTree(int n) : n(n), merge(std::plus<Info>()), info(4 << std::__lg(n)) {}
     SegTree(std::vector<Info> init) : SegTree(init.size()) {
         std::function<void(int, int, int)> build = [&](int p, int l, int r) {
             if (r - l == 1) {
@@ -25,24 +37,8 @@ struct SegTree {
     void pull(int p) {
         info[p] = merge(info[ls(p)], info[rs(p)]);
     }
-    void modify(int p, int l, int r, int x, const Info &v) {
-        if (r - l == 1) {
-            info[p] = v;
-            return;
-        }
-        int m = (l + r) / 2;
-        if (x < m) {
-            modify(ls(p), l, m, x, v);
-        } else {
-            modify(rs(p), m, r, x, v);
-        }
-        pull(p);
-    }
-    void modify(int p, const Info &v) {
-        modify(1, 0, n, p, v);
-    }
     void range_modify(int p, int l, int r, int x, int y, const Info &v) {
-        if (l >= y || r <= x) {
+        if (l >= y || r <= x || info[p].skip) {
             return;
         }
         if (x <= l && r <= y && r - l == 1) {
@@ -72,17 +68,5 @@ struct SegTree {
     /// @brief query for [l, r)
     Info range_query(int l, int r) {
         return range_query(1, 0, n, l, r);
-    }
-};
-struct Info {
-    int sum;
-    int min, max;
-    Info(int x = 0) : sum(x), min(sum), max(sum) {}
-    friend Info operator+(const Info &a, const Info &b) {
-        Info c;
-        c.sum = a.sum + b.sum;
-        c.min = std::min(a.min, b.min);
-        c.max = std::max(a.max, b.max);
-        return c;
     }
 };

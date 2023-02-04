@@ -8,3 +8,5 @@ Remove-Item $latexdir\*.log
 Remove-Item $latexdir\*.out
 Remove-Item $latexdir\*.synctex.gz
 Remove-Item $latexdir\*.xdv
+
+Get-ChildItem * -Include *.exe -Recurse | Remove-Item
