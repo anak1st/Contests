@@ -1,6 +1,7 @@
 .vscode
 /build
 /data
+/log
 /temp
 /private
 *.pdf

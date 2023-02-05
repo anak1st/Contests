@@ -3,8 +3,8 @@ $rootDir = ".\private\vtuber"
 $std = "$rootDir\std.cpp"
 $gen = "$rootDir\gen.cpp"
 
-g++ $gen -o .\build\data.exe -O2 -std=c++23 -I $testlibDir 
-g++ $std -o .\build\main.exe -O2 -std=c++23
+g++ $gen -o .\build\data.exe -O2 -std=c++20 -I $testlibDir 
+g++ $std -o .\build\main.exe -O2 -std=c++20
 
 for ($i = 6; $i -le 10; $i++) {
     $in  = ("$rootDir\data\{0}.in"  -f $i)

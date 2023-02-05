@@ -8,12 +8,12 @@
                 "${file}",
                 "-o",
                 "${workspaceFolder}/build/main",
-                "-std=c++23",
+                "-std=c++20",
                 "-g",
                 "-Wall",
                 "-W",
                 "-I",
-                "${workspaceFolder}/include",
+                "${workspaceFolder}/include"
             ],
             "options": {
                 "cwd": "/usr/bin/"

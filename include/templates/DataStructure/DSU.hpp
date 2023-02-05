@@ -4,12 +4,15 @@
 // Disjoint Set Union
 struct DSU {
     int n;
-    std::vector<int> f, cntv;
-    DSU(int size) : n(size), f(n), cntv(n, 1) {
+    std::vector<int> f, _cntv;
+    DSU(int size) : n(size), f(n), _cntv(n, 1) {
         std::iota(f.begin(), f.end(), 0);
     }
     int find(int x) {
-        return f[x] == x ? x : f[x] = find(f[x]);
+        if (f[x] != x) {
+            f[x] = find(f[x]);
+        }
+        return f[x];
     }
     bool same(int x, int y) {
         return find(x) == find(y);
@@ -19,11 +22,11 @@ struct DSU {
         if (x == y) {
             return false;
         }
-        cntv[x] += cntv[y];
+        _cntv[x] += _cntv[y];
         f[y] = x;
         return true;
     }
-    int get_cntv(int x) {
-        return cntv[find(x)];
+    int cntv(int x) {
+        return _cntv[find(x)];
     }
 };

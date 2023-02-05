@@ -1,7 +1,7 @@
 $rootDir = ".\private\C--"
 $std = "$rootDir\std.cpp"
 
-g++ $std -o .\build\main.exe -O2 -std=c++23
+g++ $std -o .\build\main.exe -O2 -std=c++20
 
 for ($i = 1; $i -le 4; $i++) {
     $in  = ("$rootDir\data\{0}.in"  -f $i)
