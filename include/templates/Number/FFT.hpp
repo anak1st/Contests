@@ -1,5 +1,5 @@
-#include <bits/stdc++.h>
-using i64 = long long;
+#pragma once
+#include "XCPC.h"
 
 constexpr double Pi = std::numbers::pi;
 using Complex = std::complex<double>;
@@ -116,12 +116,3 @@ struct Poly {
         return res;
     }
 };
-
-int main() {
-    std::string a, b;
-    std::cin >> a >> b;
-    Poly A(a), B(b);
-    std::cout << (A * B).to_string() << std::endl;
-    
-    return 0;
-}

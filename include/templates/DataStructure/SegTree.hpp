@@ -1,9 +1,9 @@
 #pragma once
 #include "XCPC.h"
 
+// ! all the range is [l, r)
 struct Info {
-    int sum;
-    int min, max;
+    i64 sum, min, max;
     bool skip;
     Info(int x = 0) : sum(x), min(sum), max(sum), skip(false) {}
     friend Info operator+(const Info &a, const Info &b) {
@@ -12,6 +12,11 @@ struct Info {
         c.min = std::min(a.min, b.min);
         c.max = std::max(a.max, b.max);
         return c;
+    }
+    void modify(int len, i64 v) {
+        sum += v * len;
+        min += v;
+        max += v;
     }
 };
 struct SegTree {

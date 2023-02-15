@@ -2,15 +2,14 @@
 #include "XCPC.h"
 #include "templates/Number/Mint.hpp"
 
-constexpr int Mod1 = 1e9 + 7, Mod2 = 1e9 + 9;
+constexpr i64 Mod1 = 1e9 + 7, Mod2 = 1e9 + 9;
 struct Hash {
     MintBase<Mod1> m1;
     MintBase<Mod2> m2;
     Hash() : m1(0), m2(0) {}
-    Hash(int x, int y) : m1(x), m2(y) {}
     Hash(i64 x, i64 y) : m1(x), m2(y) {}
     Hash(MintBase<Mod1> x, MintBase<Mod2> y) : m1(x), m2(y) {}
-    std::pair<int, int> val() const {
+    std::pair<i64, i64> val() const {
         return {m1.val(), m2.val()};
     }
     friend Hash operator+(const Hash &lhs, const Hash &rhs) {

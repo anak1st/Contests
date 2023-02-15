@@ -1,5 +1,9 @@
-#pragma once
-#include "XCPC.h"
+/**
+ * @author: XiaFan
+ * @date: 2023-02-10 00:06
+ **/
+#include <bits/stdc++.h>
+using i64 = long long;
 
 template <typename T> T power(T a, i64 b) {
     T res = 1;
@@ -79,5 +83,41 @@ template <i64 P> struct MintBase {
         return os << a.val();
     }
 };
-// constexpr i64 P = 1e9 + 7;
-// using Mint = MintBase<P>;
+constexpr i64 P = 1e9 + 7;
+using Mint = MintBase<P>;
+
+int main() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+
+    int n;
+    std::cin >> n;
+    std::vector<int> x(n + 1);
+    for (int i = 1; i <= n; i++) {
+        std::cin >> x[i];
+    }
+    Mint ans = 0;
+
+    std::vector<Mint> pw(n + 1);
+    pw[0] = 1;
+    for (int i = 1; i <= n; i++) {
+        pw[i] = pw[i - 1] * 2;
+    }
+
+    for (int i = 1; i <= n; i++) {
+        int l = i, r = i;
+        for (int j = i + 1; j <= n; j++) {
+            while (l >= 1 && x[i] - x[l] <= x[j] - x[i]) {
+                l--;
+            }
+            while (r <= n && x[r] - x[j] < x[j] - x[i]) {
+                r++;
+            }
+            ans += pw[l] * pw[n - r + 1];
+        }
+    }
+    
+    std::cout << ans;
+
+    return 0;
+}

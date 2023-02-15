@@ -18,10 +18,10 @@ template <typename T> struct Fenwick {
     }
     /// @brief sum of [0, r]
     T sum(int r) {
+        T ans = T{};
         if (r < 0) {
-            return 0;
+            return ans;
         }
-        T ans = 0;
         for (int i = r + 1; i > 0; i -= i & -i) {
             ans += a[i - 1];
         }
@@ -40,5 +40,16 @@ template <typename T> struct Fenwick {
             }
         }
         return x;
+    }
+};
+
+constexpr int inf = 1e9;
+/// @note when use this, disable `sum(l, r)` ans `kth(k)` !
+struct Max {
+    i64 v;
+    Max(i64 val = -inf) : v(val) {}
+    Max &operator+=(const Max &rhs) {
+        v = std::max(v, rhs.v);
+        return *this;
     }
 };

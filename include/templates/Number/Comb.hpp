@@ -2,40 +2,41 @@
 #include "XCPC.h"
 #include "templates/Number/Mint.hpp"
 
-using Mint = MintBase<0>;
+constexpr int P = 1e9 + 7;
+using Mint = MintBase<P>;
 struct Comb {
     int n;
-    std::vector<Mint> _fac, _invfac, _inv; 
-    Comb(int n = 1000) : n{0}, _fac{1}, _invfac{1}, _inv{0} {
+    std::vector<Mint> facs, invfacs, invs; 
+    Comb(int n = 1000) : n{0}, facs{1}, invfacs{1}, invs{0} {
         init(n);
     }
     void init(int m) {
         if (m <= n) return;
-        _fac.resize(m + 1);
-        _invfac.resize(m + 1);
-        _inv.resize(m + 1);
+        facs.resize(m + 1);
+        invfacs.resize(m + 1);
+        invs.resize(m + 1);
         
         for (int i = n + 1; i <= m; i++) {
-            _fac[i] = _fac[i - 1] * i;
+            facs[i] = facs[i - 1] * i;
         }
-        _invfac[m] = _fac[m].inv();
+        invfacs[m] = facs[m].inv();
         for (int i = m; i > n; i--) {
-            _invfac[i - 1] = _invfac[i] * i;
-            _inv[i] = _invfac[i] * _fac[i - 1];
+            invfacs[i - 1] = invfacs[i] * i;
+            invs[i] = invfacs[i] * facs[i - 1];
         }
         n = m;
     }
     Mint fac(int m) {
         if (m > n) init(2 * m);
-        return _fac[m];
+        return facs[m];
     }
     Mint invfac(int m) {
         if (m > n) init(2 * m);
-        return _invfac[m];
+        return invfacs[m];
     }
     Mint inv(int m) {
         if (m > n) init(2 * m);
-        return _inv[m];
+        return invs[m];
     }
     Mint A(int n, int m) {
         if (n < m || m < 0) return 0;
