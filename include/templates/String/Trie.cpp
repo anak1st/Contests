@@ -1,7 +1,6 @@
 #pragma once
 #include "XCPC.h"
 
-namespace Trie {
 constexpr int N = 5E5 + 2;
 int tree[N][26], have[N], sum[N];
 int cnt = 1;
@@ -28,4 +27,3 @@ bool find(const std::string &s) {
     }
     return have[p];
 }
-} // namespace Trie

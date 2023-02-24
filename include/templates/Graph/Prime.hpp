@@ -1,16 +1,16 @@
 #pragma once
 #include "XCPC.h"
 
-constexpr double inf = 1e9;
 constexpr int N = 5000;
+constexpr i64 inf = 4e18;
+int n;
 i64 g[N][N];
 
-template <typename T>
-std::vector<T> Dijkstra() {
-    int n = G.size();
-    std::vector<T> d(n, inf);
-    d[0] = 0;
+i64 Prime() {
     std::vector<bool> vis(n);
+    std::vector<i64> d(n, inf);
+    d[0] = 0;
+    i64 ans = 0;
     for (int i = 0; i < n; i++) {
         int k = -1;
         for (int j = 0; j < n; j++) {
@@ -20,10 +20,13 @@ std::vector<T> Dijkstra() {
             }
         }
         vis[k] = true;
+        ans += d[k];
         for (int j = 0; j < n; j++) {
             if (vis[j]) continue;
-            d[j] = std::min(d[j], d[k] + G[k][j]);
+            if (d[j] > g[k][j]) {
+                d[j] = g[k][j];
+            }
         }
     }
-    return d;
+    return ans;
 }

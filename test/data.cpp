@@ -24,11 +24,16 @@ int main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
 
-    Randomer<int> R(1, 1e9);
-    int n = 3000;
-    std::cout << n << "\n";
-    for (int i = 0; i < n; i++) {
-        std::cout << R() << " \n"[i == n - 1];
+    int t = 10;
+    std::cout << t << "\n";
+    while (t--) {
+        int z = 10;
+        Randomer<int> r1(100, 1000);
+        Randomer<int> r2(1, 1000);
+        Randomer<int> r3(0, 1000);
+        std::cout << r1() << " " << r3() << " " << r3() << "\n";
+        std::cout << r2() << " " << r3() << " " << r3() << "\n";
+        std::cout << z << "\n";
     }
 
     return 0;

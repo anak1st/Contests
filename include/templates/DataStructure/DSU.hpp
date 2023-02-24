@@ -4,8 +4,8 @@
 // Disjoint Set Union
 struct DSU {
     int n;
-    std::vector<int> f, _cntv;
-    DSU(int size) : n(size), f(n), _cntv(n, 1) {
+    std::vector<int> f, m_cntv;
+    DSU(int size) : n(size), f(n), m_cntv(n, 1) {
         std::iota(f.begin(), f.end(), 0);
     }
     int find(int x) {
@@ -22,11 +22,11 @@ struct DSU {
         if (x == y) {
             return false;
         }
-        _cntv[x] += _cntv[y];
+        m_cntv[x] += m_cntv[y];
         f[y] = x;
         return true;
     }
     int cntv(int x) {
-        return _cntv[find(x)];
+        return m_cntv[find(x)];
     }
 };

@@ -2,7 +2,7 @@
 #include "XCPC.h"
 #include "templates/Number/Mint.hpp"
 
-constexpr int P = 1e9 + 7;
+constexpr i64 P = 1e9 + 7;
 using Mint = MintBase<P>;
 struct Comb {
     int n;
@@ -46,5 +46,4 @@ struct Comb {
         if (n < m || m < 0) return 0;
         return fac(n) * invfac(m) * invfac(n - m);
     }
-};
-Comb comb;
+} comb;

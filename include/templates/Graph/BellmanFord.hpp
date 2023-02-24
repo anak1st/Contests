@@ -2,17 +2,16 @@
 #include "XCPC.h"
 
 constexpr int inf = 1e9;
-template <typename T> struct edge {
+struct edge {
     int a, b;
-    T c;
+    i64 c;
     friend bool operator<(const edge &lhs, const edge &rhs) {
         return lhs.c < rhs.c;
     }
 };
-template <typename T> 
-bool BellmanFord(int n, int start, T val, std::vector<edge<T>> E) {
-    std::vector<T> d(n, inf);
-    d[start] = val;
+bool BellmanFord(int n, std::vector<edge> E) {
+    std::vector<i64> d(n, inf);
+    d[0] = 0;
     int m = E.size();
     for (int i = 0; i < n - 1; i++) {
         for (int j = 0; j < m; j++) {

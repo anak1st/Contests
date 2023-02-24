@@ -1,5 +1,9 @@
-#pragma once
-#include "XCPC.h"
+/**
+ * @author: XiaFan
+ * @date: 2023-02-23 20:40
+ **/
+#include <bits/stdc++.h>
+using i64 = long long;
 
 template <typename T> constexpr T power(T a, i64 b) {
     T res = 1;
@@ -82,5 +86,69 @@ template <i64 P> struct MintBase {
         return lhs.val() == rhs.val();
     }
 };
-// constexpr i64 P = 1e9 + 7;
-// using Mint = MintBase<P>;
+
+constexpr i64 P = 998244353;
+using Mint = MintBase<P>;
+struct Comb {
+    int n;
+    std::vector<Mint> facs, invfacs, invs; 
+    Comb(int n = 1000) : n{0}, facs{1}, invfacs{1}, invs{0} {
+        init(n);
+    }
+    void init(int m) {
+        if (m <= n) return;
+        facs.resize(m + 1);
+        invfacs.resize(m + 1);
+        invs.resize(m + 1);
+        
+        for (int i = n + 1; i <= m; i++) {
+            facs[i] = facs[i - 1] * i;
+        }
+        invfacs[m] = facs[m].inv();
+        for (int i = m; i > n; i--) {
+            invfacs[i - 1] = invfacs[i] * i;
+            invs[i] = invfacs[i] * facs[i - 1];
+        }
+        n = m;
+    }
+    Mint fac(int m) {
+        if (m > n) init(2 * m);
+        return facs[m];
+    }
+    Mint invfac(int m) {
+        if (m > n) init(2 * m);
+        return invfacs[m];
+    }
+    Mint inv(int m) {
+        if (m > n) init(2 * m);
+        return invs[m];
+    }
+    Mint A(int n, int m) {
+        if (n < m || m < 0) return 0;
+        return fac(n) * invfac(m);
+    }
+    Mint C(int n, int m) {
+        if (n < m || m < 0) return 0;
+        return fac(n) * invfac(m) * invfac(n - m);
+    }
+} comb;
+
+void solve() {
+    int n;
+    std::cin >> n;
+    Mint ans = Mint(n) * comb.C(2 * n - 4, n - 1) + comb.C(2 * n - 3, n - 1);
+    std::cout << ans << "\n";
+}
+
+int main() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+
+    int t = 1;
+    std::cin >> t;
+    while (t--) {
+        solve();
+    }
+
+    return 0;
+}

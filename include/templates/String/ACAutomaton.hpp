@@ -2,7 +2,6 @@
 #include "XCPC.h"
 
 // Aho-Corasick Automaton
-namespace Trie {
 constexpr int N = 5e5, M = 26;
 int tree[N][M];
 int fail[N], have[M];
@@ -49,4 +48,3 @@ bool find(const std::string &s) {
     }
     return false;
 }
-} // namespace Trie
