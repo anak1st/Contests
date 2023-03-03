@@ -1,5 +1,9 @@
-#pragma once
-#include "XCPC.h"
+/**
+ * @author: XiaFan
+ * @date: 2023-02-24 23:14
+ **/
+#include <bits/stdc++.h>
+using i64 = long long;
 
 constexpr int N = 1e7;
 std::vector<int> primes;
@@ -36,4 +40,33 @@ std::vector<int> get_facts(int x) {
         t /= minp[t];
     }
     return facts;
+}
+
+void solve() {
+    int n;
+    std::cin >> n;
+    int ans = 0;
+    for (int i = 1; i <= n; i++) {
+        int x;
+        std::cin >> x;
+        ans ^= num[x];
+    }
+    if (ans) {
+        std::cout << "Alice\n";
+    } else {
+        std::cout << "Bob\n";
+    }
+}
+
+int main() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    init();
+    int t = 1;
+    std::cin >> t;
+    while (t--) {
+        solve();
+    }
+
+    return 0;
 }

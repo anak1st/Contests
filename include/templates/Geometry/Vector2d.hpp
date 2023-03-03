@@ -19,7 +19,7 @@ struct Vector2d {
     }
     friend bool operator<(const Vector2d &lhs, const Vector2d &rhs) {
         Vector2d tmp = lhs - rhs;
-        return sign(tmp.x) < 0 || (sign(tmp.x) == 0 && sign(tmp.y) < 0);
+        return tmp.x < 0 || (tmp.x == 0 && tmp.y < 0);
     }
     friend Vector2d operator+(const Vector2d &lhs, const Vector2d &rhs) {
         return Vector2d(lhs.x + rhs.x, lhs.y + rhs.y);
@@ -47,4 +47,10 @@ double cross(const Vector2d &lhs, const Vector2d &rhs) {
 }
 double dis(const Vector2d &lhs, const Vector2d &rhs) {
     return (lhs - rhs).norm();
+}
+double disx(const Vector2d &lhs, const Vector2d &rhs) {
+    return std::abs(lhs.x - rhs.x);
+}
+double disy(const Vector2d &lhs, const Vector2d &rhs) {
+    return std::abs(lhs.y - rhs.y);
 }

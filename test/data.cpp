@@ -24,16 +24,13 @@ int main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
 
-    int t = 10;
+    int t = 1;
     std::cout << t << "\n";
     while (t--) {
-        int z = 10;
-        Randomer<int> r1(100, 1000);
-        Randomer<int> r2(1, 1000);
-        Randomer<int> r3(0, 1000);
-        std::cout << r1() << " " << r3() << " " << r3() << "\n";
-        std::cout << r2() << " " << r3() << " " << r3() << "\n";
-        std::cout << z << "\n";
+        int n = 2e5, k = 2e5;
+        std::cout << n << " " << k << "\n";
+        std::string s(n, 'a');
+        std::cout << s << "\n";
     }
 
     return 0;

@@ -11,6 +11,6 @@ template <typename T> struct Randomer {
     std::uniform_int_distribution<T> distribution;
     Randomer(T min, T max) : distribution(min, max) {}
     T operator()() {
-        return distribution(G);
+        return distribution(G.engine);
     }
 };

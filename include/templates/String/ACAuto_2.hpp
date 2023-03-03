@@ -1,9 +1,5 @@
-/**
- * @author: XiaFan
- * @date: 2023-03-03 20:32
- **/
-#include <bits/stdc++.h>
-using i64 = long long;
+#pragma once
+#include "XCPC.h"
 
 // Aho-Corasick Automaton
 constexpr int N = 5e5;
@@ -52,34 +48,4 @@ bool find(const std::string &s) {
         }
     }
     return false;
-}
-
-int main() {
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    
-    int n;
-    std::cin >> n;
-    std::vector<std::string> S(n);
-    for (auto &s : S) {
-        std::cin >> s;
-    }
-    std::string T;
-    std::cin >> T;
-    for (const auto &s : S) {
-        insert(s);
-    }
-    build();
-    int ans = 0;
-    int p = 0;
-    for (const auto c : T) {
-        p = tree[p][c - 'a'];
-        for (int t = p; t && ~have[t]; t = fail[t]) {
-            ans += have[t];
-            have[t] = -1;
-        }
-    }
-    std::cout << ans;
-
-    return 0;
 }

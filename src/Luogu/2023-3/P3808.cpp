@@ -42,16 +42,17 @@ void build() {
         }
     }
 }
-bool find(const std::string &s) {
+int query(const std::string &s) {
+    int ans = 0;
     int p = 0;
     for (const auto c : s) {
-        int x = c - 'a';
-        p = tree[p][x];
-        if (have[p]) {
-            return true;
+        p = tree[p][c - 'a'];
+        for (int t = p; t && ~have[t]; t = fail[t]) {
+            ans += have[t];
+            have[t] = -1;
         }
     }
-    return false;
+    return ans;
 }
 
 int main() {
@@ -70,16 +71,7 @@ int main() {
         insert(s);
     }
     build();
-    int ans = 0;
-    int p = 0;
-    for (const auto c : T) {
-        p = tree[p][c - 'a'];
-        for (int t = p; t && ~have[t]; t = fail[t]) {
-            ans += have[t];
-            have[t] = -1;
-        }
-    }
-    std::cout << ans;
+    std::cout << query(T);
 
     return 0;
 }

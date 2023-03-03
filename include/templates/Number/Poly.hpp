@@ -354,3 +354,16 @@ Poly polyPow(int n) {
         return fac[n] * invfac[i] * invfac[n - i];
     });
 }
+
+void init(int size) {
+    fac.resize(size + 1);
+    invfac.resize(size + 1);
+    fac[0] = 1;
+    for (int i = 1; i <= size; i++) {
+        fac[i] = fac[i - 1] * i;
+    }
+    invfac[size] = fac[size].inv();
+    for (int i = size; i >= 1; i--) {
+        invfac[i - 1] = invfac[i] * i;
+    }
+}
