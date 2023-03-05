@@ -4,8 +4,9 @@
 constexpr int N = 5000;
 constexpr i64 inf = 4e18;
 int n;
-i64 g[N][N];
+i64 G[N][N];
 
+// O(n^2), n is the number of vertices
 i64 Prime() {
     std::vector<bool> vis(n);
     std::vector<i64> d(n, inf);
@@ -23,8 +24,8 @@ i64 Prime() {
         ans += d[k];
         for (int j = 0; j < n; j++) {
             if (vis[j]) continue;
-            if (d[j] > g[k][j]) {
-                d[j] = g[k][j];
+            if (d[j] > G[k][j]) {
+                d[j] = G[k][j];
             }
         }
     }

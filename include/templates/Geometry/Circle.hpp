@@ -18,7 +18,7 @@ struct Circle {
     }
     double area(double theta) const {
         return r * r * theta / 2;
-    }    
+    }
 };
 
 double distance(const Circle &lhs, const Circle &rhs) {

@@ -9,6 +9,7 @@ struct edge {
         return lhs.c < rhs.c;
     }
 };
+// O(mlogm), m is the number of edges
 i64 Kruskal(int n, std::vector<edge> edges) {
     std::sort(edges.begin(), edges.end());
     DSU dsu(n);

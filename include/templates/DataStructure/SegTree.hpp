@@ -13,11 +13,6 @@ struct Info {
         c.max = std::max(a.max, b.max);
         return c;
     }
-    void modify(int len, i64 v) {
-        sum += v * len;
-        min += v;
-        max += v;
-    }
 };
 struct SegTree {
     const int n;

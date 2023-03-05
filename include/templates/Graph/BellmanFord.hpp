@@ -9,6 +9,7 @@ struct edge {
         return lhs.c < rhs.c;
     }
 };
+// return true if there is a negative cycle
 bool BellmanFord(int n, std::vector<edge> E) {
     std::vector<i64> d(n, inf);
     d[0] = 0;

@@ -4,7 +4,7 @@
 constexpr double inf = 1e9;
 constexpr int N = 5000;
 int n;
-i64 g[N][N];
+i64 G[N][N];
 
 template <typename T>
 std::vector<T> Dijkstra() {

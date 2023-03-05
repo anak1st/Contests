@@ -4,7 +4,7 @@
 struct Gen {
     unsigned int seed;
     std::mt19937 engine;
-    Gen() : seed(std::random_device()()), engine(seed) {}
+    Gen() : seed{std::random_device{}()}, engine(seed) {}
 };
 template <typename T> struct Randomer {
     Gen G;

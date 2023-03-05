@@ -1,6 +1,8 @@
 #pragma once
 #include "XCPC.h"
 
+constexpr int inf = 1e9;
+
 template <typename T> struct MaxFlow {
     struct edge {
         int to;
@@ -59,11 +61,11 @@ template <typename T> struct MaxFlow {
         G[v].push_back(E.size());
         E.emplace_back(u, 0);
     }
-    T calculate(int s, int t) {
+    T maxFlow(int s, int t) {
         T ans = 0;
         while (bfs(s, t)) {
             cur.assign(n, 0);
-            ans += dfs(s, t, std::numeric_limits<T>::max());
+            ans += dfs(s, t, inf);
         }
         return ans;
     }

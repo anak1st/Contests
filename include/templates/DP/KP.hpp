@@ -1,9 +1,5 @@
-/**
- * @author: XiaFan
- * @date: 2023-03-04 23:19
- **/
-#include <bits/stdc++.h>
-using i64 = long long;
+#pragma once
+#include "XCPC.h"
 
 // 0-1 knapsack problem
 // a[i] = (w, v) means that we can choose one item with weight w and value v
@@ -20,10 +16,8 @@ int KP(int t, const std::vector<std::pair<int, int>> &a) {
 
 // bounded knapsack problem
 // a[i] = (k, w) means that we can choose k items with weight w
-int BKP(int t, const std::vector<std::tuple<int, int, int>> &a) {
+int BKP_v2(int t, const std::vector<std::tuple<int, int, int>> &a) {
     int n = a.size();
-    std::vector<int> f(t + 1);
-    f[0] = 1;
     std::vector<std::pair<int, int>> b;
     for (auto [k, w, v] : a) {
         int x = 0;
@@ -37,17 +31,17 @@ int BKP(int t, const std::vector<std::tuple<int, int, int>> &a) {
     return KP(t, b);
 }
 
-int main() {
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-
-    int n, t;
-    std::cin >> n >> t;
-    std::vector<std::tuple<int, int, int>> a(n);
-    for (auto &[k, w, v] : a) {
-        std::cin >> v >> w >> k;
+// bounded knapsack problem
+// a[i] = (k, w) means that we can choose k items with weight w
+int BKP(int t, const std::vector<std::tuple<int, int, int>> &a) {
+    int n = a.size();
+    std::vector<int> f(t + 1);
+    for (auto [k, w, v] : a) {
+        for (int i = t; i >= w; i--) {
+            for (int j = 1; j <= k && j * w <= i; j++) {
+                f[i] = std::max(f[i], f[i - j * w] + j * v);
+            }
+        }
     }
-    std::cout << BKP(t, a);
-
-    return 0;
+    return f[t];
 }

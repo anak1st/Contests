@@ -2,7 +2,6 @@
 #include "XCPC.h"
 
 // ===== Quick Sort =====
-namespace impl {
 template <typename T> void quick_sort(std::vector<T> &a, int l, int r) {
     if (l >= r) return;
     int i = l, j = r;
@@ -21,13 +20,13 @@ template <typename T> void quick_sort(std::vector<T> &a, int l, int r) {
     quick_sort(a, l, i - 1);
     quick_sort(a, i + 1, r);
 }
-} // namespace impl
 template <typename T> void quick_sort(std::vector<T> &a) {
-    impl::quick_sort(a, 0, (int)a.size() - 1);
+    quick_sort(a, 0, (int)a.size() - 1);
 }
 
 // ===== Merge Sort =====
-namespace impl {
+// if modified, test it in Luogu P1908
+// https://www.luogu.com.cn/problem/P1908
 template <typename T> i64 merge(std::vector<T> &a, std::vector<T> &b, int l, int r) {
     int m = (l + r) / 2;
     int i = l, j = m + 1, k = l;
@@ -55,8 +54,7 @@ template <typename T> i64 merge_sort(std::vector<T> &a, std::vector<T> &b, int l
     }
     return res;
 }
-} // namespace impl
 template <typename T> i64 merge_sort(std::vector<T> &a) {
     std::vector<T> b(a);
-    return impl::merge_sort<T>(a, b, 0, (int)a.size() - 1);
+    return merge_sort<T>(a, b, 0, (int)a.size() - 1);
 }

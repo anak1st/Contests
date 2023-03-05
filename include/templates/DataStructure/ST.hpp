@@ -20,6 +20,7 @@ struct ST {
             }
         }
     }
+    // [from, to]
     T get(int from, int to) const {
         assert(0 <= from && from <= to && to < n);
         int lg = std::__lg(to - from + 1);
