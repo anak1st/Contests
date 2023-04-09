@@ -9,7 +9,7 @@ using i64 = long long;
 struct Gen {
     unsigned int seed;
     std::mt19937 engine;
-    Gen() : seed(std::random_device()()), engine(seed) {}
+    Gen() : seed{std::random_device{}()}, engine(seed) {}
 };
 template <typename T> struct Randomer {
     Gen G;
@@ -20,17 +20,15 @@ template <typename T> struct Randomer {
     }
 };
 
+constexpr int B = 1e9;
+
 int main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
 
-    int t = 1;
-    std::cout << t << "\n";
+    int t = 100;
     while (t--) {
-        int n = 2e5, k = 2e5;
-        std::cout << n << " " << k << "\n";
-        std::string s(n, 'a');
-        std::cout << s << "\n";
+        std::cout << B << " " << B << "\n";
     }
 
     return 0;

@@ -61,3 +61,40 @@ template <typename T> Matrix<T> mat_power(Matrix<T> a, i64 b) {
     }
     return res;
 }
+
+int error = 0;
+
+template <typename T>
+std::vector<T> gauss_elimination(std::vector<std::vector<T>> A, std::vector<T> b) {
+    int n = A.size();
+    for (int i = 0; i < n; i++) {
+        int pivot = i;
+        for (int j = i; j < n; j++) {
+            if (std::abs(A[j][i]) > std::abs(A[pivot][i])) {
+                pivot = j;
+            }
+        }
+        std::swap(A[i], A[pivot]);
+        std::swap(b[i], b[pivot]);
+        if (std::abs(A[i][i]) < 1e-9) {
+            error = 1;
+            return {};
+        }
+        for (int j = i + 1; j < n; j++) {
+            T c = A[j][i] / A[i][i];
+            for (int k = i; k < n; k++) {
+                A[j][k] -= A[i][k] * c;
+            }
+            b[j] -= b[i] * c;
+        }
+    }
+    std::vector<T> x(n);
+    for (int i = n - 1; i >= 0; i--) {
+        x[i] = b[i];
+        for (int j = i + 1; j < n; j++) {
+            x[i] -= A[i][j] * x[j];
+        }
+        x[i] /= A[i][i];
+    }
+    return x;
+}

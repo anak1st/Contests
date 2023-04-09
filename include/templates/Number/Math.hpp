@@ -28,7 +28,7 @@ std::array<i64, 3> exgcd(i64 a, i64 b) {
     return {g, y, x - a / b * y};
 }
 
-i64 euler(i64 n) {
+i64 Euler(i64 n) {
     i64 res = n;
     for (i64 i = 2; i * i <= n; i++) {
         if (n % i == 0) {
@@ -62,5 +62,12 @@ double Ternary(std::function<double(T)> F, std::pair<double, double> range,
         return std::min(F(ceil(L)), F(floor(L)));
     } else {
         return F(L);
+    }
+}
+
+void subset(int x) {
+    for (int i = x; ; i = (i - 1) & x) {
+        // do something
+        if (!i) break;
     }
 }
