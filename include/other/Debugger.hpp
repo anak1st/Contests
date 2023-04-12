@@ -3,13 +3,13 @@
 
 template <typename T, typename U>
 std::ostream &operator<<(std::ostream &os, std::pair<T, U> p);
-template <typename T> 
+template <typename T>
 std::ostream &operator<<(std::ostream &os, std::vector<T> v);
 template <typename T, size_t S>
 std::ostream &operator<<(std::ostream &os, std::array<T, S> a);
-template <typename T> 
+template <typename T>
 void println(const T &val);
-template <typename T, typename... Args> 
+template <typename T, typename... Args>
 void println(const T &val, const Args &...args);
 
 template <typename T, typename U>
@@ -17,7 +17,7 @@ std::ostream &operator<<(std::ostream &os, std::pair<T, U> p) {
     os << "(" << p.first << ", " << p.second << ")";
     return os;
 }
-template <typename T> 
+template <typename T>
 std::ostream &operator<<(std::ostream &os, std::vector<T> v) {
     os << "[";
     for (auto it = v.begin(); it != v.end(); it++) {
@@ -42,11 +42,11 @@ std::ostream &operator<<(std::ostream &os, std::array<T, S> a) {
     return os;
 }
 
-template <typename T> 
+template <typename T>
 void println(const T &val) {
     std::cerr << val << "\n";
 }
-template <typename T, typename... Args> 
+template <typename T, typename... Args>
 void println(const T &val, const Args &...args) {
     std::cerr << val << " ";
     println(args...);

@@ -2,7 +2,7 @@
 #include "XCPC.h"
 
 // Sparse Table
-template <typename T, class F = std::function<T(const T &, const T &)>> 
+template <typename T, class F = std::function<T(const T &, const T &)>>
 struct ST {
     int n;
     std::vector<std::vector<T>> mat;

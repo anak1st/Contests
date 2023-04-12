@@ -39,18 +39,14 @@ struct SegTree {
         };
         build(1, 0, n);
     }
-    void pull(int p) {
-        info[p] = merge(info[ls(p)], info[rs(p)]);
-    }
+    void pull(int p) { info[p] = merge(info[ls(p)], info[rs(p)]); }
     void push(int p, int l, int r) {
         int m = (l + r) / 2;
         modify(ls(p), l, m, info[p].tag);
         modify(rs(p), m, r, info[p].tag);
         info[p].tag = 0;
     }
-    void modify(int p, int l, int r, i64 v) {
-        info[p].modify(r - l, v);
-    }
+    void modify(int p, int l, int r, i64 v) { info[p].modify(r - l, v); }
     void range_modify(int p, int l, int r, int x, int y, i64 v) {
         if (l >= y || r <= x) {
             return;
@@ -66,9 +62,7 @@ struct SegTree {
         pull(p);
     }
     /// @brief modify for [l, r)
-    void range_modify(int l, int r, i64 v) {
-        range_modify(1, 0, n, l, r, v);
-    }
+    void range_modify(int l, int r, i64 v) { range_modify(1, 0, n, l, r, v); }
     Info range_query(int p, int l, int r, int x, int y) {
         if (l >= y || r <= x) {
             return Info();
@@ -78,11 +72,9 @@ struct SegTree {
         }
         push(p, l, r);
         int m = (l + r) / 2;
-        return merge(range_query(ls(p), l, m, x, y), 
+        return merge(range_query(ls(p), l, m, x, y),
                      range_query(rs(p), m, r, x, y));
     }
     /// @brief query for [l, r)
-    Info range_query(int l, int r) {
-        return range_query(1, 0, n, l, r);
-    }
+    Info range_query(int l, int r) { return range_query(1, 0, n, l, r); }
 };

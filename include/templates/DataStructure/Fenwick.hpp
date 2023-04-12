@@ -2,7 +2,8 @@
 #include "XCPC.h"
 
 // Fenwick Tree
-template <typename T> struct Fenwick {
+template <typename T>
+struct Fenwick {
     int n;
     std::vector<T> a;
     Fenwick(int size) : n(size), a(n) {}
@@ -28,9 +29,7 @@ template <typename T> struct Fenwick {
         return ans;
     }
     /// @brief sum of [l, r]
-    T sum(int l, int r) {
-        return sum(r) - sum(l - 1);
-    }
+    T sum(int l, int r) { return sum(r) - sum(l - 1); }
     int kth(T k) {
         int x = 0;
         for (int i = 1 << std::__lg(n); i; i /= 2) {

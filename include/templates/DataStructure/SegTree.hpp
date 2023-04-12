@@ -34,9 +34,7 @@ struct SegTree {
         };
         build(1, 0, n);
     }
-    void pull(int p) {
-        info[p] = merge(info[ls(p)], info[rs(p)]);
-    }
+    void pull(int p) { info[p] = merge(info[ls(p)], info[rs(p)]); }
     void range_modify(int p, int l, int r, int x, int y, const Info &v) {
         if (l >= y || r <= x || info[p].skip) {
             return;
@@ -62,11 +60,9 @@ struct SegTree {
             return info[p];
         }
         int m = (l + r) / 2;
-        return merge(range_query(ls(p), l, m, x, y), 
+        return merge(range_query(ls(p), l, m, x, y),
                      range_query(rs(p), m, r, x, y));
     }
     /// @brief query for [l, r)
-    Info range_query(int l, int r) {
-        return range_query(1, 0, n, l, r);
-    }
+    Info range_query(int l, int r) { return range_query(1, 0, n, l, r); }
 };

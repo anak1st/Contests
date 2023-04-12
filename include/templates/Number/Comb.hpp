@@ -6,16 +6,14 @@ constexpr i64 P = 1e9 + 7;
 using Mint = MintBase<P>;
 struct Comb {
     int n;
-    std::vector<Mint> facs, invfacs, invs; 
-    Comb(int n = 1000) : n{0}, facs{1}, invfacs{1}, invs{0} {
-        init(n);
-    }
+    std::vector<Mint> facs, invfacs, invs;
+    Comb(int n = 1000) : n{0}, facs{1}, invfacs{1}, invs{0} { init(n); }
     void init(int m) {
         if (m <= n) return;
         facs.resize(m + 1);
         invfacs.resize(m + 1);
         invs.resize(m + 1);
-        
+
         for (int i = n + 1; i <= m; i++) {
             facs[i] = facs[i - 1] * i;
         }

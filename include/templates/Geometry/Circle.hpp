@@ -13,12 +13,8 @@ struct Circle {
     double x, y, r;
     Circle(double x, double y, double r) : x(x), y(y), r(r) {}
 
-    double area() const {
-        return r * r * pi;
-    }
-    double area(double theta) const {
-        return r * r * theta / 2;
-    }
+    double area() const { return r * r * pi; }
+    double area(double theta) const { return r * r * theta / 2; }
 };
 
 double distance(const Circle &lhs, const Circle &rhs) {

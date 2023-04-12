@@ -1,14 +1,16 @@
 #pragma once
 #include "XCPC.h"
 
-template <typename T> T power(T a, i64 b) {
+template <typename T>
+T power(T a, i64 b) {
     T res = 1;
     for (; b; b /= 2, a *= a) {
         if (b % 2) res *= a;
     }
     return res;
 }
-template <i64 P> struct MintBase {
+template <i64 P>
+struct MintBase {
     i64 v;
     i64 norm(i64 x) const {
         x %= P;
@@ -17,12 +19,8 @@ template <i64 P> struct MintBase {
     }
     MintBase() : v{0} {}
     MintBase(i64 x) : v{norm(x)} {}
-    i64 val() const {
-        return v;
-    }
-    MintBase operator-() const {
-        return MintBase(norm(P - v));
-    }
+    i64 val() const { return v; }
+    MintBase operator-() const { return MintBase(norm(P - v)); }
     MintBase inv() const {
         assert(v != 0);
         return power(*this, P - 2);
@@ -39,9 +37,7 @@ template <i64 P> struct MintBase {
         v = norm(v * rhs.v);
         return *this;
     }
-    MintBase &operator/=(const MintBase &rhs) {
-        return *this *= rhs.inv();
-    }
+    MintBase &operator/=(const MintBase &rhs) { return *this *= rhs.inv(); }
     friend MintBase operator+(const MintBase &lhs, const MintBase &rhs) {
         MintBase res = lhs;
         res += rhs;
