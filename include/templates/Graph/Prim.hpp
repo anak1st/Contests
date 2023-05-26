@@ -7,7 +7,7 @@ int n;
 i64 G[N][N];
 
 // O(n^2), n is the number of vertices
-i64 Prime() {
+i64 Prim() {
     std::vector<bool> vis(n);
     std::vector<i64> d(n, inf);
     d[0] = 0;

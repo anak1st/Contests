@@ -54,9 +54,14 @@ $ Y^{-1} A^{-1} D^{-1} \iff (DAY)^{-1} $
 
 \subsection{测试数学}
 \begin{center}
-    $P(x)=\sum_{min}^{max}f(x)$ \\
-    $P(x)=\int_{min}^{max}f(x)$ \\
-    $(v(L_1, L_1 + w - 1) \times v(l_i, r_i) + v(L_2, L_2 + w - 1)) \equiv k \mod 9$
+    \begin{align}
+        Y = & \bar{A} \bar{B} \bar{C} + A B C + \bar{B} C \bar{D} + \bar{A} B D \\
+          = & \bar{A} \bar{B} \bar{C} \bar{D} + \bar{A} \bar{B} \bar{C} D \\
+          + & A B C \bar{D} + A B C D \\
+          + & \bar{A} \bar{B} C \bar{D} + A \bar{B} C \bar{D} \\
+          + & \bar{A} B \bar{C} D + \bar{A} B C D \\
+          = & m_0 + m_7 + \bar{D} (m_1 + m_5) + D (m_2 + m_3) \\
+    \end{align}
 \end{center}
 
 \newpage
@@ -66,49 +71,5 @@ $ Y^{-1} A^{-1} D^{-1} \iff (DAY)^{-1} $
     caption     =   {\bf src/test/test.py},
     label       =   {src/test/test.py}
 ]{../../test/test.py}
-
-\section{数据库}
-
-\subsection{关系代数}
-
-\begin{enumerate}
-\item $ S $
-\item $ \Pi_{SN}{(\sigma_{AGE \geq 20}{(S)})} $
-\item $ \Pi_{CNO}{(\sigma_{CPNO = 'C2'}{(C)})} $
-\item $ \Pi_{SN}{(\sigma_{CNO = 'C1' \land SCORE = 'A'}{(SC)} \infty S)} $
-\item $ \Pi_{SN,CPNO}{(\sigma_{SNO='S1'}{(SC)} \infty C)} $
-\item $ \Pi_{CN}{(\sigma_{AGE = 23}{(S)} \infty SC \infty C)} $
-\item $ \Pi_{SN}{(\Pi_{CNO}{(\sigma_{SNO = 'S5'}{(SC)})} \infty SC \infty S)} $
-\item $ \Pi_{SN}{((SC \div \Pi_{CNO}{(\sigma_{SNO = 'S4'}{(SC)})}) \infty S)} $
-\item $ \Pi_{SNO}{(SC \div \Pi_{CNO}{(C)})} $
-\item $ \Pi_{SNO}{(S)} - \Pi_{SNO}{(SC)} $
-\end{enumerate}
-
-\subsection{关系演算}
-
-\begin{enumerate}
-	\item GET W(S)
-	\item GET W(S.SN): S.AGE $\geq$ 20 
-	\item GET W(C.CNO): C.CPNO=`C2'
-	\item RANGE SC SCX \\
-	GET W(S.SN): $\exists$ SCX(SCX.SNO=S.SNO $\wedge$ SCX.CNO=`C1' $\wedge$ SCX.SCORE=`A')
-	\item RANGE SC SCX \\
-	GET W(C.CN,C.CPNO): $\exists$ SCX(C.CNO=SCX.CNO $\wedge$ SCX.SNO=`S1')
-	\item RANGE S SX \\
-	\hspace*{1.4cm} SC SCX \\
-	GET W(C.CN): $\exists$ SX $\exists$ SCX (C.CNO=SCX.CNO $\wedge$ SX.SNO=SCX.SNO
-    $\wedge$ SX.AGE=23)
-    
-    \item RANGE SC SCX \\
-    \hspace*{1.4cm} SC SCY \\
-    GET W(S.SN): $\exists$ SCX $\exists$ SCY (SCX.SNO='S5' $\wedge$ S.SNO=SCY.SNO $\wedge$ SCY.CNO=SCX.CNO)
-	
-	\item RANGE C CX \\
-	\hspace*{1.4cm} SC SCX \\
-	\hspace*{1.4cm} SC SCY \\
-	GET W(S.SN): $\forall$ CX($\exists$ SCX(SCX.CNO=CX.CNO $\wedge$ SCX.SNO='S4') $\rightarrow$ $\exists$ SCY(SCY.CNO=CX.CNO $\exists$ SCY.SNO=S.SNO))
-	
-	
-\end{enumerate}
 
 \end{document}
