@@ -3,23 +3,21 @@
         {
             "type": "cppbuild",
             "label": "C/C++: g++.exe 生成活动文件",
-            "command": "C:/Development/msys64/ucrt64/bin/g++.exe",
+            "command": "C:/Users/Anak1st/scoop/apps/mingw/current/bin/g++.exe",
             "args": [
                 "${file}",
                 "-o",
                 "${workspaceFolder}/build/main.exe",
                 "-std=c++20",
                 "-g",
-                "-I",
-                "C:/Development/msys64/ucrt64/include/c++/13.1.0/x86_64-w64-mingw32/bits/stdc++.h.gch",
-                "-I",
-                "${workspaceFolder}/include",
+                // "-I",
+                // "${workspaceFolder}/include",
                 "-Wall",
                 "-W",
                 "-fdiagnostics-color=always"
             ],
             "options": {
-                "cwd": "C:/Development/msys64/ucrt64/bin"
+                "cwd": "C:/Users/Anak1st/scoop/apps/mingw/current/bin"
             },
             "problemMatcher": [
                 "$gcc"
