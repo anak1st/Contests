@@ -16,10 +16,10 @@ struct Timer {
     }
 };
 
-struct Timer_v2 {
+struct Timer2 {
     using Clock = std::chrono::high_resolution_clock;
     std::chrono::time_point<Clock> p;
-    Timer_v2() { p = Clock::now(); };
+    Timer2() { p = Clock::now(); };
     float time() {
         std::chrono::time_point<Clock> q = Clock::now();
         std::chrono::duration<float> duration = q - p;

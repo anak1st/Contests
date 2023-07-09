@@ -43,7 +43,7 @@ struct Fenwick {
 };
 
 constexpr int inf = 1e9;
-/// @note when use this, disable `sum(l, r)` ans `kth(k)` !
+/// @note when use this, disable `sum(l, r)` and `kth(k)` !
 struct Max {
     i64 v;
     Max(i64 val = -inf) : v(val) {}
