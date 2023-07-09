@@ -26,10 +26,7 @@ int main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
 
-    int t = 100;
-    while (t--) {
-        std::cout << B << " " << B << "\n";
-    }
+    std::cout << __cplusplus << std::endl;
 
     return 0;
 }
