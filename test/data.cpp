@@ -20,13 +20,21 @@ template <typename T> struct Randomer {
     }
 };
 
-constexpr int B = 1e9;
-
 int main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
 
-    std::cout << __cplusplus << std::endl;
+    int n;
+    std::cin >> n;
+    std::vector<int> vec(n);
+    for (int i = 0; i < n; i++) {
+        std::cin >> vec[i];
+    }
+    std::sort(vec.begin(), vec.end());
+    for (int i = 0; i < n; i++) {
+        std::cout << vec[i] << " ";
+    }
+    std::cout << std::endl;
 
     return 0;
 }
