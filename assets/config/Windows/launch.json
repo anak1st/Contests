@@ -20,7 +20,7 @@
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
-            "miDebuggerPath": "C:/Users/Anak1st/scoop/apps/mingw/current/bin/gdb.exe",
+            "miDebuggerPath": "C:/msys2/ucrt64/bin/gdb.exe",
             "setupCommands": [
                 {
                     "description": "为 gdb 启用整齐打印",
