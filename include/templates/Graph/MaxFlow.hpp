@@ -61,7 +61,7 @@ template <typename T> struct MaxFlow {
         G[v].push_back(E.size());
         E.emplace_back(u, 0);
     }
-    T maxFlow(int s, int t) {
+    T Dinic(int s, int t) {
         T ans = 0;
         while (bfs(s, t)) {
             cur.assign(n, 0);

@@ -5,11 +5,15 @@
 #include <cassert>
 #include <chrono>
 #include <cmath>
+#include <compare>
+#include <functional>
 #include <iomanip>
 #include <iostream>
+#include <iterator>
 #include <map>
 #include <numeric>
 #include <queue>
+#include <random>
 #include <set>
 #include <sstream>
 #include <stack>
@@ -19,7 +23,6 @@
 #include <unordered_set>
 #include <vector>
 
-// C++20
-#include <compare>
-#include <numbers>
-#include <ranges>
+
+// #include <ranges>
+// #include <numbers>
