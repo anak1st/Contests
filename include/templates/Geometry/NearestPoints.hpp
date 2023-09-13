@@ -1,8 +1,8 @@
 #pragma once
 #include "XCPC.h"
-#include "Vector2d.hpp"
+#include "Vector2.hpp"
 
-double NearestPoints(std::vector<Vector2d> &p) {
+double NearestPoints(std::vector<Vector2> &p) {
     std::stable_sort(p.begin(), p.end());
 
     constexpr double inf = 1e18;
@@ -12,7 +12,7 @@ double NearestPoints(std::vector<Vector2d> &p) {
             return inf;
         }
         if (r - l == 2) {
-            return dis(p[l], p[l + 1]);
+            return point_dis(p[l], p[l + 1]);
         }
 
         int mid = (l + r) / 2;
@@ -23,7 +23,7 @@ double NearestPoints(std::vector<Vector2d> &p) {
         
         std::vector<int> tmp;
         for (int i = l; i < r; i++) {
-            if (disx(p[mid - 1], p[i]) < d) {
+            if (point_disx(p[mid - 1], p[i]) < d) {
                 tmp.push_back(i);
             }
         }
@@ -32,8 +32,8 @@ double NearestPoints(std::vector<Vector2d> &p) {
         });
         int m = tmp.size();
         for (int i = 0; i < m; i++) {
-            for (int j = i + 1; j < m && disy(p[tmp[i]], p[tmp[j]]) < d; j++) {
-                d = std::min(d, dis(p[tmp[i]], p[tmp[j]]));
+            for (int j = i + 1; j < m && point_disy(p[tmp[i]], p[tmp[j]]) < d; j++) {
+                d = std::min(d, point_dis(p[tmp[i]], p[tmp[j]]));
             }
         }
 

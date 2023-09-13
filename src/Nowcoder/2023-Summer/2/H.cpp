@@ -30,37 +30,48 @@ void solve() {
     std::string s;
     std::cin >> s;
 
-    std::vector<int> a(n + 1), b(n + 1);
+    std::vector<int> k(n + 1), b(n + 1);
+    k[0] = 1;
+
     for (int i = 0; i < n; i++) {
-        a[i + 1] = a[i] + (s[i] == 'A');
-        b[i + 1] = b[i] + (s[i] == 'B');
+        if (s[i] == 'A') {
+            k[i + 1] = -k[i];
+            b[i + 1] = -b[i] - 1;
+        } else {
+            k[i + 1] = k[i];
+            b[i + 1] = b[i] + 1;
+        }
     }
 
-    int ans = 0;
+    i64 ans = 0;
 
     while (q--) {
         int l, r;
         std::string X;
         std::cin >> l >> r >> X;
+        
         int siz = X.length();
-        i64 bit = 1 << siz;
+        i64 bit = 1LL << siz;
         i64 x = std::bitset<64>(X).to_ullong();
         
-        l = std::min((ans ^ l) % n + 1, (ans ^ r) % n + 1);
-        r = std::max((ans ^ l) % n + 1, (ans ^ r) % n + 1);
-        std::cerr << l << ' ' << r << ' ';
-        i64 A = a[r] - a[l - 1];
-        i64 B = b[r] - b[l - 1];
-        std::cerr << A << ' ' << B << '\n';
+        l = (l ^ ans) % n + 1;
+        r = (r ^ ans) % n + 1;
+        if (l > r) {
+            std::swap(l, r);
+        }
 
-        x -= A;
-        x = (x % bit + bit) % bit;
-        x *= A % 2 ? -1 : 1;
-        x = (x % bit + bit) % bit;
-        x += B;
-        x = (x % bit + bit) % bit;
+        l--;
+        
+        x -= b[l];
+        x *= k[l];
+        x *= k[r];
+        x += b[r];
+        x &= bit - 1;
+        
         ans = x;
-        std::cout << std::bitset<64>(ans).to_string().substr(64 - siz) << '\n';
+        std::cout << std::bitset<64>(ans)
+                        .to_string()
+                        .substr(64 - siz) << '\n';
     }
 }
 

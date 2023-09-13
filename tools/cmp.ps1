@@ -1,6 +1,6 @@
-g++ ./test/data.cpp -o ./build/data.exe -O2 -std=c++20 -I ./include
-g++ ./test/main.cpp -o ./build/main.exe -O2 -std=c++20
-g++ ./test/pass.cpp -o ./build/pass.exe -O2 -std=c++20
+g++ ./test/data.cpp -o ./build/data.exe -std=c++20 -O2 -static -I ./include
+g++ ./test/main.cpp -o ./build/main.exe -std=c++20 -O2 -static
+g++ ./test/pass.cpp -o ./build/pass.exe -std=c++20 -O2 -static
 
 Write-Output "Build Finish"
 
@@ -18,6 +18,7 @@ function Start-Pass {
 $tot = 50;
 $tottime1 = 0
 $tottime2 = 0
+$ok = $true
 foreach ($i in 1..$tot) {
     ./build/data.exe > $txtdata
     $time1 = (Measure-Command -Expression { Start-Main }).Milliseconds
@@ -28,9 +29,12 @@ foreach ($i in 1..$tot) {
     Write-Progress -Activity "Search in Progress" -Status "$str" -PercentComplete ($i / $tot * 100)
     if (Compare-Object (Get-Content $txtmain) (Get-Content $txtpass)) {
         Write-Output "Wrong Answer"
+        $ok = $false
         break
     }
 }
 $avgtime1 = $tottime1 / $tot
 $avgtime2 = $tottime2 / $tot
-Write-Output ("Accepted MainTime:{0:n0}ms PassTime:{1:n0}ms" -f $avgtime1, $avgtime2)
+if ($ok) {
+    Write-Output ("Accepted MainTime:{0:n0}ms PassTime:{1:n0}ms" -f $avgtime1, $avgtime2)
+}

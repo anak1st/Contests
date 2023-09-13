@@ -30,15 +30,17 @@ int main() {
     };
 
     i64 max = run_dp(N, M, 0);
+    i64 ans = 0;
     // std::cerr << "max: " << max << "\n";
     for (int i = 1; i <= N; i++) {
         // std::cerr << run_dp(N, M, i) << "\n";
-        if (run_dp(N, M, i) < max) {
-            std::cout << 0 << "\n";
-        } else {
-            std::cout << max - (run_dp(N, M - w[i], i) + v[i]) + 1 << "\n";
+        i64 val = run_dp(N, M, i);
+        if (val == max) {
+            ans++;
         }
     }
+
+    std::cout << N - ans << std::endl;
 
     return 0;
 }

@@ -8,6 +8,8 @@
 *.pdf
 *.exe
 *.gch
+*.in
+*.out
 
 # LaTeX
 *.aux
