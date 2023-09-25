@@ -1,50 +1,118 @@
 /**
  * @author: XiaFan
- * @date: 2023-09-11 23:30
+ * @date: 2023-09-24 23:15
  */
 #include <bits/stdc++.h>
 
 using i64 = long long;
 
-void solve() {
-    int n, k;
-    std::cin >> n >> k;
-    
-    auto ask = [&](int x) -> int {
-        std::cout << "? " << x + 1 << std::endl;
-        int res = 1;
-        std::cin >> res;
-        return res;
-    };
-
-    auto answer = [&](int x) -> void {
-        std::cout << "! " << x << std::endl;
-    };
-
-    i64 xsum = ask(0);
-    int z = n % k;
-    if (z) {
-        // std::cerr << 0 << " " << z / 2 << " " << z << "\n";
-        xsum ^= ask(z / 2);
-        xsum ^= ask(z);
+template <typename T>
+T power(T a, i64 b) {
+    T res = 1;
+    for (; b; b /= 2, a *= a) {
+        if (b % 2) res *= a;
     }
-    
-    for (int i = z + k; i + k <= n; i += k) {
-        xsum ^= ask(i);
-    }
-
-    answer(xsum);
+    return res;
 }
+template <int P>
+struct MintBase {
+    int v;
+    int norm(int x) const {
+        if (x >= P) x -= P;
+        if (x < 0) x += P;
+        return x;
+    }
+    MintBase() : v{0} {}
+    MintBase(i64 x) : v{norm(x % P)} {}
+    int val() const { return v; }
+    MintBase operator-() const { return MintBase(norm(P - v)); }
+    MintBase inv() const {
+        assert(v != 0);
+        return power(*this, P - 2);
+    }
+    MintBase &operator+=(const MintBase &rhs) {
+        v = norm(v + rhs.v);
+        return *this;
+    }
+    MintBase &operator-=(const MintBase &rhs) {
+        v = norm(v - rhs.v);
+        return *this;
+    }
+    MintBase &operator*=(const MintBase &rhs) {
+        v = norm(1LL * v * rhs.v % P);
+        return *this;
+    }
+    MintBase &operator/=(const MintBase &rhs) { 
+        return *this *= rhs.inv(); 
+    }
+    friend MintBase operator+(const MintBase &lhs, const MintBase &rhs) {
+        MintBase res = lhs;
+        res += rhs;
+        return res;
+    }
+    friend MintBase operator-(const MintBase &lhs, const MintBase &rhs) {
+        MintBase res = lhs;
+        res -= rhs;
+        return res;
+    }
+    friend MintBase operator*(const MintBase &lhs, const MintBase &rhs) {
+        MintBase res = lhs;
+        res *= rhs;
+        return res;
+    }
+    friend MintBase operator/(const MintBase &lhs, const MintBase &rhs) {
+        MintBase res = lhs;
+        res /= rhs;
+        return res;
+    }
+    friend std::istream &operator>>(std::istream &is, MintBase &a) {
+        i64 x;
+        is >> x;
+        a = MintBase(x);
+        return is;
+    }
+    friend std::ostream &operator<<(std::ostream &os, const MintBase &a) {
+        return os << a.val();
+    }
+    friend bool operator==(const MintBase &lhs, const MintBase &rhs) {
+        return lhs.val() == rhs.val();
+    }
+};
+constexpr int P = 998244353;
+using Mint = MintBase<P>;
+
 
 int main() {
-    // std::ios::sync_with_stdio(false);
-    // std::cin.tie(nullptr);
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
 
-    int t = 1;
-    std::cin >> t;
-    while (t--) {
-        solve();
+    int n;
+    std::cin >> n;
+    std::vector<int> a(n);
+
+    for (int i = 0; i < n; i++) {
+        std::cin >> a[i];
     }
+
+    std::vector<int> xsum(n + 1);
+    for (int i = 0; i < n; ++i) {
+        xsum[i + 1] = xsum[i] ^ a[i];
+    }
+
+    Mint ans = 0;
+    for (int z = 0; z < 30; z++) {
+        Mint sum[2];
+        Mint num[2];
+        for (int i = 0; i <= n; i++) {
+            int bit = xsum[i] >> z & 1;
+            
+            ans += (i * num[!bit] - sum[!bit]) * (1LL << z);
+
+            num[bit] += 1;
+            sum[bit] += i;
+        }
+    }
+    std::cout << ans << '\n';
 
     return 0;
 }

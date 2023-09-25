@@ -1,4 +1,3 @@
-// C++17
 #include <algorithm>
 #include <array>
 #include <bitset>
@@ -23,7 +22,5 @@
 #include <unordered_set>
 #include <vector>
 #include <complex>
-
-
 // #include <ranges>
 // #include <numbers>

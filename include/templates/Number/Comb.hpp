@@ -38,7 +38,7 @@ struct Comb {
     }
     Mint A(int n, int m) {
         if (n < m || m < 0) return 0;
-        return fac(n) * invfac(m);
+        return fac(n) * invfac(m - n);
     }
     Mint C(int n, int m) {
         if (n < m || m < 0) return 0;

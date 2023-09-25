@@ -1,75 +1,37 @@
 /**
  * @author: XiaFan
- * @date: 2023-09-11 23:32
+ * @date: 2023-09-21 22:24
  */
 #include <bits/stdc++.h>
 
 using i64 = long long;
+using i128 = __int128;
 
 void solve() {
-    int n, k;
-    std::cin >> n >> k;
-    std::vector<int> a(n);
+    i64 n, x;
+    std::cin >> n >> x;
+    std::vector<i64> a(n);
     for (int i = 0; i < n; i++) {
         std::cin >> a[i];
-        a[i]--;
     }
 
-    if (k == 1) {
+    i128 left = 1, right = 1e18, h = 1;
+    while (left <= right) {
+        i128 mid = (left + right) / 2;
+        
+        i128 cnt = 0;
         for (int i = 0; i < n; i++) {
-            if (a[i] != i) {
-                std::cout << "NO\n";
-                return;
-            }
+            cnt += std::max((i128)0, mid - a[i]);
         }
 
-        std::cout << "YES\n";
-        return;
-    }
-
-    for (int i = 0; i < n; i++) {
-        if (a[i] == i) {
-            std::cout << "NO\n";
-            return;
+        if (cnt <= x) {
+            left = mid + 1;
+            h = mid;
+        } else {
+            right = mid - 1;
         }
     }
-
-    std::vector<int> vis(n, -1);
-    auto find_cycle = [&](int st) -> std::vector<int> {
-        std::vector<int> res;
-        int p = st;
-        do {
-            res.push_back(p);
-            p = a[p];
-        } while (p != st);
-        return res;
-    };
-
-    std::vector<std::vector<int>> cycles;
-
-    auto dfs = [&](auto &&dfs, int p, int st) -> void {
-        vis[p] = st;
-        if (vis[a[p]] == -1) {
-            dfs(dfs, a[p], st);
-        } else if (vis[a[p]] == st) {
-            cycles.push_back(find_cycle(p));
-        }
-    };
-
-    for (int i = 0; i < n; i++) {
-        if (vis[i] == -1) {
-            dfs(dfs, i, i);
-        }
-    }
-
-    for (auto &c : cycles) {
-        if (c.size() != k) {
-            std::cout << "NO\n";
-            return;
-        }
-    }
-
-    std::cout << "YES\n";
+    std::cout << (i64)h << "\n";
 }
 
 int main() {
