@@ -38,10 +38,17 @@ struct Comb {
     }
     Mint A(int n, int m) {
         if (n < m || m < 0) return 0;
-        return fac(n) * invfac(m - n);
+        return fac(n) * invfac(n - m);
     }
     Mint C(int n, int m) {
         if (n < m || m < 0) return 0;
         return fac(n) * invfac(m) * invfac(n - m);
+    }
+    Mint lucas(int a, int b) {
+        if (a < P && b < P) {
+            // 小于p了之后直接从定义出发计算
+            return C(a, b);
+        }
+        return C(a % P, b % P) * lucas(a / P, b / P);
     }
 } comb;

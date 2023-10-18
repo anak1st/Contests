@@ -1,6 +1,7 @@
 #pragma once
 #include "XCPC.h"
 
+
 struct Integer {
     std::deque<int> data;
 
@@ -144,6 +145,43 @@ struct Integer {
             tmp -= lhs * Integer(ans);
         }
         *this = res;
+        remove_leading_zero();
+        return *this;
+    }
+
+    i64 operator%=(i64 x) {
+        assert(x != 0);
+        int d = 0;
+        for (int i = 0; i < data.size(); i++) {
+            d = (d * 10 + (data[i])) % x;
+        }
+        return d;
+    }
+
+    Integer operator%=(const Integer &lhs) {
+        assert(lhs != Integer(0));
+        if (lhs > *this) {
+            return *this;
+        }
+        Integer res, tmp;
+        res.resize(size(), 0);
+        int dif = size() - lhs.size();
+        tmp.data.insert(tmp.data.begin(), data.begin() + dif + 1, data.end());
+        for (int i = dif; i >= 0; i--) {
+            tmp.data.push_front(data[i]);
+            tmp.remove_leading_zero();
+            int ans = 0;
+            for (int j = 1; j <= 9; j++) {
+                if (tmp >= lhs * Integer(j)) {
+                    ans = j;
+                } else {
+                    break;
+                }
+            }
+            res.data[i] = ans;
+            tmp -= lhs * Integer(ans);
+        }
+        *this = tmp;
         remove_leading_zero();
         return *this;
     }

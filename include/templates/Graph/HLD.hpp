@@ -1,6 +1,7 @@
 #pragma once
 #include "XCPC.h"
 
+// 树链剖分，轻重边剖分
 struct HLD {
     int n;
     std::vector<int> siz, top, dep, parent, in, out, seq;

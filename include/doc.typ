@@ -111,6 +111,10 @@
 #let text = read("templates/Graph/MaxFlow.hpp")
 #raw(text, lang: "cpp")
 
+== 树链剖分 (HLD)
+#let text = read("templates/Graph/HLD.hpp")
+#raw(text, lang: "cpp")
+
 #pagebreak()
 // 4
 = DP
@@ -125,8 +129,12 @@
 #let text = read("templates/Geometry/Circle.hpp")
 #raw(text, lang: "cpp")
 
-== Vector
+== Vector2
 #let text = read("templates/Geometry/Vector2.hpp")
+#raw(text, lang: "cpp")
+
+== Vector3
+#let text = read("templates/Geometry/Vector3.hpp")
 #raw(text, lang: "cpp")
 
 #pagebreak()
@@ -156,6 +164,10 @@
 #let text = read("templates/Number/Matrix.hpp")
 #raw(text, lang: "cpp")
 
+== 大数
+#let text = read("templates/Number/Interger2.hpp")
+#raw(text, lang: "cpp")
+
 #pagebreak()
 // 7
 = 字符串
@@ -174,4 +186,8 @@
 
 == Trie
 #let text = read("templates/String/Trie.hpp")
+#raw(text, lang: "cpp")
+
+== SAM
+#let text = read("templates/String/SAM.hpp")
 #raw(text, lang: "cpp")

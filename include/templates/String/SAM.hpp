@@ -2,6 +2,7 @@
 #include "XCPC.h"
 
 // https://codeforces.com/contest/1780/submission/190616778
+// 后缀自动机
 struct SuffixAutomaton {
     static constexpr int ALPHABET_SIZE = 26, N = 1e6;
     struct Node {
