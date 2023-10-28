@@ -1,71 +1,78 @@
 /**
  * @author: XiaFan
- * @date: 2023-10-17 21:53
+ * @date: 2023-10-29 00:49
  */
 #include <bits/stdc++.h>
 
 using i64 = long long;
 
+
 void solve() {
-    int n, k;
-    std::cin >> n >> k;
-    std::vector<int> vis(n);
-    for (int i = 0; i < k; i++) {
-        int x;
-        std::cin >> x;
-        x--;
-        vis[x] = 1;
+    int n, m, k;
+    std::cin >> n >> m >> k;
+    std::vector<std::pair<int, int>> a(m);
+    for (int i = 0; i < m; i++) {
+        int x, y;
+        std::cin >> x >> y;
+        x--, y--;
+        a[i] = {x, y};
     }
 
-    std::vector<std::vector<int>> adj(n);
-    for (int i = 0; i < n - 1; i++) {
-        int u, v;
-        std::cin >> u >> v;
-        u--;
-        v--;
-        adj[u].push_back(v);
-        adj[v].push_back(u);
+    std::vector<std::vector<int>> b(n);
+    for (int i = 0; i < m; i++) {
+        auto [x, y] = a[i];
+        b[x].push_back(i);
+        if (y + 1 < n)
+            b[y + 1].push_back(i);
     }
 
-    std::vector<int> dis(n);
-    auto bfs = [&](int st) -> int {
-        std::fill(dis.begin(), dis.end(), -1);
-        dis[st] = 0;
-        std::queue<int> q;
-        q.push(st);
-        while (!q.empty()) {
-            int u = q.front();
-            q.pop();
-            for (int v : adj[u]) {
-                if (dis[v] == -1) {
-                    dis[v] = dis[u] + 1;
-                    q.push(v);
-                }
-            }
-        }
-        int res = -1;
-        for (int i = 0; i < n; i++) {
-            if (vis[i] && (res == -1 || dis[i] > dis[res])) {
-                res = i;
-            }
-        }
-        return res;
-    };
+    std::vector<int> cnt1(m);
+    std::map<std::pair<int, int>, int> cnt2;
+    std::set<int> s;
 
-    int u = bfs(0);
-    int v = bfs(u);
-
-    auto dis1 = dis;
-    bfs(v);
-
-    std::vector<int> mind(n);
+    int ans = 0;
     for (int i = 0; i < n; i++) {
-        mind[i] = std::max(dis1[i], dis[i]);
-        // std::cerr << mind[i] << ' ';
+        for (auto x : b[i]) {
+            if (s.count(x)) {
+                s.erase(x);
+            } else {
+                s.insert(x);
+            }
+        }
+
+        if (s.empty()) {
+            ans++;
+            continue;
+        }
+
+        if (s.size() <= 2) {
+            std::vector<int> vals;
+            for (auto x : s) {
+                vals.push_back(x);
+            }
+            
+            if (vals.size() == 1) {
+                cnt1[vals[0]]++;
+            }
+            if (vals.size() == 2) {
+                cnt2[{vals[0], vals[1]}]++;
+            }
+        }
     }
-    // std::cerr << '\n';
-    int ans = std::ranges::min(mind);
-    std::cout << ans << '\n';
+
+    auto cntt = cnt1;
+    std::sort(cntt.rbegin(), cntt.rend());
+    int tmp = cntt[0];
+    if (cntt.size() >= 2) {
+        tmp += cntt[1];
+    }
+    for (auto [_, v] : cnt2) {
+        auto [x, y] = _;
+        // std::cerr << x << " " << y << " " << v << "+" << cnt1[x] << "+" << cnt1[y] << "\n";
+        tmp = std::max(tmp, v + cnt1[x] + cnt1[y]);
+    }
+
+    std::cout << ans + tmp << "\n";
 }
 
 int main() {
