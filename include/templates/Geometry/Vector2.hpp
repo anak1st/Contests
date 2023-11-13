@@ -32,12 +32,6 @@ struct Vector2 {
     friend Vector2 operator/(const Vector2 &lhs, double rhs) {
         return Vector2(lhs.x / rhs, lhs.y / rhs);
     }
-    friend double dot(const Vector2 &lhs, const Vector2 &rhs) {
-        return lhs.x * rhs.x + lhs.y * rhs.y;
-    }
-    friend double cross(const Vector2 &lhs, const Vector2 &rhs) {
-        return lhs.x * rhs.y - lhs.y * rhs.x;
-    }
     double norm() const {
         return std::hypot(x, y);
     }
@@ -55,6 +49,33 @@ struct Vector2 {
         return tmp;
     }
 };
+
+double dot(const Vector2 &lhs, const Vector2 &rhs) {
+    return lhs.x * rhs.x + lhs.y * rhs.y;
+}
+double cross(const Vector2 &lhs, const Vector2 &rhs) {
+    return lhs.x * rhs.y - lhs.y * rhs.x;
+}
+i64 quadrant(const Vector2 &v) {
+    if (v.x >= 0 && v.y >= 0) {
+        return 0;
+    }
+    if (v.x < 0 && v.y >= 0) {
+        return 1;
+    }
+    if (v.x < 0 && v.y < 0) {
+        return 2;
+    }
+    return 3;
+}
+bool cmp(const Vector2 &lhs, const Vector2 &rhs) {
+    auto q1 = quadrant(lhs);
+    auto q2 = quadrant(rhs);
+    if (q1 != q2) {
+        return q1 < q2;
+    }
+    return cross(lhs, rhs) > 0;
+}
 
 double point_dis(const Vector2 &lhs, const Vector2 &rhs) {
     return (lhs - rhs).norm();

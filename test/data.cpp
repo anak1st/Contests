@@ -20,13 +20,14 @@ int main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
 
-    Randomer<i64> R1(9e3, 1e4);
-    Randomer<i64> R2(9e6, 1e14);
-    i64 t = 1e4;
+    Randomer<i64> R1(1, 3);
+
+    int t = 1;
     std::cout << t << "\n";
     while (t--) {
-        i64 n = 1e14 - 2;
-        std::cout << n << "\n";
+        std::cout << R1() << ' ' << R1() << "\n";
+        std::cout << R1() << ' ' << R1() << "\n";
+        std::cout << R1() << ' ' << R1() << "\n";
     }
 
     return 0;

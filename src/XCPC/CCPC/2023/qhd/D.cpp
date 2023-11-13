@@ -9,46 +9,32 @@ using i64 = long long;
 void solve() {
     int n, m;
     std::cin >> n >> m;
-    std::vector<int> a(n);
+    std::vector<i64> a(n);
     for (int i = 0; i < n; i++) {
         std::cin >> a[i];
     }
-    std::vector<std::pair<int, int>> b(m);
+    std::vector<i64> b(n);
     for (int i = 0; i < m; i++) {
-        std::cin >> b[i].first >> b[i].second;
+        int x;
+        i64 y;
+        std::cin >> x >> y;
+        x--;
+        b[x] += y;
     }
-    std::sort(b.begin(), b.end());
 
-    std::priority_queue<int, std::vector<int>, std::greater<>> q;
-
-    int j = 0;
-    for (int i = 0; i < n; i++) {
-        while (j < m && b[j].first <= i) {
-            auto t = q.top();
-            q.pop();
-            t -= b[j].second;
-            j++;
-            q.push(t);
+    for (int i = 0, j = 0; i < n; i++) {
+        if (a[i] < a[j]) {
+            j = i;
         }
-        q.push(a[i]);
+        a[j] -= b[i];
     }
 
-    while (j < m) {
-        auto t = q.top();
-        q.pop();
-        t -= b[j].second;
-        j++;
-        q.push(t);
-    }
-
-    i64 ans = 0;
+    std::sort(a.begin(), a.end());
+    i64 sum = 0;
     for (int i = 0; i < n; i++) {
-        ans += q.top();
-        std::cout << ans << ' ';
-        q.pop();
+        sum += a[i];
+        std::cout << sum << " \n"[i == n - 1];
     }
-
-    std::cout << "\n";
 }
 
 int main() {
