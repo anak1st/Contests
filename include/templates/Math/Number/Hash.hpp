@@ -1,6 +1,6 @@
 #pragma once
 #include "XCPC.h"
-#include "templates/Number/Mint.hpp"
+#include "templates/Math/Number/Mint.hpp"
 
 constexpr i64 Mod1 = 1e9 + 7, Mod2 = 1e9 + 9;
 struct Hash {

@@ -1,6 +1,9 @@
 #pragma once
 #include "XCPC.h"
 
+template <typename T>
+using min_heap = std::priority_queue<T, std::vector<T>, std::greater<T>>;
+
 struct MCFGraph {
     struct Edge {
         int v, c, f;
@@ -14,9 +17,11 @@ struct MCFGraph {
     bool dijkstra(int s, int t) {
         dis.assign(n, std::numeric_limits<i64>::max());
         pre.assign(n, -1);
-        std::priority_queue<std::pair<i64, int>, std::vector<std::pair<i64, int>>,
-                            std::greater<std::pair<i64, int>>>
-            que;
+
+        // std::priority_queue<std::pair<i64, int>, std::vector<std::pair<i64, int>>,
+        //                     std::greater<std::pair<i64, int>>> que;
+        min_heap<std::pair<i64, int>> que;
+
         dis[s] = 0;
         que.emplace(0, s);
         while (!que.empty()) {
