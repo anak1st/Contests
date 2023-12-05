@@ -45,3 +45,10 @@ std::vector<Hash> get(std::string s) {
     }
     return res;
 }
+void example() {
+    std::string s;
+    auto h = get(s);
+    auto sub = [&](int l, int r) -> Hash {
+        return h[r] - h[l] * PW[r - l];
+    };
+}

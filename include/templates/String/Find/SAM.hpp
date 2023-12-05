@@ -43,3 +43,13 @@ struct SuffixAutomaton {
         return cur;
     }
 };
+
+void example() {
+    std::string s;
+    SuffixAutomaton sa;
+    int p = 0;
+    for (char c : s) {
+        p = sa.extend(p, c - 'a');
+    }
+    
+}

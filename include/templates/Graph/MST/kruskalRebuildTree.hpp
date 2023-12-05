@@ -1,7 +1,6 @@
 #pragma once
 #include "XCPC.h"
 
-
 std::pair<std::vector<int>, std::vector<int>> kruskalRebuildTree(
     int n, std::vector<std::array<int, 3>> edges) {
     std::vector<int> f(2 * n);
@@ -11,9 +10,7 @@ std::pair<std::vector<int>, std::vector<int>> kruskalRebuildTree(
         return f[x];
     };
 
-    std::sort(edges.begin(), edges.end(), [](auto a, auto b) { 
-        return a[2] < b[2]; 
-    });
+    std::sort(edges.begin(), edges.end(), [](auto a, auto b) { return a[2] < b[2]; });
 
     std::vector<int> v(n + 1);
     std::vector<int> p(2 * n);

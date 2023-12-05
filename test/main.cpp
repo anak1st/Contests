@@ -1,73 +1,69 @@
-/**
- * @author: XiaFan
- * @date: 2023-11-26 23:25
- */
 #include <bits/stdc++.h>
 
 using i64 = long long;
 
+struct Point {
+    int x = 0, y = 0;
+};
 
-constexpr int N = 1E5;
- 
-std::vector<std::vector<int>> divs;
-std::vector<int> phi;
-
-void init() {
-    divs.resize(N + 1);
-    phi.resize(N + 1);
-
-    for (int i = 1; i <= N; i++) {
-        for (int j = i; j <= N; j += i) {
-            divs[j].push_back(i);
-        }
-    }
-    
-    for (int i = 1; i <= N; i++) {
-        phi[i] = i;
-    }
-    for (int i = 1; i <= N; i++) {
-        for (int j = 2 * i; j <= N; j += i) {
-            phi[j] -= phi[i];
-        }
-    }
+Point operator+(Point a, Point b) {
+    return {a.x + b.x, a.y + b.y};
+}
+Point operator-(Point a, Point b) {
+    return {a.x - b.x, a.y - b.y};
 }
 
-
-void solve() {
-    int n;
-    std::cin >> n;
-    
-    std::vector<int> a(n);
-    for (int i = 0; i < n; i++) {
-        std::cin >> a[i];
-    }
-    std::sort(a.begin(), a.end());
-    
-    i64 ans = 0;
-    std::array<int, N + 1> f{};
-    for (int i = 0; i < n; i++) {
-        for (auto d : divs[a[i]]) {
-            ans += 1LL * phi[d] * f[d] * (n - 1 - i);
-            f[d] += 1;
-        }
-    }
-    std::cout << ans << "\n";
+bool operator<(Point a, Point b) {
+    return a.x < b.x || (a.x == b.x && a.y < b.y);
 }
+
 int main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
-
-    init();
-
-    // for (int i = 1; i <= 100; i++) {
-    //     std::cerr << "phi[" << i << "] = " << phi[i] << '\n';
-    // }
-
-    int t = 1;
-    std::cin >> t;
-    while (t--) {
-        solve();
+    
+    int n, q;
+    std::cin >> n >> q;
+    
+    std::vector<Point> p(n + 1);
+    std::string s;
+    std::cin >> s;
+    for (int i = 0; i < n; i++) {
+        p[i + 1] = p[i];
+        if (s[i] == 'U') {
+            p[i + 1].y += 1;
+        } else if (s[i] == 'D') {
+            p[i + 1].y -= 1;
+        } else if (s[i] == 'L') {
+            p[i + 1].x -= 1;
+        } else {
+            p[i + 1].x += 1;
+        }
     }
-
+    
+    std::map<Point, std::vector<int>> pos;
+    for (int i = 0; i <= n; i++) {
+        pos[p[i]].push_back(i);
+    }
+    
+    auto get = [&](Point p, int l, int r) {
+        if (!pos.contains(p)) {
+            return false;
+        }
+        const auto &vec = pos[p];
+        auto it = std::lower_bound(vec.begin(), vec.end(), l);
+        return it != vec.end() && *it <= r;
+    };
+    
+    while (q--) {
+        int x, y, l, r;
+        std::cin >> x >> y >> l >> r;
+        l--;
+        if (get(Point{x, y}, 0, l) || get(Point{x, y}, r, n) || get(p[l] + p[r] - Point{x, y}, l, r)) {
+            std::cout << "YES\n";
+        } else {
+            std::cout << "NO\n";
+        }
+    }
+    
     return 0;
 }
