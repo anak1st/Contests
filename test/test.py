@@ -1,14 +1,5 @@
-import math
-
-def fun(x, n=9):
-    return x ** n * math.exp(x - 1)
-
-
-def integral(start, end, step):
-    result = 0
-    while start < end:
-        result += fun(start) * step
-        start += step
-    return result
-
-print(integral(0, 1, 1e-8))
+from fractions import Fraction
+a=input().split(".")[1]
+n=int(input())
+r=(Fraction(int(a),10**len(a))-Fraction(1,10**100)).limit_denominator(n)
+print(r.numerator,r.denominator)

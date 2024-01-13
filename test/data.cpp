@@ -28,26 +28,16 @@ int main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
 
-    // Randomer<i64> R1(1, 3);
+    Randomer R(0, 10);
 
-    int n = 10;
-    std::vector<i64> a(n);
-    std::iota(a.begin(), a.end(), 0);
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < n; j++) {
-            std::cout << a[j] << " \n"[j == n - 1];
-        }
-        a = work(a, 0);
-    }
+    int n = 200;
+    std::vector<int> a(n);
+    std::iota(a.begin(), a.end(), 1);
+    std::shuffle(a.begin(), a.end(), R.engine);
 
-    std::cout << std::string(10, '-') << '\n';
-
-    std::iota(a.begin(), a.end(), 0);
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < n; j++) {
-            std::cout << a[j] << " \n"[j == n - 1];
-        }
-        a = work(a, 1);
+    std::cout << n << "\n";
+    for (int i = 0; i < n; i++) {
+        std::cout << a[i] << " ";
     }
 
     return 0;
