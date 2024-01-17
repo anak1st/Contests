@@ -2,15 +2,9 @@
  * @author: XiaFan
  * @date: 2023-12-30 21:46
  */
-#include <array>
-#include <chrono>
-#include <cstddef>
-#include <iomanip>
-#include <iostream>
-#include <list>
-#include <memory_resource>
-#include <ranges>
+#include <bits/stdc++.h>
 #include "other/Tracknew.hpp"
+
 
 
 int main()
