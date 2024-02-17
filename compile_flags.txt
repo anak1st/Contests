@@ -1,0 +1,4 @@
+--target=x86_64-w64-windows-gnu
+-std=c++26
+-I
+C:/Users/Anak1st/Documents/GitHub/Contests/include

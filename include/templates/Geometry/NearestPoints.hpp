@@ -2,15 +2,12 @@
 #include "XCPC.h"
 #include "Vector2.hpp"
 
-double NearestPoints(std::vector<Vector2> &p) {
+
+double NearestPoints(std::vector<Vector2<double>> &p) {
     std::stable_sort(p.begin(), p.end());
-
     constexpr double inf = 1e18;
-
     auto merge = [&](auto &&merge, int l, int r) -> double {
-        if (r - l == 1) {
-            return inf;
-        }
+        if (r - l == 1) return inf;
         if (r - l == 2) {
             return point_dis(p[l], p[l + 1]);
         }

@@ -1,17 +1,136 @@
 /**
  * @author: XiaFan
- * @date: 2023-12-30 21:46
+ * @date: 2024-02-15 23:09
  */
 #include <bits/stdc++.h>
-#include "other/Tracknew.hpp"
+
+using i64 = long long;
+
+template <typename T>
+T power(T a, i64 b) {
+    T res = 1;
+    for (; b; b /= 2, a *= a) {
+        if (b % 2) res *= a;
+    }
+    return res;
+}
+template <int P>
+struct MintBase {
+    int v;
+    int norm(int x) const {
+        if (x >= P) x -= P;
+        if (x < 0) x += P;
+        return x;
+    }
+    MintBase() : v{0} {}
+    MintBase(i64 x) : v{norm(x % P)} {}
+    int val() const { return v; }
+    MintBase operator-() const { return MintBase(norm(P - v)); }
+    MintBase inv() const {
+        assert(v != 0);
+        return power(*this, P - 2);
+    }
+    MintBase &operator+=(const MintBase &rhs) {
+        v = norm(v + rhs.v);
+        return *this;
+    }
+    MintBase &operator-=(const MintBase &rhs) {
+        v = norm(v - rhs.v);
+        return *this;
+    }
+    MintBase &operator*=(const MintBase &rhs) {
+        v = norm(1LL * v * rhs.v % P);
+        return *this;
+    }
+    MintBase &operator/=(const MintBase &rhs) { 
+        return *this *= rhs.inv(); 
+    }
+    friend MintBase operator+(const MintBase &lhs, const MintBase &rhs) {
+        MintBase res = lhs;
+        res += rhs;
+        return res;
+    }
+    friend MintBase operator-(const MintBase &lhs, const MintBase &rhs) {
+        MintBase res = lhs;
+        res -= rhs;
+        return res;
+    }
+    friend MintBase operator*(const MintBase &lhs, const MintBase &rhs) {
+        MintBase res = lhs;
+        res *= rhs;
+        return res;
+    }
+    friend MintBase operator/(const MintBase &lhs, const MintBase &rhs) {
+        MintBase res = lhs;
+        res /= rhs;
+        return res;
+    }
+    friend std::istream &operator>>(std::istream &is, MintBase &a) {
+        i64 x;
+        is >> x;
+        a = MintBase(x);
+        return is;
+    }
+    friend std::ostream &operator<<(std::ostream &os, const MintBase &a) {
+        return os << a.val();
+    }
+    friend bool operator==(const MintBase &lhs, const MintBase &rhs) {
+        return lhs.val() == rhs.val();
+    }
+};
+constexpr int P = 998244353;
+using Mint = MintBase<P>;
 
 
+void solve() {
+    int n;
+    std::cin >> n;
+    std::vector<std::vector<int>> adj(n);
+    for (int i = 0; i < n - 1; i++) {
+        int u, v;
+        std::cin >> u >> v;
+        u--, v--;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
 
-int main()
-{
-    int i = 1;
+    auto dfs = [&](auto &&self, int u, int p) -> std::vector<Mint> {
+        std::vector<Mint> ans{1, 0};
 
-    int j = ++i+i++;
+        std::vector<std::vector<Mint>> res;
 
-    std::cout << j << std::endl;
+        for (int v : adj[u]) {
+            if (v == p) {
+                continue;
+            }
+            res.push_back(self(self, v, u));
+        }
+
+        for (int i = 0; i < (int)res.size(); i++) {
+            ans[0] *= (1 + res[i][0]);
+            ans[1] += res[i][0] + res[i][1];
+        }
+
+        // std::cerr << u << " " << ans[0] << " " << ans[1] << std::endl;
+
+        return ans;
+    };
+
+    // std::cerr << "\n";
+
+    auto ans = dfs(dfs, 0, -1);
+    std::cout << ans[0] + ans[1] + 1 << "\n";
+}
+
+int main() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+
+    int t = 1;
+    std::cin >> t;
+    while (t--) {
+        solve();
+    }
+
+    return 0;
 }
