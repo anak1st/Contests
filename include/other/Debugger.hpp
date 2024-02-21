@@ -1,5 +1,7 @@
 #pragma once
-#include "XCPC.h"
+#include <bits/stdc++.h>
+
+using i64 = long long;
 
 // using namespace std;
 // https://github.com/Heltion/debug.h/blob/main/debug.h

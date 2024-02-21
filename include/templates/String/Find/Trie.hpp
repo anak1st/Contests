@@ -1,5 +1,7 @@
 #pragma once
-#include "XCPC.h"
+#include <bits/stdc++.h>
+
+using i64 = long long;
 
 constexpr int N = 5E5 + 2;
 int tree[N][26], have[N], sum[N];

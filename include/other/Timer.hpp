@@ -1,5 +1,7 @@
 #pragma once
-#include "XCPC.h"
+#include <bits/stdc++.h>
+
+using i64 = long long;
 
 struct Timer {
     using Clock = std::chrono::high_resolution_clock;

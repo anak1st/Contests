@@ -1,5 +1,7 @@
 #pragma once
-#include "XCPC.h"
+#include <bits/stdc++.h>
+
+using i64 = long long;
 
 // from https://github.com/hjcapple/MetaLisp
 struct number_tag {

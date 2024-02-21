@@ -1,5 +1,7 @@
 #pragma once
-#include "XCPC.h"
+#include <bits/stdc++.h>
+
+using i64 = long long;
 
 constexpr int MAX_SIZE = 1e5 + 10;
 int na[MAX_SIZE], nb[MAX_SIZE], nc[MAX_SIZE];

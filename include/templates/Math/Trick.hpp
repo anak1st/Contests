@@ -1,6 +1,7 @@
 #pragma once
-#include "XCPC.h"
+#include <bits/stdc++.h>
 
+using i64 = long long;
 
 
 void subset(int x) {

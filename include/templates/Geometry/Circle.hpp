@@ -1,10 +1,13 @@
 #pragma once
-#include "XCPC.h"
+#include <bits/stdc++.h>
+
+using i64 = long long;
 
 // const double pi = std::acos(-1.0);
 constexpr double pi = std::numbers::pi;
 
 // The Law of Cosines
+// a^2 = b^2 + c^2 - 2bc * cos(A)
 double cosine_law(double a, double b, double c) {
     return std::acos((a * a + b * b - c * c) / (2 * a * b));
 }

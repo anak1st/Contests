@@ -1,5 +1,7 @@
 #pragma once
-#include "XCPC.h"
+#include <bits/stdc++.h>
+
+using i64 = long long;
 #include "templates/Math/Number/Mint.hpp"
 
 constexpr i64 P = 1e9 + 7;

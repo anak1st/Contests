@@ -1,5 +1,7 @@
 #pragma once
-#include "XCPC.h"
+#include <bits/stdc++.h>
+
+using i64 = long long;
 
 
 std::array<i64, 3> exgcd(i64 a, i64 b) {

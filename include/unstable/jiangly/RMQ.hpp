@@ -1,5 +1,8 @@
 #pragma once
-#include "XCPC.h"
+#include <bits/stdc++.h>
+
+using i64 = long long;
+using u64 = unsigned long long;
 
 // Range Maximum/Minimum Query
 template<class T,

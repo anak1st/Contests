@@ -1,5 +1,7 @@
 #pragma once
-#include "XCPC.h"
+#include <bits/stdc++.h>
+
+using i64 = long long;
 
 std::vector<int> Z_algorithm(std::string s) {
   int n = (int)s.length();

@@ -1,5 +1,8 @@
 #pragma once
-#include "XCPC.h"
+#include <bits/stdc++.h>
+
+using i64 = long long;
+using u64 = unsigned long long;
 
 struct MapHash {
     static u64 splitmix64(u64 x) {

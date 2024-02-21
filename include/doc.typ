@@ -84,10 +84,6 @@
 #let text = read("templates/DataStructure/SegTreeLazy.hpp")
 #raw(text, lang: "cpp")
 
-== Splay
-#let text = read("templates/DataStructure/Splay.hpp")
-#raw(text, lang: "cpp")
-
 == ST表
 #let text = read("templates/DataStructure/ST.hpp")
 #raw(text, lang: "cpp")

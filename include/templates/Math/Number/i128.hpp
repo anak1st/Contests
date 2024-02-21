@@ -1,7 +1,9 @@
 #pragma once
-#include "XCPC.h"
+#include <bits/stdc++.h>
 
+using i64 = long long;
 using i128 = __int128;
+
 std::istream &operator>>(std::istream &is, i128 &x) {
     std::string s;
     is >> s;

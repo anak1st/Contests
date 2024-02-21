@@ -1,5 +1,7 @@
 #pragma once
-#include "XCPC.h"
+#include <bits/stdc++.h>
+
+using i64 = long long;
 
 // Sparse Table
 template <typename T, class F = std::function<T(const T &, const T &)>>

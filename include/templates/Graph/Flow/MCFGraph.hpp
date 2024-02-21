@@ -1,5 +1,7 @@
 #pragma once
-#include "XCPC.h"
+#include <bits/stdc++.h>
+
+using i64 = long long;
 
 template <typename T>
 using min_heap = std::priority_queue<T, std::vector<T>, std::greater<T>>;

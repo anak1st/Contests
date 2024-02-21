@@ -1,5 +1,7 @@
 #pragma once
-#include "XCPC.h"
+#include <bits/stdc++.h>
+
+using i64 = long long;
 
 // https://codeforces.com/contest/1780/submission/190616778
 // 后缀自动机

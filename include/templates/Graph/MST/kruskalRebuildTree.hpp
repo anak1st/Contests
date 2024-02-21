@@ -1,5 +1,7 @@
 #pragma once
-#include "XCPC.h"
+#include <bits/stdc++.h>
+
+using i64 = long long;
 
 std::pair<std::vector<int>, std::vector<int>> kruskalRebuildTree(
     int n, std::vector<std::array<int, 3>> edges) {

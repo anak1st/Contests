@@ -1,5 +1,7 @@
 #pragma once
-#include "XCPC.h"
+#include <bits/stdc++.h>
+
+using i64 = long long;
 
 constexpr double Pi = std::numbers::pi;
 using Complex = std::complex<double>;

@@ -1,5 +1,7 @@
 #pragma once
-#include "XCPC.h"
+#include <bits/stdc++.h>
+
+using i64 = long long;
 
 constexpr int N = 5000;
 constexpr i64 inf = 4e18;

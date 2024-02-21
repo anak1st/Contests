@@ -1,5 +1,7 @@
 #pragma once
-#include "XCPC.h"
+#include <bits/stdc++.h>
+
+using i64 = long long;
 
 // 0-1 knapsack problem
 // a[i] = (w, v) means that we can choose one item with weight w and value v

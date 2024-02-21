@@ -1,5 +1,7 @@
 #pragma once
-#include "XCPC.h"
+#include <bits/stdc++.h>
+
+using i64 = long long;
 
 // ===== Quick Sort =====
 template <typename T> void quick_sort(std::vector<T> &a, int l, int r) {
