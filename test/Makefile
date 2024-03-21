@@ -1,5 +1,5 @@
-SOURCE = test\main.cpp
-TARGET = build\main.exe
+SOURCE = main.cpp
+TARGET = ..\build\main.exe
 FLAGS = -std=c++23 -O2
 
 run: build_clang

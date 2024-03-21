@@ -10,17 +10,17 @@
             "request": "launch",
             "program": "${workspaceFolder}/build/main.exe",
             "args": [
-                "<",
-                "${workspaceFolder}/temp/data.txt",
-                ">",
-                "${workspaceFolder}/temp/main.txt"
+                // "<",
+                // "${workspaceFolder}/temp/data.txt",
+                // ">",
+                // "${workspaceFolder}/temp/main.txt"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
-            "miDebuggerPath": "C:/msys2/ucrt64/bin/gdb.exe",
+            "miDebuggerPath": "C:/msys64/ucrt64/bin/gdb.exe",
             "setupCommands": [
                 {
                     "description": "为 gdb 启用整齐打印",

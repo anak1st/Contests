@@ -22,17 +22,17 @@ int KMP(std::string s, std::string t) {
     int ns = s.length();
     int nt = t.length();
     auto next = get_next(t);
-    for (int i = 0, j = 0; j < ns; j++) {
-        while (i > 0 && s[j] != t[i]) {
-            i = next[i];
+    for (int i = 0, j = 0; i < ns; i++) {
+        while (j > 0 && s[i] != t[j]) {
+            j = next[j];
         }
-        if (s[j] == t[i]) {
-            i++;
+        if (s[i] == t[j]) {
+            j++;
         }
-        if (i == nt) {
+        if (j == nt) {
             // success !!!
             // return i;
-            i = next[i];
+            j = next[j];
         }
     }
     return -1;

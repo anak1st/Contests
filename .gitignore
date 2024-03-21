@@ -4,7 +4,6 @@
 /log
 /temp
 /private
-/test
 *.pdf
 *.exe
 *.gch

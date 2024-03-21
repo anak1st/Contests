@@ -1,10 +1,21 @@
 import os
 
+def color_print(text, color):
+    if color == "red":
+        return "\033[31m" + text + "\033[0m"
+    elif color == "green":
+        return "\033[32m" + text + "\033[0m"
+    elif color == "yellow":
+        return "\033[33m" + text + "\033[0m"
+    elif color == "blue":
+        return "\033[34m" + text + "\033[0m"
+    elif color == "purple":
+        return "\033[35m" + text + "\033[0m"
+    else:
+        return text
+
 
 def get_path():
-    # for key, value in os.environ.items():
-    #     print(key, ":=", value)
-    
     path = os.environ.get('PATH')
     # print(path)
     path = path.split(';')
@@ -14,36 +25,64 @@ def get_path():
             path[i] = os.environ.get(path[i][1:-1])
 
         path[i] = path[i].replace("\\", "/")
+
+    path_unique = []
+    for i in range(len(path)):
+        if path[i] not in path_unique:
+            path_unique.append(path[i])
     
-    return path
+    return path_unique
 
 
-def find_mingw(path):
-    print("find_mingw:")
-    for i in range(len(path)):
-        find = 0
+def find_bin(path, name):
+    fullname = path[i] + "/"
+    match name:
+        case "gcc" | "clang" | "python" | "git" | "perl":
+            fullname += name + ".exe"
 
-        if os.path.exists(path[i] + "/libstdc++-6.dll"):
-            find = 1
+        case "nodejs":
+            fullname += "node.exe"
 
-        if os.path.exists(path[i] + "/libwinpthread-1.dll"):
-            find = 1
+        case "rust":
+            fullname += "rustc.exe"
 
-        if os.path.exists(path[i] + "/libgcc_s_seh-1.dll"):
-            find = 1
+        case "cuda":
+            fullname += "nvcc.exe"
 
-        if find == 1:
-            print(path[i])
+        case "latex":
+            fullname += "pdflatex.exe"
 
+        case "mingw":
+            fullname += "libstdc++-6.dll"
 
-def find_python(path):
-    print("find_python:")
-    for i in range(len(path)):
-        if os.path.exists(path[i] + "/python.exe"):
-            print(path[i])
+        case _:
+            return False
+
+    return os.path.exists(fullname)
 
 
 if __name__ == '__main__':
     path = get_path()
-    find_mingw(path)
-    find_python(path)
+    vis = {}
+    names = ["mingw", "gcc", "clang", "python", "nodejs", "rust", "cuda", "git", "perl", "latex"]
+
+    for i in range(len(path)):
+        text = path[i]
+        find_some = False
+
+        for name in names:
+            if find_bin(path, name):
+                find_some = True
+
+                if name not in vis:
+                    text += " (" + color_print(name, "red") + ")"
+                    vis[name] = True
+                else:
+                    text += " (" + color_print(name, "green") + ")"
+
+        idx = f"{i + 1:3d}"
+        if find_some:
+            idx = color_print(idx, "yellow")
+
+        print(f"[{idx}] {text}")
+
