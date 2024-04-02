@@ -1,15 +1,17 @@
-import numpy as np
-
-a, b = 0, 1
-for _ in range(10):
-    print(f"fibonacci({_}) = {a}")
-    a, b = b, a + b
-
-def test():
-    a = np.ones((3, 3))
-    b = np.ones((3, 3))
-    c = a @ b
-    print("a: ", a, "\nb: ", b, "\nc: ", c)
-
+def main():
+    n, a, b = map(int, input().split())
+ 
+    if n < 100 and pow(2, n) * a < b:
+        print("-1")
+        return
+ 
+    for i in range(0, min(100, n + 1)):
+        if pow(2, i) * a > b:
+            print(i)
+            return
+        
+    print("-1")
+ 
+ 
 if __name__ == "__main__":
-    test()
+    main()
